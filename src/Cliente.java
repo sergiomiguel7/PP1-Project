@@ -1,4 +1,3 @@
-import java.awt.geom.Point2D;
 
 public class Cliente
 {
@@ -26,7 +25,18 @@ public class Cliente
         this.x=x;
         this.y=y;
     }
+    public Cliente(Cliente cliente)
+    {
+        this.email=getEmail();
+        this.nome=getNome();
+        this.password=getPassword();
+        this.morada=getPassword();
+        this.dataN=getDataN();
+        this.x=getX();
+        this.y=getY();
 
+
+    }
 
     //getters
     public String getDataN() { return dataN; }
@@ -59,6 +69,10 @@ public class Cliente
     public void setX(int x) { this.x = x; }
 
     //metodos
+public Cliente clone(){
+
+        return new Cliente(this);
+}
 
 
 
