@@ -1,16 +1,9 @@
 import java.util.Scanner;
 
 public class Servico {
-    private String []servico;
     private int servicoX;
 
-    public String[] getServico() {
-        return servico;
-    }
-
-    public void setServico(String[] servico) {
-        this.servico = servico;
-    }
+    public Servico(){ this.servicoX=this.EscolherServico(); }
 
     public int getServicoX() {
         return servicoX;
@@ -20,23 +13,10 @@ public class Servico {
         this.servicoX = servicoX;
     }
 
-
-
-    public Servico(){
-        this.servico = new String[]{"Pessoas","Bus","Big","Urgentes","Refeições"};
-
-    }
-
-    //Incompleta!!!
-    public void EscolherServico(){
+    public int EscolherServico(){
         Scanner ler = new Scanner(System.in);
-        System.out.println("0 - Pessoas");
-        System.out.println("1 - Bus");
-        System.out.println("2 - Big");
-        System.out.println("3 - Urgentes");
-        System.out.println("4 - Refeições");
+        System.out.println("0 - Pessoas\n1-Bus\n2-Big\n3-Urgentes\n4-Refeições");
         int x = ler.nextInt();
-        this.servicoX = x;
-
+        return x;
     }
 }

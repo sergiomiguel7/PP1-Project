@@ -1,29 +1,46 @@
 public class Transportes extends Ator {
-    private String servico;
+    private Servico servico;
+    private Historico historicoT;
     private long precoKM;
     private long tempoKM;
 
-    public String getServico() {
-        return servico;
+    public Transportes()
+    {
+        super(" "," "," "," "," ", 0, 0);
+        servico=new Servico();
+        precoKM=0;
+        tempoKM=0;
+    }
+    public Transportes(long precoKM, long tempoKM)
+    {
+        this.servico=new Servico();
+        this.precoKM=precoKM;
+        this.tempoKM=tempoKM;
+    }
+    public Transportes(String email, String nome , String password, String morada, String dataN, int x , int y, long tempoKM, long precoKM)
+    {
+        super(email, nome, password, morada, dataN, x, y);
+        this.servico=new Servico();
+        this.tempoKM=tempoKM;
+        this.precoKM=precoKM;
+    }
+    public Transportes(Transportes transportes)
+    {
+        super(transportes.getEmail(), transportes.getNome(),transportes.getPassword(),transportes.getPassword(),transportes.getDataN(),transportes.getX(),transportes.getY());
+        servico=transportes.getServico();
+        tempoKM=transportes.getTempoKM();
+        precoKM=transportes.getPrecoKM();
     }
 
-    public void setServico(String servico) {
-        this.servico = servico;
-    }
+    public Servico getServico() { return servico; }
 
-    public long getPrecoKM() {
-        return precoKM;
-    }
+    public void setServico(Servico servico) { this.servico = servico; }
 
-    public void setPrecoKM(long precoKM) {
-        this.precoKM = precoKM;
-    }
+    public long getPrecoKM() { return precoKM; }
 
-    public long getTempoKM() {
-        return tempoKM;
-    }
+    public void setPrecoKM(long precoKM) { this.precoKM = precoKM; }
 
-    public void setTempoKM(long tempoKM) {
-        this.tempoKM = tempoKM;
-    }
+    public long getTempoKM() { return tempoKM; }
+
+    public void setTempoKM(long tempoKM) { this.tempoKM = tempoKM; }
 }
