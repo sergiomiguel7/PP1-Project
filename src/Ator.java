@@ -82,6 +82,21 @@ public class Ator {
         return sb.toString();
     }
 
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+
+        if((obj == null ) || (obj.getClass() != this.getClass())) return false;
+
+        Ator a = (Ator) obj;
+
+        return  a.getEmail().equals(this.email) &&
+                a.getNome().equals(this.nome) &&
+                a.getPassword().equals(this.password) &&
+                a.getMorada().equals(this.morada) &&
+                a.getDataN().equals(this.dataN) &&
+                a.getX() == this.x &&
+                a.getY() == this.y;
+    }
 }
 
 
