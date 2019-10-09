@@ -68,8 +68,20 @@ public class Ator {
     public void setX(int x) { this.x = x; }
 
     //metodos
-public Ator clone(){ return new Ator(this); }
+    public Ator clone(){ return new Ator(this); }
 
-
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("E-mail: ").append(this.email);
+        sb.append("Nome: ").append(this.nome);
+        sb.append("Password: ").append(this.password);
+        sb.append("Morada: ").append(this.morada);
+        sb.append("Data de Nascimento: ").append(this.dataN);
+        sb.append("Posição X: ").append(this.x);
+        sb.append("Posição Y: ").append(this.y);
+        return sb.toString();
+    }
 
 }
+
+
