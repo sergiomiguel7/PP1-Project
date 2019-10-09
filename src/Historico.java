@@ -2,8 +2,11 @@ import java.util.ArrayList;
 
 public class Historico {
     //atributos
-    private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+    private ArrayList<Pedido> pedidos;
 
+    public Historico(){
+        this.pedidos = new ArrayList<Pedido>();
+    }
     //getters
     public ArrayList<Pedido> getPedidos() { return pedidos; }
     //setters

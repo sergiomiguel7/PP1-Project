@@ -37,7 +37,7 @@ public class Cliente extends Ator{
 
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append("Dados:" + super.toString());
+        s.append("\nDados:" + super.toString());
         return s.toString();
     }
 }

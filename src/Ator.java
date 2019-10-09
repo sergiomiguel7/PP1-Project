@@ -73,14 +73,16 @@ public class Ator {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("E-mail: ").append(this.email);
-        sb.append("Nome: ").append(this.nome);
-        sb.append("Password: ").append(this.password);
-        sb.append("Morada: ").append(this.morada);
-        sb.append("Data de Nascimento: ").append(this.dataN);
-        sb.append("Posição X: ").append(this.x);
-        sb.append("Posição Y: ").append(this.y);
+        sb.append("\nNome: ").append(this.nome);
+        sb.append("\nPassword: ").append(this.password);
+        sb.append("\nMorada: ").append(this.morada);
+        sb.append("\nData de Nascimento: ").append(this.dataN);
+        sb.append("\nPosição X: ").append(this.x).toString();
+        sb.append("\nPosição Y: ").append(this.y).toString();
         return sb.toString();
     }
+
+
 
     public boolean equals(Object obj) {
         if(this == obj) return true;
