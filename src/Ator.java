@@ -1,7 +1,7 @@
 public class Ator {
 
-    private String email, nome,password,morada,dataN;
-    private int x, y;
+    protected String email, nome,password,morada,dataN;
+    protected int x, y;
 
     //construtores
     public Ator()
@@ -68,10 +68,7 @@ public class Ator {
     public void setX(int x) { this.x = x; }
 
     //metodos
-public Ator clone(){
-
-        return new Ator(this);
-}
+public Ator clone(){ return new Ator(this); }
 
 
 
