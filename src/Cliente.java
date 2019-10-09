@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+
 public class Cliente extends Ator{
-    private Historico historicoC;
+    private Historico historico;
 
 
 }
