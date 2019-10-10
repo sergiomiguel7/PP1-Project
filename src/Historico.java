@@ -4,6 +4,7 @@ public class Historico {
     //atributos
     private ArrayList<Pedido> pedidos;
 
+
     public Historico(){
         this.pedidos = new ArrayList<Pedido>();
     }
@@ -11,6 +12,8 @@ public class Historico {
     public ArrayList<Pedido> getPedidos() { return pedidos; }
     //setters
     public void setPedidos(ArrayList<Pedido> pedidos) { this.pedidos = pedidos; }
+
+    //metodos
 
 
 }
