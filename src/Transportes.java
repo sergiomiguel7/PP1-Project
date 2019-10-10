@@ -44,7 +44,6 @@ public class Transportes extends Ator {
 
     public void setTempoKM(long tempoKM) { this.tempoKM = tempoKM; }
 
-    @Override
     public String toString() {
         return "Transportes{" +
                 "servico=" + servico.getServicoX() +
