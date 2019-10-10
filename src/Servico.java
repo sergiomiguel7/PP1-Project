@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ServiceConfigurationError;
 
 public class Servico {
     private int servicoX;
@@ -18,5 +19,11 @@ public class Servico {
         System.out.println("0 - Pessoas\n1-Bus\n2-Big\n3-Urgentes\n4-Refeições");
         int x = ler.nextInt();
         return x;
+    }
+
+    public String XtoString(){
+
+        String []Servico = new String[]{"Pessoas","Bus","Big","Urgentes","Refeições"};
+        return Servico[this.servicoX];
     }
 }

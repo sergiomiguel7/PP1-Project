@@ -43,4 +43,6 @@ public class Transportes extends Ator {
     public long getTempoKM() { return tempoKM; }
 
     public void setTempoKM(long tempoKM) { this.tempoKM = tempoKM; }
+
+
 }
