@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ServiceConfigurationError;
 
 public class Servico {
     private int servicoX;
@@ -26,5 +25,5 @@ public class Servico {
         String []Servico = new String[]{"Pessoas","Bus","Big","Urgentes","Refeições"};
         return Servico[this.servicoX];
     }
-    //Teste
+
 }

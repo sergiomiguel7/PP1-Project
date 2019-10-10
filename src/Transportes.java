@@ -45,18 +45,17 @@ public class Transportes extends Ator {
     public void setTempoKM(long tempoKM) { this.tempoKM = tempoKM; }
 
     public String toString() {
-        return "Transportes{" +
+        return "Transportes{\n" +
                 "servico=" + servico.XtoString() +
-                ", historicoT=" + historicoT +
-                ", precoKM=" + precoKM +
-                ", tempoKM=" + tempoKM +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", password='" + password + '\'' +
-                ", morada='" + morada + '\'' +
-                ", dataN='" + dataN + '\'' +
-                ", x=" + x +
-                ", y=" + y +
-                '}';
+                " \nhistoricoT=" + historicoT +
+                " \nprecoKM=" + precoKM +
+                " \ntempoKM=" + tempoKM +
+                " \nemail='" + email +
+                " \nnome='" + nome +
+                " \npassword='" + password +
+                " \nmorada='" + morada +
+                " \ndataN='" + dataN +
+                " \n(x,y)=(" + x +","+ y +")" +
+                "\n}";
     }
 }
