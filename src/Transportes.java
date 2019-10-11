@@ -4,15 +4,16 @@ public class Transportes extends Ator {
     private long precoKM;
     private long tempoKM;
     private long autonomia;
+    private TransportesDB listtrans;
     //Quanto maior a autonomia, menor o consumo medio;
 
     public Transportes()
     {
         super(" "," "," "," "," ", 0, 0);
-        servico=new Servico();
-        precoKM=0;
-        tempoKM=0;
-        autonomia = 0;
+        this.servico=new Servico();
+        this.precoKM=0;
+        this.tempoKM=0;
+        this.autonomia = 0;
     }
     public Transportes(long precoKM, long tempoKM, long autonomia)
     {
@@ -71,7 +72,7 @@ public class Transportes extends Ator {
                 " \ndataN='" + dataN +
                 " \nautonomia='" + autonomia +
                 " \n(x,y)=(" + x +","+ y +")" +
-                "\n}";
+                "}";
     }
 
 

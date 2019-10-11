@@ -22,8 +22,8 @@ public class Login {
     {
         for(String a : utilizadores)
         {
-            String[] parts = a.split("\");
-
+           // String[] parts = a.split("\");
+           //Foi para parra o erro que tinha
         }
 
         return false;
