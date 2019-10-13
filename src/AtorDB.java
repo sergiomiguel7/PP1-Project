@@ -19,6 +19,17 @@ public class AtorDB {
 
     }
 
+    public Ator getAtor(String user, String pass) {
+        Ator ator = new Ator();
+
+        for (Entry a : this.utilizadores.entrySet()) {
+            ator = (Ator) a.getKey();
+            if(ator.nome.equals(user) && ator.password.equals(pass))
+                return ator;
+        }
+        return ator;
+    }
+
     public void setUtilizadores(HashMap<Ator,String> utilizadores) {
         this.utilizadores = utilizadores;
     }
@@ -32,25 +43,25 @@ public class AtorDB {
     }
 
     public void Add(Ator a, String password) {
-        utilizadores.put(a , password);
+        this.utilizadores.put(a , password);
     }
 
 
     public boolean verificaLogin(String user, String pass) {
         Ator ator = new Ator();
-        for(Entry a : utilizadores.entrySet())
+        for(Entry a : this.utilizadores.entrySet())
         {
             ator= (Ator) a.getKey();
             if(ator.nome.equals(user) && ator.password.equals(pass))
             {
-                logInfo=true;
+                this.logInfo=true;
                 break;
             }
             else
-                logInfo=false;
+                this.logInfo=false;
         }
 
-        return logInfo;
+        return this.logInfo;
     }
 
 

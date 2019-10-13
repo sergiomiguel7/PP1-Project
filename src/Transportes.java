@@ -65,12 +65,12 @@ public class Transportes extends Ator {
                 " \nhistoricoT=" + historicoT +
                 " \nprecoKM=" + precoKM +
                 " \ntempoKM=" + tempoKM +
-                " \nemail='" + email +
-                " \nnome='" + nome +
-                " \npassword='" + password +
-                " \nmorada='" + morada +
-                " \ndataN='" + dataN +
-                " \nautonomia='" + autonomia +
+                " \nemail=" + email +
+                " \nnome=" + nome +
+                " \npassword=" + password +
+                " \nmorada=" + morada +
+                " \ndataN=" + dataN +
+                " \nautonomia=" + autonomia +
                 " \n(x,y)=(" + x +","+ y +")" +
                 "}";
     }
