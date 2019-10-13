@@ -4,7 +4,7 @@ public class Transportes extends Ator {
     private long precoKM;
     private long tempoKM;
     private long autonomia;
-    private TransportesDB listtrans;
+
     //Quanto maior a autonomia, menor o consumo medio;
 
     public Transportes()
