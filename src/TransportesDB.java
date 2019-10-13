@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TransportesDB {
     private ArrayList<Transportes> listtrans;
@@ -23,5 +24,19 @@ public class TransportesDB {
         listtrans.remove(transportes);
     }
 
+    /*
+    Devolve uma Lista de inteiros com as posiçoes do Array de Transportes que partilham o mesmo serviço;
+     */
+    public List<Integer> msmServico(String servico){
+        List<Integer> array = new ArrayList<>();
+        int i = 0;
+        for(Transportes transportes: listtrans){
+            if(servico.equals(transportes.getServico())){
+                array.add(i);
+            }
+            i++;
+        }
+        return array;
+    }
 }
 
