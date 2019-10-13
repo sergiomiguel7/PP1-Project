@@ -2,12 +2,11 @@ import java.util.Scanner;
 
 public class Testes {
 
-    public static int menu()
-    {
+    public static int menu() {
         int selection;
         Scanner input = new Scanner(System.in);
         System.out.println("Login - 1\n Registar - 2");
-        selection=input.nextInt();
+        selection = input.nextInt();
 
         return selection;
 
@@ -38,7 +37,6 @@ public class Testes {
 */
 
 
-
         AtorDB novo = new AtorDB();
         novo.Add(args[0], args[1]);
 
@@ -47,8 +45,13 @@ public class Testes {
         System.out.println(novo.verificaLogin(args[0], args[1]));
         System.out.println(novo.verificaLogin("ola", "vitoria"));
         System.out.println(novo.isLogInfo());
+
     }
+
 }
+
+
+
 
 
 

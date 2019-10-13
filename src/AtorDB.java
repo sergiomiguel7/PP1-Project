@@ -1,22 +1,25 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class AtorDB {
-    private ArrayList<String> utilizadores;
+    private Map<String,String> utilizadores;
     private boolean logInfo;
 
 
     public AtorDB() {
-        this.utilizadores = new ArrayList<String>();
+        this.utilizadores = new HashMap<>();
         logInfo=false;
     }
 
-    public ArrayList<String> getUtilizadores()
+    public Map<String,String> getUtilizadores()
     {
         return this.utilizadores;
 
     }
 
-    public void setUtilizadores(ArrayList<String> utilizadores) {
+    public void setUtilizadores(HashMap<String,String> utilizadores) {
         this.utilizadores = utilizadores;
     }
 
@@ -29,26 +32,23 @@ public class AtorDB {
     }
 
     public void Add(String nome, String password) {
-        utilizadores.add(nome+"*"+password);
+        utilizadores.put(nome , password);
     }
 
 
     public boolean verificaLogin(String user, String pass) {
-        String[] parts = new String[2];
-        int i=0;
-        for(String a : this.utilizadores)
+        for(Entry a : utilizadores.entrySet())
         {
-            parts=utilizadores.get(i).split("\\*");
-            i++;
-            if(parts[0].equals(user) && parts[1].equals(pass)) {
-                logInfo = true;
+            if(a.getKey().equals(user) && a.getValue().equals(pass))
+            {
+                logInfo=true;
                 break;
             }
             else
                 logInfo=false;
         }
+
         return logInfo;
     }
-
 
 }
