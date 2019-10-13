@@ -9,7 +9,7 @@ public class Testes {
         login.Add(p1.nome, p1.password);
         login.Add(p2.nome, p2.password);
         //System.out.println(p1.toString());
-       // System.out.println(p2.toString());
+       // System.out.println(p2.toString());0
         System.out.println(listtrans.estaVazio());
         listtrans.addT(p1);
         listtrans.addT(p2);
@@ -21,7 +21,7 @@ public class Testes {
         int j = listtrans.getQuantidade();
         System.out.println(j);
         listtrans.removerT(p1);
-        System.out.println(listtrans.estaVazio());
+        System.out.println(listtrans.estaVazio());*/
 
     }
 
