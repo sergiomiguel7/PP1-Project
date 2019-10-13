@@ -2,49 +2,36 @@ import java.util.Scanner;
 
 public class Testes {
 
-    public static int menu() {
-        int selection;
+    public static void main(String[] args) {
+        AtorDB login = new AtorDB();
+        int selection=0;
         Scanner input = new Scanner(System.in);
-        System.out.println("Login - 1\n Registar - 2");
+
+        System.out.println("1-Clientes\n2-Fornecedores\n0-Sair");
         selection = input.nextInt();
 
-        return selection;
+        do {
+            if (selection == 1) {
+                System.out.println("1-Login\n2-Registar\n0-Sair");
+                int op = input.nextInt();
+                if (op==1){
+                    String nome = input.next();
+                    String pass = input.next();
+                    if(login.verificaLogin(nome,pass))
+                    {
+                        System.out.println("Login Efetuado");
+                    }
+                    else
+                        System.out.println("Login inválido");
 
-    }
-
-    public static void main(String[] args) {
-
-        TransportesDB listtrans = new TransportesDB();
-
-        /*
-        Transportes p1,p2;
-        p1 = new Transportes("sergio@", "Sergio", "a", "Guim", "1 3 2000", 1 , 2, 3, 2,3);
-        p2 = new Transportes("jose@","Jose","b","Braga","1 2 2000", 3 ,2, 6 ,7 , 9);
-        System.out.println(listtrans.estaVazio());
-        listtrans.addT(p1);
-        listtrans.addT(p2);
-        System.out.println(listtrans.estaVazio());
-        int n = listtrans.getQuantidade();
-        System.out.println(n);
-        listtrans.removerT(p2);
-        System.out.println(listtrans.estaVazio());
-        int j = listtrans.getQuantidade();
-        System.out.println(j);
-        listtrans.removerT(p1);
-        System.out.println(listtrans.estaVazio());
+                }
+            }
+            else if (selection ==2)
+            {
 
 
-*/
-
-
-        AtorDB novo = new AtorDB();
-        novo.Add(args[0], args[1]);
-
-        System.out.println(novo.getUtilizadores());
-
-        System.out.println(novo.verificaLogin(args[0], args[1]));
-        System.out.println(novo.verificaLogin("ola", "vitoria"));
-        System.out.println(novo.isLogInfo());
+            }
+        }while(selection!=0);
 
     }
 
