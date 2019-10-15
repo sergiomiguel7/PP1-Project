@@ -1,17 +1,19 @@
-import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Historico {
     //atributos
-    private ArrayList<Pedido> pedidos;
+    private Map<Ator,Pedido> pedidos;
 
 
     public Historico(){
-        this.pedidos = new ArrayList<Pedido>();
+        this.pedidos = new HashMap<>();
     }
     //getters
-    public ArrayList<Pedido> getPedidos() { return pedidos; }
+    public Map<Ator,Pedido> getPedidos() { return pedidos; }
     //setters
-    public void setPedidos(ArrayList<Pedido> pedidos) { this.pedidos = pedidos; }
+    public void setPedidos(HashMap<Ator,Pedido> pedidos) { this.pedidos = pedidos; }
 
     //metodos
 

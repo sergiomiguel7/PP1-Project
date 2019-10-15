@@ -5,8 +5,10 @@ public class Servico {
 
     public Servico(){ this.servicoX=this.EscolherServico(); }
 
-    public int getServicoX() {
-        return servicoX;
+    public String getServicoX() {
+        String [] array = new String[]{"Pessoas","Bus","Big","Urgentes","Refeições"};
+        return array[this.servicoX];
+
     }
 
     public void setServicoX(int servicoX) {
@@ -20,10 +22,5 @@ public class Servico {
         return x;
     }
 
-    public String XtoString(){
-
-        String []Servico = new String[]{"Pessoas","Bus","Big","Urgentes","Refeições"};
-        return Servico[this.servicoX];
-    }
 
 }
