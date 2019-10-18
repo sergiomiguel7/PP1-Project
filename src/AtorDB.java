@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class AtorDB {
-    private Map<Ator,String> utilizadores;
+    private Map<String,Ator> utilizadores;
     private boolean logInfo;
 
 
@@ -13,24 +13,19 @@ public class AtorDB {
         logInfo=false;
     }
 
-    public Map<Ator,String> getUtilizadores()
+    public Map<String,Ator> getUtilizadores()
     {
         return this.utilizadores;
 
     }
 
-    public Ator getAtor(String user, String pass) {
-        Ator ator = new Ator();
+    public Ator getAtor(String user) {
+        return this.utilizadores.get(user);
 
-        for (Entry a : this.utilizadores.entrySet()) {
-            ator = (Ator) a.getKey();
-            if(ator.nome.equals(user) && ator.password.equals(pass))
-                return ator;
         }
-        return ator;
-    }
 
-    public void setUtilizadores(HashMap<Ator,String> utilizadores) {
+
+    public void setUtilizadores(HashMap<String,Ator> utilizadores) {
         this.utilizadores = utilizadores;
     }
 
@@ -42,8 +37,8 @@ public class AtorDB {
         this.logInfo = logInfo;
     }
 
-    public void Add(Ator a, String password) {
-        this.utilizadores.put(a , password);
+    public void Add(String user, Ator a) {
+        this.utilizadores.put(user , a);
     }
 
     public int getQuantidade() {
@@ -53,19 +48,18 @@ public class AtorDB {
     public boolean estaVazio() {
         return utilizadores.isEmpty();
     }
-    public boolean verificaLogin(String user, String pass) {
-        Ator ator = new Ator();
-        for(Entry a : this.utilizadores.entrySet())
-        {
-            ator= (Ator) a.getKey();
-            if(ator.nome.equals(user) && ator.password.equals(pass))
-            {
+
+    public boolean verificaLogin(String name, String pass) {
+
+
+        if(this.utilizadores.containsKey(name)) {
+            if(this.utilizadores.get(name).getPassword().equals(pass))
                 this.logInfo=true;
-                break;
-            }
-            else
-                this.logInfo=false;
-            }
+        }
+        else
+            this.logInfo=false;
+
+
 
         return this.logInfo;
     }

@@ -28,10 +28,10 @@ public class ProgramController {
                 case 1: {       //LOGIN!!!!!
                     String user = ler.next();
                     String pass = ler.next();
-                    if (db.verificaLogin(user, pass)) {
+                    if (db.verificaLogin(user,pass)) {
                         System.out.println("Login valido");
                         aux.setExistente(true);
-                        a1=db.getAtor(user, pass);
+                        a1=db.getAtor(user);
                         return a1;
                     } else {
                         System.out.println("Login invalido");
@@ -44,11 +44,11 @@ public class ProgramController {
                     op=ler.nextInt();
                     if(op==1) {
                         a1 = new Cliente("sergio@gmail.com", "Sergio", "vitoria", "Rua da", "03/06/2000", 1, 2);
-                        db.Add(a1, a1.getPassword());
+                        db.Add(a1.getNome(), a1);
                     }
                     else if(op==2) {
                         a1 = new Transportes("sergio@gmail.com", "Sergio", "vitoria", "Rua da", "03/06/2000", 1, 2, 3, 5, 6);
-                        db.Add(a1, a1.getPassword());
+                        db.Add(a1.getNome(), a1);
                     }
                     else
                         System.out.println("Invalido");
