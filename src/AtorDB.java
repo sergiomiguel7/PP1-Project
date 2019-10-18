@@ -46,7 +46,13 @@ public class AtorDB {
         this.utilizadores.put(a , password);
     }
 
+    public int getQuantidade() {
+        return utilizadores.size();
+    }
 
+    public boolean estaVazio() {
+        return utilizadores.isEmpty();
+    }
     public boolean verificaLogin(String user, String pass) {
         Ator ator = new Ator();
         for(Entry a : this.utilizadores.entrySet())

@@ -84,9 +84,11 @@ return a1;
         {
             if (ator instanceof Cliente){       //compara se ator e de tipo Cliente ou Transportes
                 //menu Cliente
+
             }
             else if(ator instanceof Transportes) {
                 //menuFornecedor
+                 
             }
         }
 
