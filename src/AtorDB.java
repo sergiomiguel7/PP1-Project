@@ -65,7 +65,7 @@ public class AtorDB {
             }
             else
                 this.logInfo=false;
-        }
+            }
 
         return this.logInfo;
     }

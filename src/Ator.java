@@ -34,7 +34,6 @@ public class Ator {
         this.x=getX();
         this.y=getY();
 
-
     }
 
     //getters
