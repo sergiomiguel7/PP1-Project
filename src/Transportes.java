@@ -1,9 +1,9 @@
 public class Transportes extends Ator {
     private Servico servico;
     private Historico historicoT;
-    private long precoKM;
-    private long tempoKM;
-    private long autonomia;
+    private double precoKM;
+    private double tempoKM;
+    private double autonomia;
 
     //Quanto maior a autonomia, menor o consumo medio;
 
@@ -15,14 +15,14 @@ public class Transportes extends Ator {
         this.tempoKM=0;
         this.autonomia = 0;
     }
-    public Transportes(long precoKM, long tempoKM, long autonomia)
+    public Transportes(double precoKM, double tempoKM, double autonomia)
     {
         this.servico=new Servico();
         this.precoKM=precoKM;
         this.tempoKM=tempoKM;
         this.autonomia= autonomia;
     }
-    public Transportes(String email, String nome , String password, String morada, String dataN, int x , int y, long tempoKM, long precoKM, long autonomia)
+    public Transportes(String email, String nome , String password, String morada, String dataN, int x , int y, double tempoKM, double precoKM, double autonomia)
     {
         super(email, nome, password, morada, dataN, x, y);
         this.servico=new Servico();
@@ -43,25 +43,25 @@ public class Transportes extends Ator {
 
     public void setServico(Servico servico) { this.servico = servico; }
 
-    public long getPrecoKM() { return precoKM; }
+    public double getPrecoKM() { return precoKM; }
 
-    public void setPrecoKM(long precoKM) { this.precoKM = precoKM; }
+    public void setPrecoKM(double precoKM) { this.precoKM = precoKM; }
 
-    public long getTempoKM() { return tempoKM; }
+    public double getTempoKM() { return tempoKM; }
 
-    public void setTempoKM(long tempoKM) { this.tempoKM = tempoKM; }
+    public void setTempoKM(double tempoKM) { this.tempoKM = tempoKM; }
 
     public Historico getHistorico(){ return this.historicoT; }
 
     public void setHistoricoT(Historico historicoT) { this.historicoT = historicoT; }
 
-    public long getAutonomia() { return autonomia; }
+    public double getAutonomia() { return autonomia; }
 
-    public void setAutonomia(long autonomia) { this.autonomia = autonomia; }
+    public void setAutonomia(double autonomia) { this.autonomia = autonomia; }
 
     public String toString() {
         return "Transportes{\n" +
-                "servico=" + servico.XtoString() +
+                "servico=" + servico.getServicoX() +
                 " \nhistoricoT=" + historicoT +
                 " \nprecoKM=" + precoKM +
                 " \ntempoKM=" + tempoKM +
@@ -75,5 +75,17 @@ public class Transportes extends Ator {
                 "}";
     }
 
+    public double PrecoTrans(Transportes transportes , double distancia){
+        return distancia*(transportes.getPrecoKM());
+    }
 
+    public double distanciaXY(Cliente cliente, Transportes transportes){
+        double x1 = (transportes.getX() - cliente.getX());
+        double y1 = (transportes.getY() - cliente.getY());
+        x1 = x1*x1;
+        y1 = y1*y1;
+        double total = x1 + y1;
+        Math.sqrt(total);
+        return total;
+    }
 }

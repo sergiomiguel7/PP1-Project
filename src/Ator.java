@@ -1,7 +1,7 @@
 public class Ator {
 
     protected String email, nome,password,morada,dataN;
-    protected int x, y;
+    protected double x, y;
 
     //construtores
     public Ator()
@@ -14,7 +14,7 @@ public class Ator {
         this.x=0;
         this.y=0;
     }
-    public Ator (String email, String nome , String password, String morada, String dataN, int x , int y)
+    public Ator (String email, String nome , String password, String morada, String dataN, double x , double y)
     {
         this.email=email;
         this.nome=nome;
@@ -47,9 +47,9 @@ public class Ator {
 
     public String getPassword() { return password; }
 
-    public int getX() { return x; }
+    public double getX() { return x; }
 
-    public int getY() { return y; }
+    public double getY() { return y; }
     //setters
 
     public void setDataN(String dataN) { this.dataN = dataN; }
@@ -62,9 +62,9 @@ public class Ator {
 
     public void setPassword(String password) { this.password = password; }
 
-    public void setY(int y) { this.y = y; }
+    public void setY(double y) { this.y = y; }
 
-    public void setX(int x) { this.x = x; }
+    public void setX(double x) { this.x = x; }
 
     //metodos
     public Ator clone(){ return new Ator(this); }

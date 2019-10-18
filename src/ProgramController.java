@@ -67,6 +67,8 @@ return a1;
     }
 
     private static void menuCliente(){
+        Servico servico = null;
+        int opc = servico.EscolherServico();
 
 
     }
@@ -83,7 +85,7 @@ return a1;
         if(aux.isExistente)
         {
             if (ator instanceof Cliente){       //compara se ator e de tipo Cliente ou Transportes
-                //menu Cliente
+                menuCliente();
 
             }
             else if(ator instanceof Transportes) {
