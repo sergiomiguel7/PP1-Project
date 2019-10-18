@@ -61,7 +61,7 @@ public class Transportes extends Ator {
 
     public String toString() {
         return "Transportes{\n" +
-                "servico=" + servico.XtoString() +
+                "servico=" + servico.getServicoX() +
                 " \nhistoricoT=" + historicoT +
                 " \nprecoKM=" + precoKM +
                 " \ntempoKM=" + tempoKM +

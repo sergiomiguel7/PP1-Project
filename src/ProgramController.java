@@ -17,7 +17,6 @@ public class ProgramController {
 
     private static Ator menuLogin(AtorDB db, ProgramController aux)
     {
-       // boolean isExistente=false;
         Scanner ler = new Scanner(System.in);
         Ator a1 = new Ator();
 
