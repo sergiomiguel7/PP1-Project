@@ -12,8 +12,5 @@ public class Historico {
     public ArrayList<Pedido> getPedidos() { return pedidos; }
     //setters
     public void setPedidos(ArrayList<Pedido> pedidos) { this.pedidos = pedidos; }
-
     //metodos
-
-
 }

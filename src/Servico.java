@@ -20,10 +20,10 @@ public class Servico {
         return x;
     }
 
+    //''Transformar'' a variavel X numa string
     public String XtoString(){
-
-        String []Servico = new String[]{"Pessoas","Bus","Big","Urgentes","Refeições"};
-        return Servico[this.servicoX];
+        String []array = new String[]{"Pessoas","Bus","Big","Urgentes","Refeições"};
+        return array[this.servicoX];
     }
 
 }
