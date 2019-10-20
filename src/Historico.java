@@ -15,7 +15,5 @@ public class Historico {
     //setters
     public void setPedidos(HashMap<Ator,Pedido> pedidos) { this.pedidos = pedidos; }
 
-    //metodos
-
 
 }

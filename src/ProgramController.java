@@ -90,7 +90,9 @@ return a1;
             }
             else if(ator instanceof Transportes) {
                 //menuFornecedor
-                 
+                System.out.println(((Transportes) ator).toString());
+
+                ((Transportes) ator).getHistorico();
             }
         }
 
