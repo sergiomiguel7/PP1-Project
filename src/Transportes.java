@@ -99,5 +99,102 @@ public class Transportes extends Ator {
         return total;
     }
 
+    //Maior Autonomia por serviço
+    public Ator maiorAutoSer(Servico servico) {
+        AtorDB atordb = null;
+        Map<String, Ator> utilizadores = atordb.getUtilizadores();
+        Collection<Ator> valores = utilizadores.values();
+        double autonomia = 0;
+        Ator teste = null;
+        for (Ator a : valores) {
+            if (a instanceof Transportes) {
+                if (((Transportes) a).getServico() == servico && ((Transportes) a).getAutonomia() > autonomia) {
+                    teste = a;
+                }
+            }
+        }
+        return teste;
+    }
+
+    //Da return a uma lista com os transportes com os mesmos serviços
+    public List<Ator> transServico(Servico servico) {
+        AtorDB atordb = null;
+        List<Ator> arAtor = new ArrayList<>();
+        Map<String, Ator> utilizadores = atordb.getUtilizadores();
+        Collection<Ator> valores = utilizadores.values();
+        for (Ator a : valores) {
+            if (a instanceof Transportes) {
+                if (((Transportes) a).getServico() == servico) {
+                    arAtor.add(a);
+                }
+            }
+        }
+        return arAtor;
+    }
+
+    public void mostrartransServ(List<Ator> arAtor) {
+        System.out.println(arAtor);
+    }
+
+    //Da return aos tres servicos com menor preco por km
+    //Esta super complicado mas nao consegui pensar melhor, irei voltar a esta funçao
+    public List<Ator> transpreco() {
+        AtorDB atordb = null;
+        double precokm = 99999;
+        /*
+        Poderia colocar aqui o valor do primeiro transporte, mas necessitava de um ciclo for
+        e poderiam acontecer erros que por acaso ja me ocorreram
+         */
+        Ator b = null;
+        Ator c = null;
+        Ator d = null;
+        List<Ator> arAtor = new ArrayList<>();
+        Map<String, Ator> utilizadores = atordb.getUtilizadores();
+        Collection<Ator> valores = utilizadores.values();
+        for (int i = 0; i < 3; i++) {
+            for (Ator a : valores) {
+                if (a instanceof Transportes) {
+                    if (precokm > ((Transportes) a).getPrecoKM() && i == 0) {
+                        b = a;
+                        c = a;
+                        precokm = ((Transportes) a).getPrecoKM();
+                    }
+                    if (precokm > ((Transportes) a).getPrecoKM() && i == 1 && c != a) {
+                        b = a;
+                        d = a;
+                        precokm = ((Transportes) a).getPrecoKM();
+                    }
+                    if (precokm > ((Transportes) a).getPrecoKM() && i == 2 && c != a && d != a) {
+                        b = a;
+                        precokm = ((Transportes) a).getPrecoKM();
+                    }
+                }
+            }
+            arAtor.add(b);
+            precokm = 99999;
+        }
+        return arAtor;
+    }
+
+
+    public double trajetoTempo(Transportes transporte,Cliente cliente){
+        double distancia = distanciaXY(cliente,transporte);
+        double tempo = transporte.getTempoKM();
+        tempo = tempo  * distancia;
+        tempo*=(1+0.05*distancia);
+        return tempo;
+    }
+
+    public double trajetoPreco(Transportes transporte, Cliente cliente,AtorDB atordb){
+        double preco = getPrecoKM();
+        preco *= distanciaXY(cliente,transporte);
+        if(transporte.getServico().equals(maiorAutoSer(transporte.getServico(),atordb))){
+            preco -= preco*0.1;
+        }
+        return preco;
+    }
+
+
+
 
 }
