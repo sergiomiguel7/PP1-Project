@@ -1,20 +1,26 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Ator {
 
-    protected String email, nome,password,morada,dataN;
-    protected double x, y;
+    private String email, nome,password,morada;
+    private LocalDateTime dataN;
+    private Historico historico;
+    private double x, y;
 
     //construtores
     public Ator()
     {
-        this.dataN= " ";
+        this.dataN= LocalDateTime.now();
         this.email=" ";
         this.morada=" ";
         this.nome=" ";
         this.password=" ";
         this.x=0;
         this.y=0;
+        this.historico= new Historico();
     }
-    public Ator (String email, String nome , String password, String morada, String dataN, double x , double y)
+    public Ator (String email, String nome , String password, String morada, LocalDateTime dataN, double x , double y)
     {
         this.email=email;
         this.nome=nome;
@@ -23,6 +29,7 @@ public class Ator {
         this.dataN=dataN;
         this.x=x;
         this.y=y;
+        this.historico= new Historico();
     }
     public Ator(Ator ator)
     {
@@ -33,11 +40,12 @@ public class Ator {
         this.dataN=getDataN();
         this.x=getX();
         this.y=getY();
+        this.historico= getHistorico();
 
     }
 
     //getters
-    public String getDataN() { return dataN; }
+    public LocalDateTime getDataN() { return dataN; }
 
     public String getEmail() { return email; }
 
@@ -50,9 +58,15 @@ public class Ator {
     public double getX() { return x; }
 
     public double getY() { return y; }
+
+    public Historico getHistorico() {
+        return this.historico;
+    }
+
+
     //setters
 
-    public void setDataN(String dataN) { this.dataN = dataN; }
+    public void setDataN(LocalDateTime dataN) { this.dataN = dataN; }
 
     public void setEmail(String email) { this.email = email; }
 
@@ -66,6 +80,9 @@ public class Ator {
 
     public void setX(double x) { this.x = x; }
 
+    public void setHistorico(Historico historico) {
+        this.historico = historico;
+    }
     //metodos
     public Ator clone(){ return new Ator(this); }
 

@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class ProgramController {
@@ -43,11 +44,11 @@ public class ProgramController {
                     System.out.println("1-Cliente\n2-Fornecedor");
                     op=ler.nextInt();
                     if(op==1) {
-                        a1 = new Cliente("sergio@gmail.com", "Sergio", "vitoria", "Rua da", "03/06/2000", 1, 2);
+                        a1 = new Cliente("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDateTime.now(), 1, 2);
                         db.Add(a1.getNome(), a1);
                     }
                     else if(op==2) {
-                        a1 = new Transportes("sergio@gmail.com", "Sergio", "vitoria", "Rua da", "03/06/2000", 1, 2, 3, 5, 6);
+                        a1 = new Transportes("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDateTime.now(), 1, 2, 3, 5, 6);
                         db.Add(a1.getNome(), a1);
                     }
                     else
@@ -66,12 +67,10 @@ public class ProgramController {
 return a1;
     }
 
-    private static void menuCliente(){
-        Servico servico = null;
-        int opc = servico.EscolherServico();
-
-
+    private static void menuCliente()
+    {
     }
+
 
 
 
@@ -85,7 +84,7 @@ return a1;
         if(aux.isExistente)
         {
             if (ator instanceof Cliente){       //compara se ator e de tipo Cliente ou Transportes
-                menuCliente();
+               // menuCliente();
 
             }
             else if(ator instanceof Transportes) {
