@@ -135,46 +135,7 @@ public class Transportes extends Ator {
     public void mostrartransServ(List<Ator> arAtor) {
         System.out.println(arAtor);
     }
-
-    //Da return aos tres servicos com menor preco por km
-    //Esta super complicado mas nao consegui pensar melhor, irei voltar a esta funçao
-    public List<Ator> transpreco() {
-        AtorDB atordb = null;
-        double precokm = 99999;
-        /*
-        Poderia colocar aqui o valor do primeiro transporte, mas necessitava de um ciclo for
-        e poderiam acontecer erros que por acaso ja me ocorreram
-         */
-        Ator b = null;
-        Ator c = null;
-        Ator d = null;
-        List<Ator> arAtor = new ArrayList<>();
-        Map<String, Ator> utilizadores = atordb.getUtilizadores();
-        Collection<Ator> valores = utilizadores.values();
-        for (int i = 0; i < 3; i++) {
-            for (Ator a : valores) {
-                if (a instanceof Transportes) {
-                    if (precokm > ((Transportes) a).getPrecoKM() && i == 0) {
-                        b = a;
-                        c = a;
-                        precokm = ((Transportes) a).getPrecoKM();
-                    }
-                    if (precokm > ((Transportes) a).getPrecoKM() && i == 1 && c != a) {
-                        b = a;
-                        d = a;
-                        precokm = ((Transportes) a).getPrecoKM();
-                    }
-                    if (precokm > ((Transportes) a).getPrecoKM() && i == 2 && c != a && d != a) {
-                        b = a;
-                        precokm = ((Transportes) a).getPrecoKM();
-                    }
-                }
-            }
-            arAtor.add(b);
-            precokm = 99999;
-        }
-        return arAtor;
-    }
+    
 
 
     public double trajetoTempo(Transportes transporte,Cliente cliente){
