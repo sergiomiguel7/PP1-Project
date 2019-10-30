@@ -20,6 +20,7 @@ public class ProgramController {
     {
         Scanner ler = new Scanner(System.in);
         Ator a1 = new Ator();
+        Ator a2 = new Ator();
 
         int op;
         do {
@@ -49,7 +50,9 @@ public class ProgramController {
                     }
                     else if(op==2) {
                         a1 = new Transportes("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDateTime.now(), 1, 2, 3, 5, 6);
+                        a2 = new Transportes("sergio@gmail.com", "Pedroso", "vitoria", "Rua da", LocalDateTime.now(), 3, 5, 7, 2, 7);
                         db.Add(a1.getNome(), a1);
+                        db.Add(a2.getNome(), a2);
                     }
                     else
                         System.out.println("Invalido");
@@ -89,8 +92,7 @@ return a1;
             }
             else if(ator instanceof Transportes) {
                 //menuFornecedor
-                System.out.println(((Transportes) ator).toString());
-
+               // System.out.println(((Transportes) ator).toString());
                 ((Transportes) ator).getHistorico();
             }
         }
