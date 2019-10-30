@@ -100,42 +100,39 @@ public class Transportes extends Ator {
     }
 
     //Maior Autonomia por serviço
-    public Ator maiorAutoSer(Servico servico) {
-        AtorDB atordb = null;
-        Map<String, Ator> utilizadores = atordb.getUtilizadores();
-        Collection<Ator> valores = utilizadores.values();
-        double autonomia = 0;
-        Ator teste = null;
-        for (Ator a : valores) {
-            if (a instanceof Transportes) {
-                if (((Transportes) a).getServico() == servico && ((Transportes) a).getAutonomia() > autonomia) {
-                    teste = a;
-                }
-            }
-        }
-        return teste;
-    }
 
-    //Da return a uma lista com os transportes com os mesmos serviços
-    public List<Ator> transServico(Servico servico) {
-        AtorDB atordb = null;
-        List<Ator> arAtor = new ArrayList<>();
-        Map<String, Ator> utilizadores = atordb.getUtilizadores();
-        Collection<Ator> valores = utilizadores.values();
-        for (Ator a : valores) {
-            if (a instanceof Transportes) {
-                if (((Transportes) a).getServico() == servico) {
-                    arAtor.add(a);
-                }
-            }
-        }
-        return arAtor;
-    }
+
 
     public void mostrartransServ(List<Ator> arAtor) {
         System.out.println(arAtor);
     }
-    
+
+    //Da return de uma lista com os precos por ordem decrescente
+
+    public List<Ator> transpreco(AtorDB atordb) {
+        List<Ator> ator = new ArrayList<>();
+        Transportes t1;
+        TreeSet<Transportes> trans = new TreeSet(new ComparadorPreco());
+        int num = trans.size();
+        for (int i = 0; i<num ;i++){
+            ator.add(trans.last());
+            t1 = trans.last();
+            trans.remove(t1);
+        }
+        return ator;
+    }
+
+    public List<Ator> transServico(Servico servico,AtorDB atordb) {
+
+        List<Ator> arAtor = new ArrayList<>();
+        List<Ator> ators = transpreco(atordb);
+        for(Ator a: ators){
+            if(((Transportes) a).getServico() == servico){
+                arAtor.add(a);
+            }
+        }
+        return arAtor;
+    }
 
 
     public double trajetoTempo(Transportes transporte,Cliente cliente){
