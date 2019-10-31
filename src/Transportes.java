@@ -120,7 +120,14 @@ public class Transportes extends Ator {
         return preco;
     }
 
-    public boolean verificaAutonomia(Transportes transportes){return true;}
+    public boolean verificaAutonomia(Transportes transportes,Cliente cliente){
+        if(transportes.getAutonomia() >= distanciaXY(cliente,transportes)){
+            return  true;
+        }
+        else{return false;}
+    }
+
+
 
 
 }
