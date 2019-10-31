@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.*;
 
 public class Transportes extends Ator {
@@ -99,10 +100,17 @@ public class Transportes extends Ator {
 
 
     public double trajetoTempo(Transportes transporte,Cliente cliente){
+        Random rand = new Random();
         double distancia = distanciaXY(cliente,transporte);
         double tempo = transporte.getTempoKM();
         tempo = tempo  * distancia;
-        tempo*=(1+0.05*distancia);
+        for(int i = 0;i < distancia; i ++ ){
+            int randprob = rand.nextInt(100);
+            int randtempo = rand.nextInt(5);
+            if(randprob <= 5 ){
+                tempo+=randtempo;
+            }
+        }
         return tempo;
     }
 
@@ -112,7 +120,7 @@ public class Transportes extends Ator {
         return preco;
     }
 
-
+    public boolean verificaAutonomia(Transportes transportes){return true;}
 
 
 }
