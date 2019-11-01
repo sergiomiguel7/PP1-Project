@@ -1,9 +1,13 @@
 public class SBig extends Servico {
 
-    public SBig(boolean transporteTC, int limiteT, int limiteD, boolean transporteC)
+
+    public SBig(int limiteT, boolean transporteC)
     {
-        super(transporteTC,limiteT,limiteD);
+        super(false,limiteT);
+    }
 
 
+    public String toString() {
+        return "SBig{}";
     }
 }

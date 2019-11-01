@@ -1,9 +1,10 @@
 public class SPessoas extends Servico {
-    private boolean transporteC;
+    private boolean transporteC;    //transporte de crianças
 
-    public SPessoas(boolean transporteTC, int limiteT, int limiteD, boolean transporteC)
+    public SPessoas(int limiteT,  boolean transporteC)
     {
-        super(transporteTC,limiteT,limiteD);
+
+        super(false,limiteT);
         this.transporteC=transporteC;
 
     }
@@ -14,5 +15,11 @@ public class SPessoas extends Servico {
 
     public void setTransporteC(boolean transporteC) {
         this.transporteC = transporteC;
+    }
+
+    public String toString() {
+        return "SPessoas{" +
+                "transporteC=" + transporteC +
+                '}';
     }
 }

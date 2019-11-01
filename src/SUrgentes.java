@@ -1,9 +1,11 @@
 public class SUrgentes extends Servico {
 
-    public SUrgentes(boolean transporteTC, int limiteT, int limiteD, boolean transporteC)
+    public SUrgentes(int limiteT)
     {
-        super(transporteTC,limiteT,limiteD);
+        super(true, limiteT);
+    }
 
-
+    public String toString() {
+        return "SUrgentes";
     }
 }

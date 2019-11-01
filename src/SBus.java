@@ -1,9 +1,23 @@
 public class SBus extends Servico{
-    public SBus(boolean transporteTC, int limiteT, int limiteD, boolean transporteC)
+    private boolean transporteC;    //transporte de crianças
+
+    public SBus(int limiteT, boolean transporteC)
     {
-        super(transporteTC,limiteT,limiteD);
-
-
+        super(false,limiteT);
+        this.transporteC=transporteC;
     }
 
+    public boolean isTransporteC() {
+        return transporteC;
+    }
+
+    public void setTransporteC(boolean transporteC) {
+        this.transporteC = transporteC;
+    }
+
+    public String toString() {
+        return "SBus{" +
+                "transporteC=" + transporteC +
+                '}';
+    }
 }

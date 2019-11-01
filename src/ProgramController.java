@@ -69,12 +69,30 @@ public class ProgramController {
 
 return a1;
     }
-
-    private static void menuCliente()
+/*
+    private static void menuCliente(AtorDB db, Cliente a1)
     {
+        Pedido p1 = new Pedido();
+        Scanner ler = new Scanner(System.in);
+        int escolha;
+        int op;
+        do {
+            System.out.println("1-Efetuar Pedido\n2-Mostrar histórico de pedidos\n3-Alterar dados\n0-Sair");
+            op=ler.nextInt();
+            switch (op) {
+                case 1:
+                    {
+                        System.out.println("Tipo de serviço:\n 1-Pessoas\n2-Bus\n3-Cargas\n4-Urgentes\n5-Refeições");
+                        escolha=ler.nextInt();
+                        if(escolha==1) { int carga= ler.nextInt();p1.setCarga(carga); }
+                        break;
+                    }
+
+            }
+        } while (op !=0);
     }
 
-
+*/
 
 
     public static void main(String[] args) {
