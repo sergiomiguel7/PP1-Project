@@ -82,10 +82,7 @@ return a1;
             switch (op) {
                 case 1:
                     {
-                        System.out.println("Tipo de serviço:\n 1-Pessoas\n2-Bus\n3-Cargas\n4-Urgentes\n5-Refeições");
-                        escolha=ler.nextInt();
-                        if(escolha==1) { int carga= ler.nextInt();p1.setCarga(carga); }
-                        break;
+
                     }
 
             }
