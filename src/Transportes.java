@@ -1,12 +1,14 @@
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Transportes extends Ator {
     private Servico servico;
     private double precoKM;
     private double tempoKM;
     private double autonomia;
+    private boolean disponivel;
 
     //Quanto maior a autonomia, menor o consumo medio;
 
@@ -17,6 +19,7 @@ public class Transportes extends Ator {
         this.precoKM = 0;
         this.tempoKM = 0;
         this.autonomia = 0;
+        this.disponivel = true;
     }
 
     public Transportes(double precoKM, double tempoKM, double autonomia) {
@@ -24,6 +27,7 @@ public class Transportes extends Ator {
         this.precoKM = precoKM;
         this.tempoKM = tempoKM;
         this.autonomia = autonomia;
+        this.disponivel = true;
     }
 
     public Transportes(String email, String nome, String password, String morada, LocalDateTime dataN, int x, int y, double tempoKM, double precoKM, double autonomia) {
@@ -33,6 +37,7 @@ public class Transportes extends Ator {
         this.tempoKM = tempoKM;
         this.precoKM = precoKM;
         this.autonomia = autonomia;
+        this.disponivel = true;
     }
 
     public Transportes(Transportes transportes) {
@@ -42,7 +47,12 @@ public class Transportes extends Ator {
         tempoKM = transportes.getTempoKM();
         precoKM = transportes.getPrecoKM();
         autonomia = transportes.getAutonomia();
+        disponivel = transportes.isDisponivel();
     }
+
+    public boolean isDisponivel() { return disponivel; }
+
+    public void setDisponivel(boolean disponivel) { this.disponivel = disponivel; }
 
     public Servico getServico() {
         return servico;
@@ -96,9 +106,6 @@ public class Transportes extends Ator {
         return total;
     }
 
-    //Da return de uma lista com os precos por ordem decrescente
-
-
     public double trajetoTempo(Transportes transporte,Cliente cliente){
         Random rand = new Random();
         double distancia = distanciaXY(cliente,transporte);
@@ -127,7 +134,20 @@ public class Transportes extends Ator {
         else{return false;}
     }
 
+    public void transportesDisponiveis(Servico servico,AtorDB atordb){
+        atordb.getUtilizadores().entrySet().stream()
+                .filter(e -> e.getValue() instanceof Transportes)
+                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico))
+                .filter(e -> ((Transportes) e.getValue()).isDisponivel() == true)
+                .forEach(s -> System.out.println(getNome()));
+    }
 
-
+    public Ator transporteMaisBarato(Servico servico, AtorDB atordb){
+        /*atordb.getUtilizadores().entrySet().stream()
+                .filter(e -> e.getValue() instanceof  Transportes)
+                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico))
+                .filter()*/
+        return  null;
+    }
 
 }
