@@ -1,7 +1,7 @@
 public class SBig extends Servico {
 
 
-    public SBig(int limiteT, boolean transporteC)
+    public SBig(int limiteT)
     {
         super(false,limiteT);
     }

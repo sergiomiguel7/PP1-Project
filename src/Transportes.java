@@ -15,25 +15,24 @@ public class Transportes extends Ator {
     public Transportes() {
         super(" ", " ", " ", " ", LocalDateTime.now(), 0, 0);
         super.setHistorico(new Historico());
-        this.servico = new Servico();
         this.precoKM = 0;
         this.tempoKM = 0;
         this.autonomia = 0;
         this.disponivel = true;
     }
 
-    public Transportes(double precoKM, double tempoKM, double autonomia) {
-        this.servico = new Servico();
+    public Transportes(double precoKM, double tempoKM, double autonomia, Servico a) {
+        this.servico = a;
         this.precoKM = precoKM;
         this.tempoKM = tempoKM;
         this.autonomia = autonomia;
         this.disponivel = true;
     }
 
-    public Transportes(String email, String nome, String password, String morada, LocalDateTime dataN, int x, int y, double tempoKM, double precoKM, double autonomia) {
+    public Transportes(String email, String nome, String password, String morada, LocalDateTime dataN, Servico a, int x, int y, double tempoKM, double precoKM, double autonomia) {
         super(email, nome, password, morada, dataN, x, y);
         super.setHistorico(new Historico());
-        this.servico = new Servico();
+        this.servico = a;
         this.tempoKM = tempoKM;
         this.precoKM = precoKM;
         this.autonomia = autonomia;
@@ -148,6 +147,65 @@ public class Transportes extends Ator {
                 .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico))
                 .filter()*/
         return  null;
+    }
+
+
+    public static Servico escolherServicoT(String a)
+    {
+        Scanner ler = new Scanner(System.in);
+        Servico novo;
+        while(true) {
+            if (a.equalsIgnoreCase("Pessoas"))
+            {
+                int limit;
+                boolean criancas = false;
+                System.out.println("Maximo de pessoas que vai transportar:");
+                limit = ler.nextInt();
+                System.out.println("Permite o transporte de crianças?(Sim ou Não)");
+                if (ler.next().equalsIgnoreCase("sim"))
+                    criancas = true;
+                else
+                    criancas = false;
+                novo = new SPessoas(limit, criancas);
+                break;
+            } else if (a.equalsIgnoreCase("Bus"))
+            {
+                int limit;
+                boolean criancas = false;
+                System.out.println("Maximo de pessoas que vai transportar:");
+                limit = ler.nextInt();
+                System.out.println("Permite o transporte de crianças?(Sim ou Não)");
+                if (ler.next().equalsIgnoreCase("sim"))
+                    criancas = true;
+                else
+                    criancas = false;
+                novo = new SBus(limit, criancas);
+                break;
+            } else if (a.equalsIgnoreCase("Big")) {
+                int limit;
+                boolean criancas = false;
+                System.out.println("Maximo de carga que vai transportar:");
+                limit = ler.nextInt();
+                novo = new SBig(limit);
+                break;
+            } else if (a.equalsIgnoreCase("Urgentes")) {
+                int limit;
+                System.out.println("Maximo de produtos por utilizador que pode transportar:");
+                limit=ler.nextInt();
+                novo= new SUrgentes(limit);
+                break;
+            } else if (a.equalsIgnoreCase("Refeições")) {
+                int limit;
+                System.out.println("Maximo de refeições por utilizador que pode transportar:");
+                limit=ler.nextInt();
+                novo= new SRefeicoes(limit);
+                break;
+            }
+            else
+                novo=null;
+        }
+        return novo;
+
     }
 
 }

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Servico {
+public abstract class Servico {
 
     private boolean transporteTC;   //temperatura constante
     private int limiteT;            //limite de carga(pessoas ou kg)
@@ -32,6 +32,8 @@ public class Servico {
     public void setLimiteT(int limiteT) {
         this.limiteT = limiteT;
     }
+
+
 
 
 

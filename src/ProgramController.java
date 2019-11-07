@@ -49,8 +49,11 @@ public class ProgramController {
                         db.Add(a1.getNome(), a1);
                     }
                     else if(op==2) {
-                        a1 = new Transportes("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDateTime.now(), 1, 2, 3, 5, 6);
-                        a2 = new Transportes("sergio@gmail.com", "Pedroso", "vitoria", "Rua da", LocalDateTime.now(), 3, 5, 7, 2, 7);
+                        System.out.println("Escolha o seu tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
+                        String escolhido = ler.next();
+                        Servico a= Transportes.escolherServicoT(escolhido);
+                        a1 = new Transportes("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDateTime.now(),a, 1, 2, 3, 5, 6);
+                        a2 = new Transportes("sergio@gmail.com", "Pedroso", "vitoria", "Rua da", LocalDateTime.now(),a, 3, 5, 7, 2, 7);
                         db.Add(a1.getNome(), a1);
                         db.Add(a2.getNome(), a2);
                     }
@@ -93,6 +96,7 @@ return a1;
 
 
     public static void main(String[] args) {
+
         ProgramController aux = new ProgramController();
         AtorDB db = new AtorDB();
         Scanner ler = new Scanner(System.in);
@@ -107,8 +111,7 @@ return a1;
             }
             else if(ator instanceof Transportes) {
                 //menuFornecedor
-               // System.out.println(((Transportes) ator).toString());
-                ((Transportes) ator).getHistorico();
+
             }
         }
 
