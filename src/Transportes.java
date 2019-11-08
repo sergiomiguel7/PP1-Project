@@ -1,7 +1,6 @@
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Transportes extends Ator {
@@ -90,6 +89,7 @@ public class Transportes extends Ator {
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("\nDados:" + super.toString());
+        s.append("\nServiço:" + this.getServico());
         s.append("\nPreço por km: " + this.getPrecoKM() );
         s.append("\nTempo por km: "+ this.getTempoKM());
         s.append("\nAutonomia: " + this.getAutonomia());
@@ -134,32 +134,6 @@ public class Transportes extends Ator {
         else{return false;}
     }
 
-    public void transportesDisponiveis(Servico servico,AtorDB atordb){
-        atordb.getUtilizadores().entrySet().stream()
-                .filter(e -> e.getValue() instanceof Transportes)
-                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico))
-                .filter(e -> ((Transportes) e.getValue()).isDisponivel() == true)
-                .forEach(s -> System.out.println(getNome()));
-    }
-
-    public Ator transporteMaisBarato(Servico servico, AtorDB atordb){
-        Comparator<Transportes> precoBarato = (t1, t2) -> {
-           if ( t1.getPrecoKM() ==  t2.getPrecoKM()) return 0;
-           if (t1.getPrecoKM() > t2.getPrecoKM()) return 1;
-           else return -1;
-
-        };
-
-        /*List<Ator> nova = */atordb.getUtilizadores().entrySet().stream()
-                .filter(e -> e.getValue() instanceof  Transportes)
-                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico));
-
-
-
-
-
-        return  null;
-    }
 
 
     public static Servico escolherServicoT(String a)
@@ -213,8 +187,10 @@ public class Transportes extends Ator {
                 novo= new SRefeicoes(limit);
                 break;
             }
-            else
+            else{
                 novo=null;
+                break;
+            }
         }
         return novo;
 
