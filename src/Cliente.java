@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Cliente extends Ator{
 
@@ -38,10 +39,21 @@ public class Cliente extends Ator{
     }
 
     public Ator transporteMaisBarato(Servico servico, AtorDB atordb){
-        /*atordb.getUtilizadores().entrySet().stream()
+        Comparator<Transportes> precoBarato = (t1, t2) -> {
+            if ( t1.getPrecoKM() ==  t2.getPrecoKM()) return 0;
+            if (t1.getPrecoKM() > t2.getPrecoKM()) return 1;
+            else return -1;
+
+        };
+
+        /*List<Ator> nova = */atordb.getUtilizadores().entrySet().stream()
                 .filter(e -> e.getValue() instanceof  Transportes)
-                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico))
-                .filter()*/
+                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico));
+
+
+
+
+
         return  null;
     }
 
