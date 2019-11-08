@@ -33,8 +33,5 @@ public abstract class Servico {
         this.limiteT = limiteT;
     }
 
-
-
-
-
+    public abstract boolean equals(Servico servico);
 }

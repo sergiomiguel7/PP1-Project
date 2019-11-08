@@ -20,4 +20,10 @@ public class SBus extends Servico{
                 "transporteC=" + transporteC +
                 '}';
     }
+    public boolean equals(Servico servico) {
+        if (servico instanceof SBus)
+            return true;
+        else
+            return false;
+    }
 }

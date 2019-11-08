@@ -10,4 +10,11 @@ public class SBig extends Servico {
     public String toString() {
         return "SBig{}";
     }
+
+    public boolean equals(Servico servico) {
+        if (servico instanceof SBig)
+            return true;
+        else
+            return false;
+    }
 }

@@ -21,4 +21,11 @@ public class SRefeicoes extends Servico {
                 "precoFixo=" + precoFixo +
                 '}';
     }
+
+    public boolean equals(Servico servico) {
+        if (servico instanceof SRefeicoes)
+            return true;
+        else
+            return false;
+    }
 }

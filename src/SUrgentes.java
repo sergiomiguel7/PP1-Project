@@ -8,4 +8,11 @@ public class SUrgentes extends Servico {
     public String toString() {
         return "SUrgentes";
     }
+
+    public boolean equals(Servico servico) {
+        if (servico instanceof SUrgentes)
+            return true;
+        else
+            return false;
+    }
 }

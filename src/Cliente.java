@@ -1,6 +1,8 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Cliente extends Ator{
 
@@ -31,11 +33,10 @@ public class Cliente extends Ator{
     }
 
     public void transportesDisponiveis(Servico servico,AtorDB atordb){
-        atordb.getUtilizadores().entrySet().stream()
-                .filter(e -> e.getValue() instanceof Transportes)
-                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico))
-                .filter(e -> ((Transportes) e.getValue()).isDisponivel() == true)
-                .forEach(s -> System.out.println(s.getValue().getNome()));
+        atordb.getUtilizadores().values().stream()
+                .filter(e -> e instanceof Transportes)
+                .filter(e -> ((Transportes) e).getServico().equals(servico) )
+                .forEach(s -> System.out.println(s.getNome()));
     }
 
     public Ator transporteMaisBarato(Servico servico, AtorDB atordb){
@@ -43,13 +44,12 @@ public class Cliente extends Ator{
             if ( t1.getPrecoKM() ==  t2.getPrecoKM()) return 0;
             if (t1.getPrecoKM() > t2.getPrecoKM()) return 1;
             else return -1;
-
         };
 
-        /*List<Ator> nova = */atordb.getUtilizadores().entrySet().stream()
-                .filter(e -> e.getValue() instanceof  Transportes)
-                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico));
 
+        atordb.getUtilizadores().values().stream()
+                .filter(e -> e instanceof Transportes)
+                .sorted(Comparator.comparingDouble(::getPrecoKM))
 
 
 

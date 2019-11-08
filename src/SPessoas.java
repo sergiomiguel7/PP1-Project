@@ -23,4 +23,12 @@ public class SPessoas extends Servico {
     }
 
     public String toString() { return "SPessoas{transporteC=" + transporteC + '}'; }
+
+    @Override
+    public boolean equals(Servico servico) {
+        if (servico instanceof SPessoas)
+            return true;
+        else
+            return false;
+    }
 }

@@ -107,6 +107,7 @@ return a1;
         {
             if (ator instanceof Cliente){       //compara se ator e de tipo Cliente ou Transportes
                // menuCliente();
+                ((Cliente) ator).transportesDisponiveis(new SPessoas(), db);
 
             }
             else if(ator instanceof Transportes) {
