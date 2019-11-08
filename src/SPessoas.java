@@ -1,6 +1,11 @@
 public class SPessoas extends Servico {
     private boolean transporteC;    //transporte de crianças
 
+    public SPessoas()
+    {
+        super();
+        this.transporteC=false;
+    }
     public SPessoas(int limiteT,  boolean transporteC)
     {
 
@@ -17,9 +22,5 @@ public class SPessoas extends Servico {
         this.transporteC = transporteC;
     }
 
-    public String toString() {
-        return "SPessoas{" +
-                "transporteC=" + transporteC +
-                '}';
-    }
+    public String toString() { return "SPessoas{transporteC=" + transporteC + '}'; }
 }

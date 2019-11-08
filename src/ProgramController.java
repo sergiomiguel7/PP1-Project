@@ -110,7 +110,6 @@ return a1;
 
             }
             else if(ator instanceof Transportes) {
-                //menuFornecedor
 
             }
         }

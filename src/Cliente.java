@@ -28,4 +28,21 @@ public class Cliente extends Ator{
         s.append("\nDados:" + super.toString());
         return s.toString();
     }
+
+    public void transportesDisponiveis(Servico servico,AtorDB atordb){
+        atordb.getUtilizadores().entrySet().stream()
+                .filter(e -> e.getValue() instanceof Transportes)
+                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico))
+                .filter(e -> ((Transportes) e.getValue()).isDisponivel() == true)
+                .forEach(s -> System.out.println(s.getValue().getNome()));
+    }
+
+    public Ator transporteMaisBarato(Servico servico, AtorDB atordb){
+        /*atordb.getUtilizadores().entrySet().stream()
+                .filter(e -> e.getValue() instanceof  Transportes)
+                .filter(e -> ((Transportes) e.getValue()).getServico().equals(servico))
+                .filter()*/
+        return  null;
+    }
+
 }
