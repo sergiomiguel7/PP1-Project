@@ -134,8 +134,6 @@ public class Transportes extends Ator {
         else{return false;}
     }
 
-
-
     public static Servico escolherServicoT(String a)
     {
         Scanner ler = new Scanner(System.in);
@@ -195,5 +193,6 @@ public class Transportes extends Ator {
         return novo;
 
     }
+
 
 }

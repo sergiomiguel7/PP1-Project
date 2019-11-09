@@ -21,14 +21,13 @@ public class ProgramController {
         ProgramController aux = new ProgramController();
         AtorDB db = new AtorDB();
         Scanner ler = new Scanner(System.in);
-        Ator ator = new Ator();
 
-        ator = Menus.menuLogin(db, aux);
+
+        Ator ator = Menus.menuLogin(db, aux);
         if(aux.isExistente)
         {
             if (ator instanceof Cliente){       //compara se ator e de tipo Cliente ou Transportes
-               // menuCliente();
-
+               Menus.menuCliente(db, ator);
             }
             else if(ator instanceof Transportes) {
 

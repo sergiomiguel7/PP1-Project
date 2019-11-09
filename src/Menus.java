@@ -15,7 +15,7 @@ public  class Menus {
             op=ler.nextInt();
             switch (op) {
                 case 1: {       //LOGIN!!!!!
-                    String user = ler.next();
+                    String user = ler.next().toLowerCase();
                     String pass = ler.next();
                     if (db.verificaLogin(user,pass)) {
                         System.out.println("Login valido");
@@ -39,7 +39,7 @@ public  class Menus {
                         System.out.println("Escolha o seu tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
                         String escolhido = ler.next();
                         Servico a= Transportes.escolherServicoT(escolhido);
-                        a2 = new Transportes("sergio@gmail.com", "Pedroso", "vitoria", "Rua da", LocalDateTime.now(),a, 3, 5, 7, 2, 7);
+                        a2 = new Transportes("sergio@gmail.com", "Uber", "vitoria", "Rua da", LocalDateTime.now(),a, 3, 5, 7, 2, 7);
                         db.Add(a2.getNome(), a2);
                     }
                     else
@@ -58,8 +58,8 @@ public  class Menus {
         return a1;
     }
 
-/*
-    private static void menuCliente(AtorDB db, Cliente a1)
+
+    public static void menuCliente(AtorDB db, Ator a1)
     {
         Pedido p1 = new Pedido();
         Scanner ler = new Scanner(System.in);
@@ -71,11 +71,20 @@ public  class Menus {
             switch (op) {
                 case 1:
                 {
-
+                    System.out.println("Escolha o tipo de serviço que deseja:");
+                    String escolhido = ler.next();
+                    Servico servico = Cliente.escolherServicoC(escolhido);
+                    ((Cliente) a1).transportesDisponiveis(servico, db);
+                    String escolherTransportadora = ler.next();
+                    ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
+                    break;
                 }
+                case 2:
+                    System.out.println(a1.getHistorico().getPedidos());
+                    break;
 
             }
         } while (op !=0);
     }
-*/
+
 }

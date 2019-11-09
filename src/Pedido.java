@@ -2,16 +2,12 @@ public class Pedido {
     private boolean concluido;
     private Servico servico;
 
-
-
     public Pedido() {
         this.servico=null;
         this.concluido=false;
-
     }
 
-    public Pedido(Servico servico, int carga) {
-
+    public Pedido(Servico servico) {
         this.servico=servico;
         this.concluido=false;
     }

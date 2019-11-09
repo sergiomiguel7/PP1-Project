@@ -15,5 +15,4 @@ public class Historico {
     //setters
     public void setPedidos(List<Pedido> pedidos) { this.pedidos = pedidos; }
 
-
 }
