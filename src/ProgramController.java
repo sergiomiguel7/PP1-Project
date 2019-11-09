@@ -52,9 +52,7 @@ public class ProgramController {
                         System.out.println("Escolha o seu tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
                         String escolhido = ler.next();
                         Servico a= Transportes.escolherServicoT(escolhido);
-                        a1 = new Transportes("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDateTime.now(),a, 1, 2, 3, 5, 6);
                         a2 = new Transportes("sergio@gmail.com", "Pedroso", "vitoria", "Rua da", LocalDateTime.now(),a, 3, 5, 7, 2, 7);
-                        db.Add(a1.getNome(), a1);
                         db.Add(a2.getNome(), a2);
                     }
                     else
@@ -108,6 +106,7 @@ return a1;
             if (ator instanceof Cliente){       //compara se ator e de tipo Cliente ou Transportes
                // menuCliente();
                 ((Cliente) ator).transportesDisponiveis(new SPessoas(), db);
+                System.out.println(((Cliente) ator).transporteMaisBarato(new SPessoas(), db));
 
             }
             else if(ator instanceof Transportes) {

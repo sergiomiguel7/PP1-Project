@@ -102,7 +102,7 @@ public class Transportes extends Ator {
         x1 = x1 * x1;
         y1 = y1 * y1;
         double total = x1 + y1;
-        Math.sqrt(total);
+        total=Math.sqrt(total);
         return total;
     }
 

@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Cliente extends Ator{
@@ -40,21 +41,17 @@ public class Cliente extends Ator{
     }
 
     public Ator transporteMaisBarato(Servico servico, AtorDB atordb){
-        Comparator<Transportes> precoBarato = (t1, t2) -> {
-            if ( t1.getPrecoKM() ==  t2.getPrecoKM()) return 0;
-            if (t1.getPrecoKM() > t2.getPrecoKM()) return 1;
-            else return -1;
-        };
 
-
-        atordb.getUtilizadores().values().stream()
+        double barato= atordb.getUtilizadores().values().stream()
                 .filter(e -> e instanceof Transportes)
-                .sorted(Comparator.comparingDouble(::getPrecoKM))
+                .filter(e-> ((Transportes) e).getServico().equals(servico))
+                .map(e->((Transportes) e).trajetoPreco((Transportes) e, this, atordb))
+                .sorted().findFirst().get();
 
-
-
-
-        return  null;
+        return atordb.getUtilizadores().values().stream()
+                .filter(e -> e instanceof Transportes)
+                .filter(e-> (((Transportes) e).trajetoPreco((Transportes)e, this, atordb))==barato)
+                .findFirst().get();
     }
 
 }
