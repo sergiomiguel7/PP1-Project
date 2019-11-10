@@ -1,4 +1,4 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public  class Menus {
@@ -32,14 +32,14 @@ public  class Menus {
                     System.out.println("1-Cliente\n2-Fornecedor");
                     op=ler.nextInt();
                     if(op==1) {
-                        a1 = new Cliente("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDateTime.now(), 1, 2);
+                        a1 = new Cliente("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDate.now(), 1, 2);
                         db.Add(a1.getNome(), a1);
                     }
                     else if(op==2) {
                         System.out.println("Escolha o seu tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
                         String escolhido = ler.next();
                         Servico a= Transportes.escolherServicoT(escolhido);
-                        a2 = new Transportes("sergio@gmail.com", "Uber", "vitoria", "Rua da", LocalDateTime.now(),a, 3, 5, 7, 2, 7);
+                        a2 = new Transportes("sergio@gmail.com", "Uber", "vitoria", "Rua da", LocalDate.now(),a, 3, 5, 7, 2, 7);
                         db.Add(a2.getNome(), a2);
                     }
                     else
@@ -68,7 +68,8 @@ public  class Menus {
         do {
             System.out.println("1-Efetuar Pedido\n2-Mostrar histórico de pedidos\n3-Alterar dados\n0-Sair");
             op=ler.nextInt();
-            switch (op) {
+            switch (op)
+            {
                 case 1:
                 {
                     System.out.println("Escolha o tipo de serviço que deseja:");
@@ -79,10 +80,19 @@ public  class Menus {
                     ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
                     break;
                 }
-                case 2:
+                case 2: {
                     System.out.println(a1.getHistorico().getPedidos());
                     break;
-
+                }
+                case 3: {
+                    System.out.println(a1.toString());
+                    System.out.println("Sair");
+                    System.out.println("\nO que pretende mudar?");
+                    String opcao = ler.next();
+                    a1.alteraDados(opcao, ler);
+                }
+                case 0:
+                    break;
             }
         } while (op !=0);
     }

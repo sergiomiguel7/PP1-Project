@@ -1,5 +1,5 @@
 import java.sql.SQLOutput;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Cliente extends Ator{
@@ -7,11 +7,11 @@ public class Cliente extends Ator{
     //construtores
     public Cliente()
     {
-        super(" "," "," "," ", LocalDateTime.now(), 0, 0);
+        super(" "," "," "," ", LocalDate.now(), 0, 0);
         super.setHistorico(new Historico());
     }
 
-    public Cliente(String email, String nome , String password, String morada, LocalDateTime dataN, int x , int y)
+    public Cliente(String email, String nome , String password, String morada, LocalDate dataN, int x , int y)
     {
         super(email, nome, password, morada, dataN, x, y);
         super.setHistorico(new Historico());
@@ -26,7 +26,7 @@ public class Cliente extends Ator{
     //getters e setters
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append("\nDados:" + super.toString());
+        s.append("\nDados:\n" + super.toString());
         return s.toString();
     }
 

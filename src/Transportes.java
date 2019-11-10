@@ -1,4 +1,4 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Random;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ public class Transportes extends Ator {
     //Quanto maior a autonomia, menor o consumo medio;
 
     public Transportes() {
-        super(" ", " ", " ", " ", LocalDateTime.now(), 0, 0);
+        super(" ", " ", " ", " ", LocalDate.now(), 0, 0);
         super.setHistorico(new Historico());
         this.precoKM = 0;
         this.tempoKM = 0;
@@ -29,7 +29,7 @@ public class Transportes extends Ator {
         this.disponivel = true;
     }
 
-    public Transportes(String email, String nome, String password, String morada, LocalDateTime dataN, Servico a, int x, int y, double tempoKM, double precoKM, double autonomia) {
+    public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, int x, int y, double tempoKM, double precoKM, double autonomia) {
         super(email, nome, password, morada, dataN, x, y);
         super.setHistorico(new Historico());
         this.servico = a;
