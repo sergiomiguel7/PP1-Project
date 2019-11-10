@@ -64,5 +64,4 @@ public class AtorDB {
         return this.logInfo;
     }
 
-
 }
