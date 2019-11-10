@@ -19,11 +19,13 @@ public class AtorDB {
 
     }
 
-    public Ator getAtor(String user) {
-        return this.utilizadores.get(user);
+    public Ator getAtor(String user) { return this.utilizadores.get(user); }
 
-        }
+    public Transportes getTransportes(String user)
+    {
 
+        return (Transportes) this.utilizadores.get(user.toLowerCase());
+    }
 
     public void setUtilizadores(HashMap<String,Ator> utilizadores) {
         this.utilizadores = utilizadores;
@@ -38,7 +40,8 @@ public class AtorDB {
     }
 
     public void Add(String user, Ator a) {
-        this.utilizadores.put(user , a);
+
+        this.utilizadores.put(user.toLowerCase(), a);
     }
 
     public int getQuantidade() {
@@ -48,6 +51,8 @@ public class AtorDB {
     public boolean estaVazio() {
         return utilizadores.isEmpty();
     }
+
+
 
     public boolean verificaLogin(String name, String pass) {
 

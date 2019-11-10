@@ -1,5 +1,7 @@
 public class SUrgentes extends Servico {
 
+    public SUrgentes(){super();}
+
     public SUrgentes(int limiteT)
     {
         super(true, limiteT);

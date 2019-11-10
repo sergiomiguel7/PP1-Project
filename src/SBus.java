@@ -1,6 +1,11 @@
 public class SBus extends Servico{
     private boolean transporteC;    //transporte de crianças
 
+    public SBus()
+    {
+        super();
+        transporteC=false;
+    }
     public SBus(int limiteT, boolean transporteC)
     {
         super(false,limiteT);

@@ -1,7 +1,11 @@
 public class SRefeicoes extends Servico {
     private int precoFixo;  //km ate que o preço e fixo
 
-
+    public SRefeicoes()
+    {
+        super();
+        precoFixo=0;
+    }
     public SRefeicoes(int limiteT)
     {
         super(true,limiteT);

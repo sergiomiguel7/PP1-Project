@@ -1,11 +1,14 @@
 public class SBig extends Servico {
 
+    public SBig()
+    {
+        super();
+    }
 
     public SBig(int limiteT)
     {
         super(false,limiteT);
     }
-
 
     public String toString() {
         return "SBig{}";
@@ -17,4 +20,6 @@ public class SBig extends Servico {
         else
             return false;
     }
+
+
 }
