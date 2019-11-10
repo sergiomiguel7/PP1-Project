@@ -75,10 +75,25 @@ public  class Menus {
                     System.out.println("Escolha o tipo de serviço que deseja:");
                     String escolhido = ler.next();
                     Servico servico = Cliente.escolherServicoC(escolhido);
-                    ((Cliente) a1).transportesDisponiveis(servico, db);
-                    String escolherTransportadora = ler.next();
-                    ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
-                    break;
+                    System.out.println("Escolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato");
+                    int op2 = ler.nextInt();
+                    switch (op2){
+                        case 1:{
+                            ((Cliente) a1).transportesDisponiveis(servico, db);
+                            String escolherTransportadora = ler.next();
+                            ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
+                            break;
+                        }
+                        case 2:{
+                            ((Cliente) a1).AddPedido(((Cliente) a1).transporteMaisRapido(servico, db),servico);
+                            break;
+                        }
+                        case 3:{
+                            ((Cliente) a1).AddPedido(((Cliente) a1).transporteMaisBarato(servico, db),servico);
+                            break;
+                        }
+                    }
+
                 }
                 case 2: {
                     System.out.println(a1.getHistorico().getPedidos());
