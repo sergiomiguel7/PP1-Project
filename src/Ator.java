@@ -153,6 +153,15 @@ public class Ator {
                     continuar=false;
                     break;
                 }
+                case "serviço":{
+                    if(this instanceof Transportes)
+                    {
+                        System.out.println("Escolha o seu novo tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
+                        String escolhido = ler.next();
+                        ((Transportes) this).setServico(Transportes.escolherServicoT(escolhido));
+                    }
+
+                }
                 case "sair":{ continuar=false; break;}
                 default: {
                     System.out.println("Input invalido");
