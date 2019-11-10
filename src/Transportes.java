@@ -121,7 +121,7 @@ public class Transportes extends Ator {
         return tempo;
     }
 
-    public double trajetoPreco(Transportes transporte, Cliente cliente,AtorDB atordb){
+    public double trajetoPreco(Transportes transporte, Cliente cliente){
         double preco = getPrecoKM();
         preco *= distanciaXY(cliente,transporte);
         return preco;

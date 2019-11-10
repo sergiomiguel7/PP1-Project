@@ -97,4 +97,32 @@ public  class Menus {
         } while (op !=0);
     }
 
+    public static void menuTransportes(AtorDB db,Ator a1){
+        Scanner ler = new Scanner(System.in);
+        int op;
+            do{
+               System.out.println("1 - Mostrar Pedidos Recentes\n2 - Mostrar Pedidos Concluidos\n3 - Alterar dados\n0 - Sair");
+               op = ler.nextInt();
+               switch (op){
+                   case 1:{
+                       System.out.println(a1.getHistorico().getPedidos());
+                       break;
+                   }
+                   case 2:{
+                       System.out.println(a1.getHistorico().getPedidosConcluidos());
+                       break;
+                   }
+                   case 3:{
+                       System.out.println(a1.toString());
+                       System.out.println("Sair");
+                       System.out.println("\nO que pretende mudar?");
+                       String opcao = ler.next();
+                       a1.alteraDados(opcao, ler);
+                       break;
+                   }
+                   case 0:  break;
+
+               }
+            }while (op!=0);
+    }
 }

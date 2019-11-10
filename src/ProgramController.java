@@ -27,14 +27,12 @@ public class ProgramController {
         if(aux.isExistente)
         {
             if (ator instanceof Cliente){       //compara se ator e de tipo Cliente ou Transportes
-               Menus.menuCliente(db, ator);
+                Menus.menuCliente(db, ator);
             }
             else if(ator instanceof Transportes) {
-
+                Menus.menuTransportes(db,ator);
             }
         }
-
-
     }
 
 

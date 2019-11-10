@@ -36,7 +36,9 @@ public class Cliente extends Ator{
                 atordb.getUtilizadores().values().stream()
                         .filter(e -> e instanceof Transportes)
                         .filter(e -> ((Transportes) e).getServico().equals(servico))
+                        .filter(e -> ((Transportes) e).isDisponivel())
                         .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
+                        .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).getAutonomia())
                         .forEach(s -> System.out.println(s.getNome()));
             }
     }
@@ -45,15 +47,35 @@ public class Cliente extends Ator{
             double barato = atordb.getUtilizadores().values().stream()
                     .filter(e -> e instanceof Transportes)
                     .filter(e -> ((Transportes) e).getServico().equals(servico))
-                    .map(e -> ((Transportes) e).trajetoPreco((Transportes) e, this, atordb))
+                    .filter(e -> ((Transportes) e).isDisponivel())
+                    .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
+                    .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).getAutonomia())
+                    .map(e -> ((Transportes) e).trajetoPreco((Transportes) e, this))
                     .sorted().findFirst().get();
 
             return atordb.getUtilizadores().values().stream()
                     .filter(e -> e instanceof Transportes)
-                    .filter(e -> (((Transportes) e).trajetoPreco((Transportes) e, this, atordb)) == barato)
+                    .filter(e -> (((Transportes) e).trajetoPreco((Transportes) e, this)) == barato)
                     .findFirst().get();
 
     }
+
+    public Ator transporteMaisRapido(Servico servico,AtorDB atordb){
+        double rapido = atordb.getUtilizadores().values().stream()
+                .filter(e -> e instanceof Transportes)
+                .filter(e -> ((Transportes) e).getServico().equals(servico))
+                .filter(e -> ((Transportes) e).isDisponivel())
+                .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
+                .map(e -> ((Transportes) e).trajetoTempo((Transportes) e, this))
+                .sorted().findFirst().get();
+
+        return atordb.getUtilizadores().values().stream()
+                .filter(e -> e instanceof Transportes)
+                .filter(e -> (((Transportes) e).trajetoTempo((Transportes) e,this)) == rapido)
+                .findFirst().get();
+    }
+
+
 
 
     public void AddPedido(Ator b, Servico servico)
