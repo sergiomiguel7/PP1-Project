@@ -49,7 +49,7 @@ public class Cliente extends Ator{
                     .filter(e -> ((Transportes) e).getServico().equals(servico))
                     .filter(e -> ((Transportes) e).isDisponivel())
                     .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
-                    .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).getAutonomia())
+                    .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
                     .map(e -> ((Transportes) e).trajetoPreco((Transportes) e, this))
                     .sorted().findFirst().get();
 
@@ -66,6 +66,7 @@ public class Cliente extends Ator{
                 .filter(e -> ((Transportes) e).getServico().equals(servico))
                 .filter(e -> ((Transportes) e).isDisponivel())
                 .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
+                .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
                 .map(e -> ((Transportes) e).trajetoTempo((Transportes) e, this))
                 .sorted().findFirst().get();
 
