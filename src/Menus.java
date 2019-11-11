@@ -72,6 +72,7 @@ public  class Menus {
             {
                 case 1:
                 {
+                    
                     System.out.println("Escolha o tipo de serviço que deseja:");
                     String escolhido = ler.next();
                     Servico servico = Cliente.escolherServicoC(escolhido);
@@ -107,6 +108,7 @@ public  class Menus {
                     a1.alteraDados(opcao, ler);
                 }
                 case 0:
+
                     break;
             }
         } while (op !=0);
