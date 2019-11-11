@@ -24,6 +24,7 @@ public class ProgramController {
 
 
         Ator ator = Menus.menuLogin(db, aux);
+
         if(aux.isExistente)
         {
             if (ator instanceof Cliente){       //compara se ator e de tipo Cliente ou Transportes
