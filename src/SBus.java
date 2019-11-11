@@ -26,7 +26,7 @@ public class SBus extends Servico{
                 '}';
     }
     public boolean equals(Servico servico) {
-        if (servico instanceof SBus)
+        if (servico instanceof SBus && ((SBus) servico).isTransporteC())
             return true;
         else
             return false;

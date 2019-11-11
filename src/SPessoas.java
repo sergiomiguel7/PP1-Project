@@ -26,7 +26,7 @@ public class SPessoas extends Servico {
 
     @Override
     public boolean equals(Servico servico) {
-        if (servico instanceof SPessoas)
+        if (servico instanceof SPessoas && ((SPessoas) servico).isTransporteC())
             return true;
         else
             return false;
