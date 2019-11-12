@@ -1,5 +1,6 @@
 import java.sql.SQLOutput;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Cliente extends Ator{
@@ -81,9 +82,10 @@ public class Cliente extends Ator{
 
     public void AddPedido(Ator b, Servico servico)
     {
-        Pedido novo= new Pedido(servico);
-       this.getHistorico().getPedidos().add(novo);
-       b.getHistorico().getPedidos().add(novo);
+        Pedido novo= new Pedido(servico, LocalDateTime.now(),LocalDateTime.now().plusMinutes(((Transportes)b).trajetoTempo(((Transportes)b) , this))) ;
+
+        this.getHistorico().getPedidos().add(novo);
+        b.getHistorico().getPedidos().add(novo);
 
     }
 

@@ -83,6 +83,7 @@ public  class Menus {
                             ((Cliente) a1).transportesDisponiveis(servico, db);
                             String escolherTransportadora = ler.next();
                             ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
+
                             break;
                         }
                         case 2:{

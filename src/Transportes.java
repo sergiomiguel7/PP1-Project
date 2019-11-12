@@ -106,7 +106,7 @@ public class Transportes extends Ator {
         return total;
     }
 
-    public double trajetoTempo(Transportes transporte,Cliente cliente){
+    public long trajetoTempo(Transportes transporte,Cliente cliente){
         Random rand = new Random();
         double distancia = distanciaXY(cliente,transporte);
         double tempo = transporte.getTempoKM();
@@ -118,7 +118,7 @@ public class Transportes extends Ator {
                 tempo+=randtempo;
             }
         }
-        return tempo;
+        return (long) Math.round(tempo);
     }
 
     public double trajetoPreco(Transportes transporte, Cliente cliente){
@@ -127,12 +127,6 @@ public class Transportes extends Ator {
         return preco;
     }
 
-    public boolean verificaAutonomia(Transportes transportes,Cliente cliente){
-        if(transportes.getAutonomia() >= distanciaXY(cliente,transportes)){
-            return  true;
-        }
-        else{return false;}
-    }
 
     public static Servico escolherServicoT(String a)
     {
