@@ -188,14 +188,23 @@ public class Transportes extends Ator {
 
     }
 
-    public List<Integer> maisServicosEfetuados(AtorDB atordb){
+    public List<Ator> maisServicosEfetuados(AtorDB atordb){
 
-        return  atordb.getUtilizadores().values().stream()
+        List<Integer> valores =   atordb.getUtilizadores().values().stream()
                 .filter(ator -> ator instanceof Transportes)
                 .map(ator -> ((Transportes) ator).getHistorico().getPedidosConcluidos().size())
                 .sorted()
                 .collect(Collectors.toList());
 
+        List<Ator> atores = null;
+        for(int i : valores){
+            for(Ator a : atordb.getUtilizadores().values()){
+                if(a instanceof Transportes && a.getHistorico().getPedidosConcluidos().size() == i){
+                    atores.add(a);
+                }
+            }
+        }
+        return atores;
     }
 
 
