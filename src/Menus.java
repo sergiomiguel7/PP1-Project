@@ -40,7 +40,9 @@ public  class Menus {
                         String escolhido = ler.next();
                         Servico a= Transportes.escolherServicoT(escolhido);
                         a2 = new Transportes("sergio@gmail.com", "Uber", "vitoria", "Rua da", LocalDate.now(),a, 3, 5, 7, 2, 7);
+                        a1=new Transportes("sergio@gmail.com", "Uber2", "vitoria", "Rua da", LocalDate.now(),a, 2, 1, 5, 5, 7);
                         db.Add(a2.getNome(), a2);
+                        db.Add(a1.getNome(), a1);
                     }
                     else
                         System.out.println("Invalido");
