@@ -49,6 +49,7 @@ public  class Menus {
                 break;
                 case 0: {
                     System.out.println("Sair");
+                    System.exit(0);
                 }
 
             }
