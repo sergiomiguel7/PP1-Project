@@ -32,5 +32,19 @@ public class Pedido {
 
     public void setServico(Servico servico) { this.servico = servico; }
 
+    public LocalDateTime getDataInicio() {
+        return dataInicio;
+    }
 
+    public void setDataInicio(LocalDateTime dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDateTime getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDateTime dataFim) {
+        this.dataFim = dataFim;
+    }
 }
