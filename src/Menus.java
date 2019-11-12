@@ -67,7 +67,7 @@ public  class Menus {
         int escolha;
         int op;
         do {
-            System.out.println("1-Efetuar Pedido\n2-Mostrar histórico de pedidos\n3-Alterar dados\n0-Sair");
+            System.out.println("1-Efetuar Pedido\n2-Mostrar histórico de pedidos\n3-Alterar dados\n4-Lista de transportadoras com mais serviços efetuados\n0-Sair");
             op=ler.nextInt();
             switch (op)
             {
@@ -95,6 +95,7 @@ public  class Menus {
                             ((Cliente) a1).AddPedido(((Cliente) a1).transporteMaisBarato(servico, db),servico);
                             break;
                         }
+
                     }
 
                 }
@@ -108,6 +109,10 @@ public  class Menus {
                     System.out.println("\nO que pretende mudar?");
                     String opcao = ler.next();
                     a1.alteraDados(opcao, ler);
+                }
+                case 4: {
+                    System.out.println(((Cliente) a1).maisServicosEfetuados(db));
+                    break;
                 }
                 case 0:
 

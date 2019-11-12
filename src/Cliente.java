@@ -1,7 +1,10 @@
-import java.sql.SQLOutput;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Cliente extends Ator{
 
@@ -87,6 +90,25 @@ public class Cliente extends Ator{
         this.getHistorico().getPedidos().add(novo);
         b.getHistorico().getPedidos().add(novo);
 
+    }
+
+    public List<Ator> maisServicosEfetuados(AtorDB atordb){
+
+        List<Integer> valores =   atordb.getUtilizadores().values().stream()
+                .filter(ator -> ator instanceof Transportes)
+                .map(ator -> ((Transportes) ator).getHistorico().getPedidosConcluidos().size())
+                .sorted()
+                .collect(Collectors.toList());
+
+        List<Ator> atores = new ArrayList<>();
+        for(int i : valores){
+            for(Ator a : atordb.getUtilizadores().values()){
+                if(a instanceof Transportes && a.getHistorico().getPedidosConcluidos().size() == i){
+                    atores.add(a);
+                }
+            }
+        }
+        return atores;
     }
 
 
