@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -55,12 +56,13 @@ public class Cliente extends Ator{
                     .filter(e -> ((Transportes) e).isDisponivel())
                     .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
                     .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
-                    .map(e -> ((Transportes) e).trajetoPreco((Transportes) e, this))
-                    .sorted().findFirst().get();
+                    .map(e -> ((Transportes) e).getPrecoKM())
+                    .sorted(Comparator.reverseOrder())
+                    .findFirst().get();
 
             return atordb.getUtilizadores().values().stream()
                     .filter(e -> e instanceof Transportes)
-                    .filter(e -> (((Transportes) e).trajetoPreco((Transportes) e, this)) == barato)
+                    .filter(e -> (((Transportes) e).getPrecoKM()) == barato)
                     .findFirst().get();
 
     }
@@ -73,7 +75,7 @@ public class Cliente extends Ator{
                 .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
                 .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
                 .map(e -> ((Transportes) e).getTempoKM())
-                .sorted().findFirst().get();
+                .sorted(Comparator.reverseOrder()).findFirst().get();
 
         return atordb.getUtilizadores().values().stream()
                 .filter(e -> e instanceof Transportes)
