@@ -188,5 +188,14 @@ public class Transportes extends Ator {
 
     }
 
+    public List<Ator> maisServicosEfetuados(AtorDB atordb){
+
+        return  atordb.getUtilizadores().values().stream()
+                .filter(ator -> ator instanceof Transportes)
+                .sorted((ator, t1) -> getHistorico().getPedidosConcluidos().size())
+                .collect(Collectors.toList());
+
+    }
+
 
 }
