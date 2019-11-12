@@ -57,8 +57,7 @@ public class AtorDB {
     public boolean verificaLogin(String name, String pass) {
 
 
-        if(this.utilizadores.containsKey(name)) {
-            if(this.utilizadores.get(name).getPassword().equals(pass))
+        if(this.utilizadores.containsKey(name) && this.utilizadores.get(name).getPassword().equals(pass)) {
                 this.logInfo=true;
         }
         else
