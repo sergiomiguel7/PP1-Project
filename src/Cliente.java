@@ -44,7 +44,7 @@ public class Cliente extends Ator{
                         .filter(e -> ((Transportes) e).getServico().equals(servico))
                         .filter(e -> ((Transportes) e).isDisponivel())
                         .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
-                        .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).getAutonomia())
+                        .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
                         .forEach(s -> System.out.println(s.getNome()));
             }
     }
@@ -88,8 +88,7 @@ public class Cliente extends Ator{
 
     public void AddPedido(Ator b, Servico servico)
     {
-        Pedido novo= new Pedido(servico, LocalDateTime.now(),LocalDateTime.now().plusMinutes(((Transportes)b).trajetoTempo(((Transportes)b) , this))) ;
-
+        Pedido novo= new Pedido(servico, LocalDateTime.now(),LocalDateTime.now().plusMinutes(((Transportes)b).trajetoTempo(((Transportes)b) , this)),((Transportes)b).trajetoPreco(((Transportes)b),this));
         this.getHistorico().getPedidos().add(novo);
         b.getHistorico().getPedidos().add(novo);
 
@@ -113,6 +112,16 @@ public class Cliente extends Ator{
             }
         }
         return atores;
+    }
+
+    public double faturadoIntervaloTempo(Transportes transportes,LocalDateTime inicio,LocalDateTime fim){
+        List<Pedido> pedidosconc = transportes.getHistorico().getPedidosConcluidos();
+
+        return pedidosconc.stream()
+            .filter(pedido -> pedido.getDataFim().isAfter(inicio))
+            .filter(pedido -> pedido.getDataFim().isBefore(fim))
+            .mapToDouble(pedido -> Math.round(pedido.getPreco()))
+            .sum();
     }
 
 

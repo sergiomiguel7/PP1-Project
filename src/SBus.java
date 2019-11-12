@@ -21,9 +21,9 @@ public class SBus extends Servico{
     }
 
     public String toString() {
-        return "SBus{" +
-                "transporteC=" + transporteC +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Transporte de Crianças:").append(isTransporteC());
+        return sb.toString();
     }
     public boolean equals(Servico servico) {
         if (servico instanceof SBus && ((SBus) servico).isTransporteC())
