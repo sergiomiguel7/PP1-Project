@@ -82,8 +82,8 @@ public  class Menus {
                     System.out.println("Escolha o tipo de serviço que deseja:");
                     String escolhido = ler.next();
                     System.out.println("Escreva as coordenadas do vendedor!");
-                    System.out.print("Coordenada X:");x=ler.nextDouble();
-                    System.out.print("\nCoordenada Y:");y=ler.nextDouble();
+                    System.out.println("Coordenada X:");x=ler.nextDouble();
+                    System.out.println("\nCoordenada Y:");y=ler.nextDouble();
                     ((Cliente)a1).atualizarCoordenadas(x,y,db);
                     Servico servico = Cliente.escolherServicoC(escolhido);
                     System.out.println("\nEscolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato\n 4 - Com tempo e custo máximo");

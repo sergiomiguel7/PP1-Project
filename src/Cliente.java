@@ -135,8 +135,8 @@ public class Cliente extends Ator{
 
     public void maximoTempoCusto(AtorDB db,long tempo, double custo){
         db.getUtilizadores().values().stream().filter(e -> e instanceof Transportes)
-                .filter(e -> ((Transportes) e).trajetoPreco(((Transportes)e),this) >= custo)
-                .filter(e -> ((Transportes)e).trajetoTempoTeorico(((Transportes)e),this) >= tempo)
+                .filter(e -> ((Transportes) e).trajetoPreco(((Transportes)e),this) <= custo)
+                .filter(e -> ((Transportes)e).trajetoTempoTeorico(((Transportes)e),this) <= tempo)
                 .forEach(e -> System.out.println(e.getNome()));
     }
 
