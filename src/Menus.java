@@ -68,6 +68,8 @@ public  class Menus {
         Scanner ler = new Scanner(System.in);
         int escolha;
         int op;
+        long tempo;
+        double custo;
         double x,y;
         do {
             System.out.println("1-Efetuar Pedido\n2-Mostrar histórico de pedidos\n3-Alterar dados\n4-Lista de transportadoras com mais serviços efetuados\n0-Sair");
@@ -84,14 +86,13 @@ public  class Menus {
                     System.out.print("\nCoordenada Y:");y=ler.nextDouble();
                     ((Cliente)a1).atualizarCoordenadas(x,y,db);
                     Servico servico = Cliente.escolherServicoC(escolhido);
-                    System.out.println("\nEscolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato");
+                    System.out.println("\nEscolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato\n 4 - Com tempo e custo máximo");
                     int op2 = ler.nextInt();
                     switch (op2){
                         case 1:{
                             ((Cliente) a1).transportesDisponiveis(servico, db);
                             String escolherTransportadora = ler.next();
                             ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
-
                             break;
                         }
                         case 2:{
@@ -100,6 +101,14 @@ public  class Menus {
                         }
                         case 3:{
                             ((Cliente) a1).AddPedido(((Cliente) a1).transporteMaisBarato(servico, db),servico);
+                            break;
+                        }
+                        case 4:{
+                            System.out.println("Tempo Maximo:");
+                            tempo=ler.nextLong();
+                            System.out.println("Custo Maximo:");
+                            custo=ler.nextDouble();
+                            ((Cliente)a1).maximoTempoCusto(db,tempo,custo);
                             break;
                         }
 

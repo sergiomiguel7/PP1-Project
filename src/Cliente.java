@@ -133,6 +133,15 @@ public class Cliente extends Ator{
             .sum();
     }
 
+    public void maximoTempoCusto(AtorDB db,long tempo, double custo){
+        db.getUtilizadores().values().stream().filter(e -> e instanceof Transportes)
+                .filter(e -> ((Transportes) e).trajetoPreco(((Transportes)e),this) >= custo)
+                .filter(e -> ((Transportes)e).trajetoTempoTeorico(((Transportes)e),this) >= tempo)
+                .forEach(e -> System.out.println(e.getNome()));
+    }
+
+
+
     public void atualizarCoordenadas(double x, double y,AtorDB db){
         db.getUtilizadores().values().stream().filter(e ->e instanceof Transportes)
                 .forEach(e -> e.setX(x));

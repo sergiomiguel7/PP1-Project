@@ -121,6 +121,16 @@ public class Transportes extends Ator {
         return (long) Math.round(tempo);
     }
 
+    public long trajetoTempoTeorico(Transportes transporte,Cliente cliente){
+        Random rand = new Random();
+        double distancia = distanciaXY(cliente,transporte);
+        double tempo = transporte.getTempoKM();
+        tempo = tempo  * distancia;
+        return (long) tempo;
+    }
+
+
+
     public double trajetoPreco(Transportes transporte, Cliente cliente){
         double preco = getPrecoKM();
         preco *= distanciaXY(cliente,transporte);
