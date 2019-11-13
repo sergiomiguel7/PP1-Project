@@ -83,10 +83,10 @@ public  class Menus {
                     String escolhido = ler.next();
                     System.out.println("Escreva as coordenadas do vendedor!");
                     System.out.println("Coordenada X:");x=ler.nextDouble();
-                    System.out.println("\nCoordenada Y:");y=ler.nextDouble();
+                    System.out.println("Coordenada Y:");y=ler.nextDouble();
                     ((Cliente)a1).atualizarCoordenadas(x,y,db);
                     Servico servico = Cliente.escolherServicoC(escolhido);
-                    System.out.println("\nEscolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato\n 4 - Com tempo e custo máximo");
+                    System.out.println("Escolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato\n 4 - Com tempo e custo máximo");
                     int op2 = ler.nextInt();
                     switch (op2){
                         case 1:{
@@ -108,7 +108,7 @@ public  class Menus {
                             tempo=ler.nextLong();
                             System.out.println("Custo Maximo:");
                             custo=ler.nextDouble();
-                            ((Cliente)a1).maximoTempoCusto(db,tempo,custo);
+                            ((Cliente)a1).maximoTempoCusto(db,tempo,custo,servico);
                             break;
                         }
 
