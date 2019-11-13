@@ -83,6 +83,15 @@ public class Cliente extends Ator{
                 .findFirst().get();
     }
 
+    public Ator transportePreco(Servico servico,double preco,AtorDB atordb){
+        return atordb.getUtilizadores().values().stream()
+                .filter(e -> e instanceof Transportes)
+                .filter(e -> ((Transportes) e).getServico().equals(servico))
+                .filter(e -> ((Transportes) e).isDisponivel())
+                .filter(e -> ((Transportes) e).getServico().getLimiteT() == servico.getLimiteT())
+                .filter(e -> ((Transportes) e).trajetoPreco(((Transportes) e),this) == preco)
+                .sorted().findFirst().get();
+    }
 
 
 
@@ -124,6 +133,12 @@ public class Cliente extends Ator{
             .sum();
     }
 
+    public void atualizarCoordenadas(double x, double y,AtorDB db){
+        db.getUtilizadores().values().stream().filter(e ->e instanceof Transportes)
+                .forEach(e -> e.setX(x));
+        db.getUtilizadores().values().stream().filter(e ->e instanceof Transportes)
+                .forEach(e -> e.setY(y));
+    }
 
 
 
