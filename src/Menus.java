@@ -68,6 +68,7 @@ public  class Menus {
         Scanner ler = new Scanner(System.in);
         int escolha;
         int op;
+        double x,y;
         do {
             System.out.println("1-Efetuar Pedido\n2-Mostrar histórico de pedidos\n3-Alterar dados\n4-Lista de transportadoras com mais serviços efetuados\n0-Sair");
             op=ler.nextInt();
@@ -78,8 +79,12 @@ public  class Menus {
                     
                     System.out.println("Escolha o tipo de serviço que deseja:");
                     String escolhido = ler.next();
+                    System.out.println("Escreva as coordenadas do vendedor!");
+                    System.out.print("Coordenada X:");x=ler.nextDouble();
+                    System.out.print("\nCoordenada Y:");y=ler.nextDouble();
+                    ((Cliente)a1).atualizarCoordenadas(x,y,db);
                     Servico servico = Cliente.escolherServicoC(escolhido);
-                    System.out.println("Escolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato");
+                    System.out.println("\nEscolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato");
                     int op2 = ler.nextInt();
                     switch (op2){
                         case 1:{
