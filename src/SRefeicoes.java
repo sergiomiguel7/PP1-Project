@@ -21,9 +21,11 @@ public class SRefeicoes extends Servico {
     }
 
     public String toString() {
-        return "SRefeicoes{" +
-                "precoFixo=" + precoFixo +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Serviço de BUS")
+                .append("\nTemperatura constante:").append(super.isTransporteTC())
+                .append("\nLimite de Carga:").append(super.getLimiteT());
+        return sb.toString();
     }
 
     public boolean equals(Servico servico) {

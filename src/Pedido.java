@@ -23,6 +23,14 @@ public class Pedido {
         this.preco=preco;
     }
 
+    public Pedido(Pedido outro){
+        this.servico = outro.servico;
+        this.preco = outro.preco;
+        this.concluido = false;
+        this.dataFim = null;
+        this.dataInicio = null;
+    }
+
     public boolean isConcluido() {
         return concluido;
     }
@@ -61,11 +69,11 @@ public class Pedido {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Servico: ").append(this.getServico());
-        sb.append("\nData Pedido: ").append(this.dataInicio.toString());
-        sb.append("\nData Entrega: ").append(this.dataFim.toString());
-        sb.append("\nPreço: ").append(this.preco).toString();
-        sb.append("\nPedido Concluido: ").append(this.concluido);
+        sb.append("Servico: ").append(this.getServico())
+                .append("\nData Pedido: ").append(this.dataInicio)
+                .append("\nData Entrega: ").append(this.dataFim)
+                .append("\nPreço: ").append(this.preco)
+                .append("\nPedido Concluido: ").append(this.concluido);
         return sb.toString();
     }
 }

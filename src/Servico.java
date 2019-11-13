@@ -34,4 +34,11 @@ public abstract class Servico {
     }
 
     public abstract boolean equals(Servico servico);
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Temperatura Constante:").append(this.transporteTC)
+                .append("Limite de Carga:").append(this.limiteT);
+        return sb.toString();
+    }
 }

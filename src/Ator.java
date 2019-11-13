@@ -89,13 +89,13 @@ public class Ator {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("E-mail: ").append(this.email);
-        sb.append("\nNome: ").append(this.nome);
-        sb.append("\nPassword: ").append(this.password);
-        sb.append("\nMorada: ").append(this.morada);
-        sb.append("\nData: ").append(this.dataN.toString());
-        sb.append("\nX: ").append(this.x).toString();
-        sb.append("\nY: ").append(this.y).toString();
+        sb.append("E-mail: ").append(this.email)
+                .append("\nNome: ").append(this.nome)
+                .append("\nPassword: ").append(this.password)
+                .append("\nMorada: ").append(this.morada)
+                .append("\nData: ").append(this.dataN)
+                .append("\nX: ").append(this.x)
+                .append("\nY: ").append(this.y);
         return sb.toString();
     }
 

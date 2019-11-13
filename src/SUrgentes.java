@@ -8,7 +8,11 @@ public class SUrgentes extends Servico {
     }
 
     public String toString() {
-        return "SUrgentes";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Serviço de BUS")
+                .append("\nTemperatura constante:").append(super.isTransporteTC())
+                .append("\nLimite de Pessoas:").append(super.getLimiteT());
+        return sb.toString();
     }
 
     public boolean equals(Servico servico) {

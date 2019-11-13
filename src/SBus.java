@@ -22,9 +22,13 @@ public class SBus extends Servico{
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Transporte de Crianças:").append(isTransporteC());
+        sb.append("Serviço de BUS")
+                .append("\nTemperatura constante:").append(super.isTransporteTC())
+                .append("\nLimite de Pessoas:").append(super.getLimiteT())
+                .append("\nTransporte de Crianças:").append(this.isTransporteC());
         return sb.toString();
     }
+
     public boolean equals(Servico servico) {
         if (servico instanceof SBus && ((SBus) servico).isTransporteC())
             return true;

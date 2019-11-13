@@ -22,7 +22,14 @@ public class SPessoas extends Servico {
         this.transporteC = transporteC;
     }
 
-    public String toString() { return "SPessoas{transporteC=" + transporteC + '}'; }
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Serviço de BUS")
+                .append("\nTemperatura constante:").append(super.isTransporteTC())
+                .append("\nLimite de Pessoas:").append(super.getLimiteT())
+                .append("\nTransporte de Crianças:").append(this.isTransporteC());
+        return sb.toString();
+    }
 
     @Override
     public boolean equals(Servico servico) {

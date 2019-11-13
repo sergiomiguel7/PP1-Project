@@ -20,4 +20,10 @@ public class Historico {
     //setters
     public void setPedidos(List<Pedido> pedidos) { this.pedidos = pedidos; }
 
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Lista de Pedidos:").append(this.pedidos);
+        return sb.toString();
+    }
+
 }
