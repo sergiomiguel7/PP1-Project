@@ -14,7 +14,6 @@ public abstract class Servico {
     public Servico(boolean transporteTC, int limiteT) {
         this.transporteTC = transporteTC;
         this.limiteT = limiteT;
-
     }
 
     public boolean isTransporteTC() {

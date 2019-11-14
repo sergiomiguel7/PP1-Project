@@ -8,17 +8,41 @@ public class SRefeicoes extends Servico {
     }
     public SRefeicoes(int limiteT)
     {
-        super(true,limiteT);
-        this.precoFixo=5;
+        setlimiteTRef(limiteT);
+        setTransporteTCRef();
+        setPrecoFixo(limiteT);
+    }
+
+    public void setlimiteTRef(int limiteT){
+        if(limiteT <= 15 && limiteT > 0){
+            super.setLimiteT(limiteT);
+        }else {
+            super.setLimiteT(0);
+        }
+    }
+
+    public void setTransporteTCRef(){
+        super.setTransporteTC(true);
+    }
+
+    public void setPrecoFixo(int limiteT) {
+        if(limiteT > 0 && limiteT <= 15){
+            if (limiteT <= 5){
+                this.precoFixo = 3; //Assumindo bicicleta ou mota
+            }else {
+                this.precoFixo = 7; //Assumindo carro
+            }
+        }else{
+            this.precoFixo = 0;
+        }
+
     }
 
     public int getPrecoFixo() {
         return precoFixo;
     }
 
-    public void setPrecoFixo(int precoFixo) {
-        this.precoFixo = precoFixo;
-    }
+
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

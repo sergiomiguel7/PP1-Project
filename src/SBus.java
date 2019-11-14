@@ -8,8 +8,21 @@ public class SBus extends Servico{
     }
     public SBus(int limiteT, boolean transporteC)
     {
-        super(false,limiteT);
+        setLimiteTBus(limiteT);
+        setTransporteTCBus();
         this.transporteC=transporteC;
+    }
+
+    public void setLimiteTBus(int limiteT) {
+        if (limiteT <= 68 && limiteT > 0) {
+            super.setLimiteT(limiteT);
+        }else {
+            super.setLimiteT(0);
+        }
+    }
+
+    public void setTransporteTCBus(){
+        super.setTransporteTC(false);
     }
 
     public boolean isTransporteC() {

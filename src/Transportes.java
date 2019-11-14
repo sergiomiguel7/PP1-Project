@@ -147,7 +147,7 @@ public class Transportes extends Ator {
             {
                 int limit;
                 boolean criancas = false;
-                System.out.println("Maximo de pessoas que vai transportar:");
+                System.out.println("Maximo de pessoas que vai transportar [1,7]:");
                 limit = ler.nextInt();
                 System.out.println("Permite o transporte de crianças?(Sim ou Não)");
                 if (ler.next().equalsIgnoreCase("sim"))
@@ -160,7 +160,7 @@ public class Transportes extends Ator {
             {
                 int limit;
                 boolean criancas = false;
-                System.out.println("Maximo de pessoas que vai transportar:");
+                System.out.println("Maximo de pessoas que vai transportar [1,68]:");
                 limit = ler.nextInt();
                 System.out.println("Permite o transporte de crianças?(Sim ou Não)");
                 if (ler.next().equalsIgnoreCase("sim"))
@@ -172,7 +172,7 @@ public class Transportes extends Ator {
             } else if (a.equalsIgnoreCase("Big")) {
                 int limit;
                 boolean criancas = false;
-                System.out.println("Maximo de carga que vai transportar:");
+                System.out.println("Maximo de carga que vai transportar (até 6 toneladas):");
                 limit = ler.nextInt();
                 novo = new SBig(limit);
                 break;
@@ -184,7 +184,7 @@ public class Transportes extends Ator {
                 break;
             } else if (a.equalsIgnoreCase("Refeições")) {
                 int limit;
-                System.out.println("Maximo de refeições por utilizador que pode transportar:");
+                System.out.println("Maximo de refeições por utilizador que pode transportar[1,15]:");
                 limit=ler.nextInt();
                 novo= new SRefeicoes(limit);
                 break;
@@ -197,8 +197,4 @@ public class Transportes extends Ator {
         return novo;
 
     }
-
-
-
-
 }

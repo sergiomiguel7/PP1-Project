@@ -57,7 +57,7 @@ public class Cliente extends Ator{
                     .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
                     .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
                     .map(e -> ((Transportes) e).getPrecoKM())
-                    .sorted(Comparator.reverseOrder())
+                    .sorted()
                     .findFirst().get();
 
             return atordb.getUtilizadores().values().stream()
@@ -75,7 +75,7 @@ public class Cliente extends Ator{
                 .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
                 .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
                 .map(e -> ((Transportes) e).getTempoKM())
-                .sorted(Comparator.reverseOrder()).findFirst().get();
+                .sorted().findFirst().get();
 
         return atordb.getUtilizadores().values().stream()
                 .filter(e -> e instanceof Transportes)

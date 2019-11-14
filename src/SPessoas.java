@@ -8,11 +8,24 @@ public class SPessoas extends Servico {
     }
     public SPessoas(int limiteT,  boolean transporteC)
     {
-
-        super(false,limiteT);
-        this.transporteC=transporteC;
-
+            setTransporteTCP();
+            setlimiteTP(limiteT);
+            this.transporteC=transporteC;
     }
+
+
+    public void setlimiteTP(int limiteT){
+        if(limiteT <= 7 && limiteT > 0){
+            super.setLimiteT(limiteT);
+        }else {
+            super.setLimiteT(0);
+        }
+    }
+
+    public void setTransporteTCP(){
+        super.setTransporteTC(false);
+    }
+
 
     public boolean isTransporteC() {
         return transporteC;
@@ -21,6 +34,7 @@ public class SPessoas extends Servico {
     public void setTransporteC(boolean transporteC) {
         this.transporteC = transporteC;
     }
+
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

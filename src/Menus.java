@@ -15,7 +15,9 @@ public  class Menus {
             op=ler.nextInt();
             switch (op) {
                 case 1: {       //LOGIN!!!!!
+                    System.out.print("Nome:");
                     String user = ler.next().toLowerCase();
+                    System.out.print("Password:");
                     String pass = ler.next();
                     if (db.verificaLogin(user,pass)) {
                         System.out.println("Login valido");
@@ -82,8 +84,10 @@ public  class Menus {
                     System.out.println("Escolha o tipo de serviço que deseja:");
                     String escolhido = ler.next();
                     System.out.println("Escreva as coordenadas do vendedor!");
-                    System.out.println("Coordenada X:");x=ler.nextDouble();
-                    System.out.println("Coordenada Y:");y=ler.nextDouble();
+                    System.out.print("Coordenada X:");
+                    x=ler.nextDouble();
+                    System.out.print("Coordenada Y:");
+                    y=ler.nextDouble();
                     ((Cliente)a1).atualizarCoordenadas(x,y,db);
                     Servico servico = Cliente.escolherServicoC(escolhido);
                     System.out.println("Escolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato\n 4 - Com tempo e custo máximo");
@@ -109,6 +113,8 @@ public  class Menus {
                             System.out.println("Custo Maximo:");
                             custo=ler.nextDouble();
                             ((Cliente)a1).maximoTempoCusto(db,tempo,custo,servico);
+                            String escolherTransportadora = ler.next();
+                            ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
                             break;
                         }
 

@@ -4,7 +4,20 @@ public class SUrgentes extends Servico {
 
     public SUrgentes(int limiteT)
     {
-        super(true, limiteT);
+        setlimiteTUrg(limiteT);
+        setTransporteTCUrg();
+    }
+
+    public void setlimiteTUrg(int limiteT){
+        if(limiteT > 0){
+            super.setLimiteT(limiteT);
+        }else {
+            super.setLimiteT(0);
+        }
+    }
+
+    public void setTransporteTCUrg(){
+        super.setTransporteTC(true);
     }
 
     public String toString() {

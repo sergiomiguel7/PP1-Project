@@ -7,9 +7,21 @@ public class SBig extends Servico {
 
     public SBig(int limiteT)
     {
-        super(false,limiteT);
+        setlimiteTBig(limiteT);
+        setTransporteTCBig();
     }
 
+    public void setlimiteTBig(int limiteT){
+        if(limiteT <= 6000 && limiteT > 0){
+            super.setLimiteT(limiteT);
+        }else {
+            super.setLimiteT(0);
+        }
+    }
+
+    public void setTransporteTCBig(){
+        super.setTransporteTC(false);
+    }
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Serviço de BUS")
