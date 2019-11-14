@@ -49,6 +49,8 @@ public class SPessoas extends Servico {
     public boolean equals(Servico servico) {
         if (servico instanceof SPessoas && ((SPessoas) servico).isTransporteC())
             return true;
+        else if (servico instanceof SPessoas && ((SPessoas)servico).transporteC == false)
+            return true;
         else
             return false;
     }
