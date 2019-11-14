@@ -19,11 +19,11 @@ public class AtorDB {
 
     }
 
-    public Ator getAtor(String user) { return this.utilizadores.get(user); }
+    public Ator getAtor(String user) {user=user.toLowerCase(); return this.utilizadores.get(user); }
 
     public Transportes getTransportes(String user)
     {
-
+        user=user.toLowerCase();
         return (Transportes) this.utilizadores.get(user.toLowerCase());
     }
 
@@ -56,7 +56,7 @@ public class AtorDB {
 
     public boolean verificaLogin(String name, String pass) {
 
-
+        name = name.toLowerCase();
         if(this.utilizadores.containsKey(name) && this.utilizadores.get(name).getPassword().equals(pass)) {
                 this.logInfo=true;
         }
