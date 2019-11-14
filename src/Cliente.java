@@ -36,7 +36,7 @@ public class Cliente extends Ator{
         return s.toString();
     }
 
-    public void transportesDisponiveis(Servico servico,AtorDB atordb){      //falta filtrar para pessoas e bus se transporta ou nao crianças, alterar metodo equals nos dois serviços
+    public void transportesDisponiveis(Servico servico,AtorDB atordb){
         if(servico != null) {
                 System.out.println("Transportadoras Disponiveis:");
                 atordb.getUtilizadores().values().stream()
@@ -89,7 +89,7 @@ public class Cliente extends Ator{
                 .filter(e -> ((Transportes) e).getServico().equals(servico))
                 .filter(e -> ((Transportes) e).isDisponivel())
                 .filter(e -> ((Transportes) e).getServico().getLimiteT() == servico.getLimiteT())
-                .filter(e -> ((Transportes) e).trajetoPreco(((Transportes) e),this) == preco)
+                .filter(e -> ((Transportes) e).trajetoPreco(this) == preco)
                 .sorted().findFirst().get();
     }
 
@@ -97,7 +97,7 @@ public class Cliente extends Ator{
 
     public void AddPedido(Ator b, Servico servico)
     {
-        Pedido novo= new Pedido(servico, LocalDateTime.now(),LocalDateTime.now().plusMinutes(((Transportes)b).trajetoTempo(((Transportes)b) , this)),((Transportes)b).trajetoPreco(((Transportes)b),this));
+        Pedido novo= new Pedido(servico, LocalDateTime.now(),LocalDateTime.now().plusMinutes(((Transportes)b).trajetoTempo(((Transportes)b) , this)),((Transportes)b).trajetoPreco(this));
         this.getHistorico().getPedidos().add(novo);
         b.getHistorico().getPedidos().add(novo);
 
@@ -138,7 +138,7 @@ public class Cliente extends Ator{
                 .filter(e -> ((Transportes)e).getServico().equals(servico))
                 .filter(e -> ((Transportes)e).isDisponivel())
                 .filter(e -> ((Transportes)e).getAutonomia() >= ((Transportes) e).distanciaXY(this,((Transportes)e)))
-                .filter(e -> ((Transportes) e).trajetoPreco(((Transportes)e),this) <= custo)
+                .filter(e -> ((Transportes) e).trajetoPreco(this) <= custo)
                 .filter(e -> ((Transportes)e).trajetoTempoTeorico(((Transportes)e),this) <= tempo)
                 .forEach(e -> System.out.println(e.getNome()));
     }

@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Random;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,6 +10,7 @@ public class Transportes extends Ator {
     private double tempoKM;
     private double autonomia;
     private boolean disponivel;
+    private double extra;
 
     //Quanto maior a autonomia, menor o consumo medio;
 
@@ -18,18 +20,20 @@ public class Transportes extends Ator {
         this.precoKM = 0;
         this.tempoKM = 0;
         this.autonomia = 0;
+        this.extra = 0;
         this.disponivel = true;
     }
 
-    public Transportes(double precoKM, double tempoKM, double autonomia, Servico a) {
+    public Transportes(double precoKM, double tempoKM, double autonomia, Servico a,double extra) {
         this.servico = a;
         this.precoKM = precoKM;
         this.tempoKM = tempoKM;
         this.autonomia = autonomia;
+        this.extra = extra;
         this.disponivel = true;
     }
 
-    public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, int x, int y, double tempoKM, double precoKM, double autonomia) {
+    public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, int x, int y, double tempoKM, double precoKM, double autonomia,double extra) {
         super(email, nome, password, morada, dataN, x, y);
         super.setHistorico(new Historico());
         this.servico = a;
@@ -37,17 +41,23 @@ public class Transportes extends Ator {
         this.precoKM = precoKM;
         this.autonomia = autonomia;
         this.disponivel = true;
+        this.extra = extra;
     }
 
     public Transportes(Transportes transportes) {
         super(transportes.getEmail(), transportes.getNome(), transportes.getPassword(), transportes.getPassword(), transportes.getDataN(), transportes.getX(), transportes.getY());
         super.getHistorico();
-        servico = transportes.getServico();
-        tempoKM = transportes.getTempoKM();
-        precoKM = transportes.getPrecoKM();
-        autonomia = transportes.getAutonomia();
-        disponivel = transportes.isDisponivel();
+        this.servico = transportes.getServico();
+        this.tempoKM = transportes.getTempoKM();
+        this.precoKM = transportes.getPrecoKM();
+        this.autonomia = transportes.getAutonomia();
+        this.disponivel = transportes.isDisponivel();
+        this.extra = transportes.getExtra();
     }
+
+    public double getExtra() { return extra; }
+
+    public void setExtra(double extra) { this.extra = extra; }
 
     public boolean isDisponivel() { return disponivel; }
 
@@ -93,6 +103,7 @@ public class Transportes extends Ator {
         s.append("\nPreço por km: " + this.getPrecoKM() );
         s.append("\nTempo por km: "+ this.getTempoKM());
         s.append("\nAutonomia: " + this.getAutonomia());
+        s.append("\nPreco Extra: " + this.getExtra());
         return s.toString();
     }
 
@@ -131,9 +142,28 @@ public class Transportes extends Ator {
 
 
 
-    public double trajetoPreco(Transportes transporte, Cliente cliente){
-        double preco = getPrecoKM();
-        preco *= distanciaXY(cliente,transporte);
+    public double trajetoPreco(Cliente cliente){
+        LocalTime inicio = LocalTime.of(9,0,0);
+        LocalTime fim = LocalTime.of(21,0,0);
+        double preco = 0;
+        double dist = 0;
+        if(this.servico instanceof SRefeicoes){
+            preco = ((SRefeicoes) this.servico).getPrecoFixo();
+            dist =  distanciaXY(cliente,this);
+            if(dist > 5){
+                dist -= 5;
+                preco += (dist*getPrecoKM());
+            }
+
+        }else {
+            preco = getPrecoKM();
+            preco *= distanciaXY(cliente, this);
+        }
+
+        if (LocalTime.now().isAfter(fim) && LocalTime.now().isBefore(inicio)) {
+            preco += extra;
+        }
+
         return preco;
     }
 

@@ -28,9 +28,9 @@ public class SRefeicoes extends Servico {
     public void setPrecoFixo(int limiteT) {
         if(limiteT > 0 && limiteT <= 15){
             if (limiteT <= 5){
-                this.precoFixo = 3; //Assumindo bicicleta ou mota
+                this.precoFixo = 5; //Assumindo bicicleta ou mota
             }else {
-                this.precoFixo = 7; //Assumindo carro
+                this.precoFixo = 8; //Assumindo carro
             }
         }else{
             this.precoFixo = 0;
@@ -43,7 +43,6 @@ public class SRefeicoes extends Servico {
     }
 
 
-
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Serviço de BUS")
@@ -52,10 +51,16 @@ public class SRefeicoes extends Servico {
         return sb.toString();
     }
 
+    @Override
     public boolean equals(Servico servico) {
         if (servico instanceof SRefeicoes)
             return true;
         else
             return false;
+    }
+
+    public boolean verificaRefrigeracao(double tempo){
+        if(tempo > 20){return  true;}
+        else return false;
     }
 }

@@ -41,8 +41,8 @@ public  class Menus {
                         System.out.println("Escolha o seu tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
                         String escolhido = ler.next();
                         Servico a= Transportes.escolherServicoT(escolhido);
-                        a2 = new Transportes("sergio@gmail.com", "Uber", "vitoria", "Rua da", LocalDate.now(),a, 3, 5, 7, 2, 7);
-                        a1=new Transportes("sergio@gmail.com", "Uber2", "vitoria", "Rua da", LocalDate.now(),a, 2, 1, 5, 5, 7);
+                        a2 = new Transportes("sergio@gmail.com", "Uber", "vitoria", "Rua da", LocalDate.now(),a, 3, 5, 7, 2, 7,2);
+                        a1=new Transportes("sergio@gmail.com", "Uber2", "vitoria", "Rua da", LocalDate.now(),a, 2, 1, 5, 5, 7,3);
                         db.Add(a2.getNome(), a2);
                         db.Add(a1.getNome(), a1);
                     }
