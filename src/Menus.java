@@ -97,14 +97,19 @@ public  class Menus {
                             ((Cliente) a1).transportesDisponiveis(servico, db);
                             String escolherTransportadora = ler.next();
                             ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
+                            System.out.println("Tempo estimado de espera:"+db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora),(Cliente)a1));
                             break;
                         }
                         case 2:{
-                            ((Cliente) a1).AddPedido(((Cliente) a1).transporteMaisRapido(servico, db),servico);
+                            Transportes t1 = (Transportes) ((Cliente) a1).transporteMaisRapido(servico, db);
+                            ((Cliente) a1).AddPedido(t1,servico);
+                            System.out.println("Tempo estimado de espera:"+t1.trajetoTempoTeorico(t1,(Cliente)a1));
                             break;
                         }
                         case 3:{
-                            ((Cliente) a1).AddPedido(((Cliente) a1).transporteMaisBarato(servico, db),servico);
+                            Transportes t1 = (Transportes) ((Cliente) a1).transporteMaisBarato(servico, db);
+                            ((Cliente) a1).AddPedido(t1,servico);
+                            System.out.println("Tempo estimado de espera:"+t1.trajetoTempoTeorico(t1,(Cliente)a1));
                             break;
                         }
                         case 4:{
@@ -115,11 +120,12 @@ public  class Menus {
                             ((Cliente)a1).maximoTempoCusto(db,tempo,custo,servico);
                             String escolherTransportadora = ler.next();
                             ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
+                            System.out.println("Tempo estimado de espera:"+db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora),(Cliente)a1));
                             break;
                         }
 
                     }
-
+                    break;
                 }
                 case 2: {
                     System.out.println(a1.getHistorico().getPedidos());
