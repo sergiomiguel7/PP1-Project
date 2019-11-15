@@ -18,7 +18,7 @@ public class Testes
         Servico a= new SPessoas(5, true);
 
        Ator a1 = new Cliente("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDate.now(), 1, 2);
-       Ator a2 = new Transportes("sergio@gmail.com", "Uber", "vitoriag", "Rua da", LocalDate.now(),a, 3, 5, 7, 2, 7);
+       Ator a2 = new Transportes("sergio@gmail.com", "Uber", "vitoriag", "Rua da", LocalDate.now(),a, 3, 5, 7, 2, 7,1);
        nova.Add(a1.getNome(), a1);
        nova.Add(a2.getNome(), a2);
     }
@@ -75,9 +75,8 @@ public class Testes
         ((Cliente)teste).AddPedido(nova.getTransportes("Uber"), testeS);
         Transportes teste2 = nova.getTransportes("Uber");
         teste2.getHistorico().getPedidos().get(0).setConcluido(true);
-        double total =((Cliente) teste).faturadoIntervaloTempo(teste2,LocalDateTime.now(), LocalDateTime.now().plusMinutes(60));
+        double total = ((Cliente) teste).faturadoIntervaloTempo(teste2,LocalDateTime.now(), LocalDateTime.now().plusMinutes(60));
         assertEquals(7 , total, 0);
-
     }
 
 }
