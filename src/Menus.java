@@ -7,18 +7,14 @@ public  class Menus {
     {
         Scanner ler = new Scanner(System.in);
         Ator a1 = new Ator();
-        Ator a2 = new Ator();
-
         int op;
         do {
             System.out.println("1-Login\n2-Registar\n0-Sair");
             op=ler.nextInt();
             switch (op) {
                 case 1: {       //LOGIN!!!!!
-                    System.out.print("Nome:");
-                    String user = ler.next().toLowerCase();
-                    System.out.print("Password:");
-                    String pass = ler.next();
+                    System.out.print("Nome:");String user = ler.nextLine().toLowerCase();
+                    System.out.print("Password:");String pass = ler.nextLine();
                     if (db.verificaLogin(user,pass)) {
                         System.out.println("Login valido");
                         aux.setExistente(true);
@@ -34,16 +30,16 @@ public  class Menus {
                     System.out.println("1-Cliente\n2-Fornecedor");
                     op=ler.nextInt();
                     if(op==1) {
-                        a1 = new Cliente("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDate.now(), 1, 2);
+                        a1 = new Cliente();
+                        a1 = ((Cliente)a1).addCliente();
                         db.Add(a1.getNome(), a1);
                     }
                     else if(op==2) {
+                        a1 = new Transportes();
                         System.out.println("Escolha o seu tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
                         String escolhido = ler.next();
-                        Servico a= Transportes.escolherServicoT(escolhido);
-                        a2 = new Transportes("sergio@gmail.com", "Uber", "vitoria", "Rua da", LocalDate.now(),a, 3, 5, 7, 2, 7,2);
-                        a1=new Transportes("sergio@gmail.com", "Uber2", "vitoria", "Rua da", LocalDate.now(),a, 2, 1, 5, 5, 7,3);
-                        db.Add(a2.getNome(), a2);
+                        Servico a = Transportes.escolherServicoT(escolhido);
+                        a1 = ((Transportes)a1).addTransporte(a);
                         db.Add(a1.getNome(), a1);
                     }
                     else

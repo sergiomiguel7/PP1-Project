@@ -18,7 +18,7 @@ public class Testes
         Servico a= new SPessoas(5, true);
 
        Ator a1 = new Cliente("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDate.now(), 1, 2);
-       Ator a2 = new Transportes("sergio@gmail.com", "Uber", "vitoriag", "Rua da", LocalDate.now(),a, 3, 5, 7, 2, 7,1);
+       Ator a2 = new Transportes("sergio@gmail.com", "Uber", "vitoriag", "Rua da", LocalDate.now(),a, 7, 2, 7,1);
        nova.Add(a1.getNome(), a1);
        nova.Add(a2.getNome(), a2);
     }

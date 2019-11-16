@@ -152,7 +152,17 @@ public class Cliente extends Ator{
                 .forEach(e -> e.setY(y));
     }
 
-
+    public Cliente addCliente(){
+        Scanner ler = new Scanner(System.in);
+        System.out.print("Nome:"); String nome = ler.nextLine();
+        System.out.print("Password:");String pass = ler.nextLine();
+        System.out.print("E-mail:");String email = ler.next();
+        System.out.print("Morada:");String morada = ler.nextLine();
+        System.out.print("Data de Nascimento(dia mes ano):");int dia = ler.nextInt(); int mes = ler.nextInt(); int ano = ler.nextInt();
+        LocalDate datan = LocalDate.of(ano,mes,dia);
+        System.out.print("Coordenadas de Entregas (x y):"); int x = ler.nextInt(); int y = ler.nextInt();
+        return new Cliente(email,nome,pass,morada,datan,x,y);
+    }
 
     public static Servico escolherServicoC (String a)
     {

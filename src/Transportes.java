@@ -33,8 +33,8 @@ public class Transportes extends Ator {
         this.disponivel = true;
     }
 
-    public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, int x, int y, double tempoKM, double precoKM, double autonomia,double extra) {
-        super(email, nome, password, morada, dataN, x, y);
+    public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, double tempoKM, double precoKM, double autonomia,double extra) {
+        super(email, nome, password, morada, dataN, 0, 0);
         super.setHistorico(new Historico());
         this.servico = a;
         this.tempoKM = tempoKM;
@@ -167,6 +167,19 @@ public class Transportes extends Ator {
         return preco;
     }
 
+    public Transportes addTransporte(Servico a){
+        Scanner ler = new Scanner(System.in);
+        System.out.print("Nome:"); String nome = ler.nextLine();
+        System.out.print("Password:");String pass = ler.nextLine();
+        System.out.print("E-mail:");String email = ler.next();
+        System.out.print("Morada:");String morada = ler.nextLine();
+        System.out.print("Data de Nascimento(dia mes ano):");int dia = ler.nextInt(); int mes = ler.nextInt(); int ano = ler.nextInt();
+        LocalDate datan = LocalDate.of(ano,mes,dia);
+        System.out.print("Preço por Km:");double precoKM = ler.nextDouble();
+        System.out.print("Tempo por Km:");double tempoKM = ler.nextDouble();
+        System.out.print("Preco extra (noturno)");double extra = ler.nextDouble();
+        return new Transportes(email,nome,pass,morada,datan,a,tempoKM,precoKM,autonomia,extra);
+    }
 
     public static Servico escolherServicoT(String a)
     {
