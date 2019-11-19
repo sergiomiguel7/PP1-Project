@@ -76,7 +76,7 @@ public class Testes
         Transportes teste2 = nova.getTransportes("Uber");
         teste2.getHistorico().getPedidos().get(0).setConcluido(true);
         double total = ((Cliente) teste).faturadoIntervaloTempo(teste2,LocalDateTime.now(), LocalDateTime.now().plusMinutes(60));
-        assertEquals(7 , total, 0);
+        assertEquals(4 , total, 0);
     }
 
 }

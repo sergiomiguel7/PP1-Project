@@ -154,10 +154,12 @@ public class Cliente extends Ator{
 
     public Cliente addCliente(){
         Scanner ler = new Scanner(System.in);
-        System.out.print("Nome:"); String nome = ler.nextLine();
-        System.out.print("Password:");String pass = ler.nextLine();
+        Scanner ler2= new Scanner(System.in).useDelimiter("\n");
+
+        System.out.print("Nome:"); String nome = ler.next();
+        System.out.print("Password:");String pass = ler.next();
         System.out.print("E-mail:");String email = ler.next();
-        System.out.print("Morada:");String morada = ler.nextLine();
+        System.out.print("Morada:");String morada = ler2.next();
         System.out.print("Data de Nascimento(dia mes ano):");int dia = ler.nextInt(); int mes = ler.nextInt(); int ano = ler.nextInt();
         LocalDate datan = LocalDate.of(ano,mes,dia);
         System.out.print("Coordenadas de Entregas (x y):"); int x = ler.nextInt(); int y = ler.nextInt();

@@ -13,8 +13,8 @@ public  class Menus {
             op=ler.nextInt();
             switch (op) {
                 case 1: {       //LOGIN!!!!!
-                    System.out.print("Nome:");String user = ler.nextLine().toLowerCase();
-                    System.out.print("Password:");String pass = ler.nextLine();
+                    System.out.print("Nome:");String user = ler.next().toLowerCase();
+                    System.out.print("Password:");String pass = ler.next();
                     if (db.verificaLogin(user,pass)) {
                         System.out.println("Login valido");
                         aux.setExistente(true);
