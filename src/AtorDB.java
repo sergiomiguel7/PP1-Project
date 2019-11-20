@@ -76,6 +76,12 @@ public class AtorDB {
             a.getHistorico().getPedidos().stream()
                     .filter(pedido -> pedido.getDataFim().isBefore(LocalDateTime.now()))
                     .forEach(pedido -> pedido.setConcluido(true));
+
+            if(a instanceof Transportes){
+                if(a.getHistorico().getPedidos().size() == a.getHistorico().getPedidosConcluidos().size()){
+                    ((Transportes) a).setDisponivel(true);
+                }
+            }
         }
     }
 

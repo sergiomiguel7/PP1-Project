@@ -100,7 +100,7 @@ public class Cliente extends Ator{
         Pedido novo= new Pedido(servico, LocalDateTime.now(),LocalDateTime.now().plusMinutes(((Transportes)b).trajetoTempo(((Transportes)b) , this)),((Transportes)b).trajetoPreco(this));
         this.getHistorico().getPedidos().add(novo);
         b.getHistorico().getPedidos().add(novo);
-
+        ((Transportes) b).setDisponivel(false);
     }
 
     public void maisServicosEfetuados(AtorDB atordb){
