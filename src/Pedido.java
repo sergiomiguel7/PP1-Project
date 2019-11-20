@@ -76,4 +76,18 @@ public class Pedido {
                 .append("\nPedido Concluido: ").append(this.concluido);
         return sb.toString();
     }
+
+
+    public boolean equals(Pedido pedido)
+    {
+        if(this==pedido)
+            return true;
+        if((pedido == null ) || (pedido.getClass() != this.getClass())) return false;
+
+        return this.dataInicio.equals(pedido.getDataInicio()) &&
+                this.dataFim.equals(pedido.getDataFim()) &&
+                this.preco == pedido.getPreco();
+
+    }
+
 }

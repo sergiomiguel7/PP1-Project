@@ -103,7 +103,7 @@ public class Cliente extends Ator{
 
     }
 
-    public List<Ator> maisServicosEfetuados(AtorDB atordb){
+    public void maisServicosEfetuados(AtorDB atordb){
 
         List<Integer> valores =   atordb.getUtilizadores().values().stream()
                 .filter(ator -> ator instanceof Transportes)
@@ -120,7 +120,11 @@ public class Cliente extends Ator{
                 }
             }
         }
-        return atores;
+        for(Ator a : atores)
+        {
+            System.out.println("Nome:"+a.getNome()+"\nServiços efetuados:"+a.getHistorico().getPedidosConcluidos().size());
+        }
+
     }
 
     public double faturadoIntervaloTempo(Transportes transportes,LocalDateTime inicio,LocalDateTime fim){
@@ -165,6 +169,8 @@ public class Cliente extends Ator{
         System.out.print("Coordenadas de Entregas (x y):"); int x = ler.nextInt(); int y = ler.nextInt();
         return new Cliente(email,nome,pass,morada,datan,x,y);
     }
+
+
 
     public static Servico escolherServicoC (String a)
     {

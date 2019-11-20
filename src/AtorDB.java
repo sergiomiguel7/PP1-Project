@@ -1,4 +1,5 @@
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +67,30 @@ public class AtorDB {
 
 
         return this.logInfo;
+    }
+
+    public void atualizaPedidos()
+    {
+        for(Ator a : this.utilizadores.values())
+        {
+            a.getHistorico().getPedidos().stream()
+                    .filter(pedido -> pedido.getDataFim().isBefore(LocalDateTime.now()))
+                    .forEach(pedido -> pedido.setConcluido(true));
+        }
+    }
+
+    public Ator pedidoData(Pedido pedido){
+
+        for(Ator a : this.getUtilizadores().values()){
+            if(a instanceof Transportes){
+                for(Pedido p : a.getHistorico().getPedidos()){
+                    if(p.equals(pedido)){
+                        return a;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 }

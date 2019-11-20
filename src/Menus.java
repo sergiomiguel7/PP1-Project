@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public  class Menus {
@@ -9,6 +10,7 @@ public  class Menus {
         Ator a1 = new Ator();
         int op;
         do {
+            db.atualizaPedidos();
             System.out.println("1-Login\n2-Registar\n0-Sair");
             op=ler.nextInt();
             switch (op) {
@@ -70,23 +72,26 @@ public  class Menus {
         double custo;
         double x,y;
         do {
-            System.out.println("1-Efetuar Pedido\n2-Mostrar histórico de pedidos\n3-Alterar dados\n4-Lista de transportadoras com mais serviços efetuados\n0-Sair");
+            db.atualizaPedidos();
+            System.out.println("1-Efetuar Pedido\n2-Mostrar histórico de pedidos\n3-Alterar dados\n4-Repetir serviço\n5-Lista de transportadoras com mais serviços efetuados\n0-Sair");
             op=ler.nextInt();
             switch (op)
             {
                 case 1:
                 {
                     
-                    System.out.println("Escolha o tipo de serviço que deseja:");
+                    System.out.println("Escolha o tipo de serviço que deseja: Pessoas, Bus, Big, Urgentes ou Refeições");
                     String escolhido = ler.next();
-                    System.out.println("Escreva as coordenadas do vendedor!");
-                    System.out.print("Coordenada X:");
-                    x=ler.nextDouble();
-                    System.out.print("Coordenada Y:");
-                    y=ler.nextDouble();
+
+                    if(escolhido.equalsIgnoreCase("Pessoas") || escolhido.equalsIgnoreCase("Bus"))
+                        System.out.print("Escreva as coordenadas de onde se encontra:");
+                    else
+                        System.out.print("Escreva as coordenadas do vendedor:");
+                    System.out.print("Coordenada X:");x=ler.nextDouble();
+                    System.out.print("Coordenada Y:");y=ler.nextDouble();
                     ((Cliente)a1).atualizarCoordenadas(x,y,db);
                     Servico servico = Cliente.escolherServicoC(escolhido);
-                    System.out.println("Escolha:\n1 - Mostrar todos disponiveis\n2 - Escolher o mais rapido\n 3 - Escolher o mais barato\n 4 - Com tempo e custo máximo");
+                    System.out.println("Escolha:\n1- Mostrar todos disponiveis\n2- Escolher o mais rapido\n3- Escolher o mais barato\n4- Com tempo e custo máximo");
                     int op2 = ler.nextInt();
                     switch (op2){
                         case 1:{
@@ -124,7 +129,7 @@ public  class Menus {
                     break;
                 }
                 case 2: {
-                    System.out.println(a1.getHistorico().getPedidos());
+                    System.out.println(a1.getHistorico().getPedidosConcluidos());
                     break;
                 }
                 case 3: {
@@ -134,8 +139,15 @@ public  class Menus {
                     String opcao = ler.next();
                     a1.alteraDados(opcao, ler);
                 }
-                case 4: {
-                    System.out.println(((Cliente) a1).maisServicosEfetuados(db));
+                case 4:{
+
+                    Pedido antigo = a1.getHistorico().getPedido(a1.getHistorico().getPedidosConcluidos());
+                    if(antigo!=null)
+                        ((Cliente)a1).AddPedido(db.pedidoData(antigo), ((Transportes)db.pedidoData(antigo)).getServico());
+                    break;
+                }
+                case 5: {
+                    ((Cliente) a1).maisServicosEfetuados(db);
                     break;
                 }
                 case 0:
@@ -149,6 +161,7 @@ public  class Menus {
         Scanner ler = new Scanner(System.in);
         int op;
             do{
+                db.atualizaPedidos();
                System.out.println("1 - Mostrar Pedidos Recentes\n2 - Mostrar Pedidos Concluidos\n3 - Alterar dados\n0 - Sair");
                op = ler.nextInt();
                switch (op){

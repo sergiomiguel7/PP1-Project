@@ -179,7 +179,8 @@ public class Transportes extends Ator {
         LocalDate datan = LocalDate.of(ano,mes,dia);
         System.out.print("Preço por Km:");double precoKM = ler.nextDouble();
         System.out.print("Tempo por Km:");double tempoKM = ler.nextDouble();
-        System.out.print("Preco extra (noturno)");double extra = ler.nextDouble();
+        System.out.print("Autonomia:");double autonomia = ler.nextDouble();
+        System.out.print("Preco extra (noturno):");double extra = ler.nextDouble();
         return new Transportes(email,nome,pass,morada,datan,a,tempoKM,precoKM,autonomia,extra);
     }
 
