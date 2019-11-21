@@ -1,10 +1,11 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class Historico {
+public class Historico implements Serializable {
     //atributos
     private List<Pedido> pedidos;
 

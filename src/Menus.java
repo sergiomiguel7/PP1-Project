@@ -10,7 +10,6 @@ public  class Menus {
         Ator a1 = new Ator();
         int op;
         do {
-            db.atualizaPedidos();
             System.out.println("1-Login\n2-Registar\n0-Sair");
             op=ler.nextInt();
             switch (op) {
@@ -51,6 +50,7 @@ public  class Menus {
                 break;
                 case 0: {
                     System.out.println("Sair");
+                    db.gravaFicheiro();
                     System.exit(0);
                 }
 
@@ -138,6 +138,7 @@ public  class Menus {
                     System.out.println("\nO que pretende mudar?");
                     String opcao = ler.next();
                     a1.alteraDados(opcao, ler);
+                    break;
                 }
                 case 4:{
 

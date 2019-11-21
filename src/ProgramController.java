@@ -21,7 +21,7 @@ public class ProgramController {
         ProgramController aux = new ProgramController();
         AtorDB db = new AtorDB();
         Scanner ler = new Scanner(System.in);
-
+        db.leFicheiro();
 
 
 
@@ -36,6 +36,7 @@ public class ProgramController {
                 }
             }
         }
+
     }
 
 

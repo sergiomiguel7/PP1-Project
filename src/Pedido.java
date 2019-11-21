@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Pedido {
+public class Pedido implements Serializable {
     private boolean concluido;
     private Servico servico;
     private LocalDateTime dataInicio;

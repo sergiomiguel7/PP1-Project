@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Scanner;
 
-public abstract class Servico {
+public abstract class Servico implements Serializable {
 
     private boolean transporteTC;   //temperatura constante
     private int limiteT;            //limite de carga(pessoas ou kg)

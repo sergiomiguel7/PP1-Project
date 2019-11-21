@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-public class Ator {
+public class Ator implements Serializable {
 
     private String email, nome,password,morada;
     private LocalDate dataN;

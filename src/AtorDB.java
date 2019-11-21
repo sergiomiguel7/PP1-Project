@@ -1,10 +1,11 @@
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class AtorDB {
+public class AtorDB implements Serializable {
     private Map<String,Ator> utilizadores;
     private boolean logInfo;
 
@@ -99,4 +100,38 @@ public class AtorDB {
         return null;
     }
 
+    public void gravaFicheiro()
+    {
+        try{
+            File fileOne=new File("Dados.csv");
+            FileOutputStream fos=new FileOutputStream(fileOne);
+            ObjectOutputStream oos=new ObjectOutputStream(fos);
+
+            oos.writeObject(this.utilizadores);
+            oos.flush();
+            oos.close();
+            fos.close();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
+
+    public void leFicheiro()
+    {
+        try{
+            File toRead=new File("Dados.csv");
+            FileInputStream fis=new FileInputStream(toRead);
+            ObjectInputStream ois=new ObjectInputStream(fis);
+            HashMap<String,Ator> mapInFile=(HashMap<String,Ator>)ois.readObject();
+            ois.close();
+            fis.close();
+            //print All data in MAP
+            this.utilizadores=mapInFile;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

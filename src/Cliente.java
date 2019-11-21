@@ -1,9 +1,6 @@
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -97,10 +94,12 @@ public class Cliente extends Ator{
 
     public void AddPedido(Ator b, Servico servico)
     {
-        Pedido novo= new Pedido(servico, LocalDateTime.now(),LocalDateTime.now().plusMinutes(((Transportes)b).trajetoTempo(((Transportes)b) , this)),((Transportes)b).trajetoPreco(this));
-        this.getHistorico().getPedidos().add(novo);
-        b.getHistorico().getPedidos().add(novo);
-        ((Transportes) b).setDisponivel(false);
+        if(((Transportes)b).isDisponivel()) {
+            Pedido novo = new Pedido(servico, LocalDateTime.now(), LocalDateTime.now().plusMinutes(((Transportes) b).trajetoTempo(((Transportes) b), this)), ((Transportes) b).trajetoPreco(this));
+            this.getHistorico().getPedidos().add(novo);
+            b.getHistorico().getPedidos().add(novo);
+            ((Transportes) b).setDisponivel(false);
+        }
     }
 
     public void maisServicosEfetuados(AtorDB atordb){
