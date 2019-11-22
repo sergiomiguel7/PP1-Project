@@ -1,4 +1,6 @@
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Random;
 import java.util.*;
@@ -105,6 +107,17 @@ public class Transportes extends Ator {
         s.append("\nAutonomia: " + this.getAutonomia());
         s.append("\nPreco Extra: " + this.getExtra());
         return s.toString();
+    }
+
+    public long tempoRestante()
+    {
+        Pedido naoC= this.getHistorico().getPedidos().stream()
+                .filter(s -> !s.isConcluido())
+                .findFirst().get();
+
+        Duration duration = Duration.between(naoC.getDataFim(), LocalDateTime.now());
+        return duration.toMinutes();
+
     }
 
     public double distanciaXY(Cliente cliente, Transportes transportes) {

@@ -143,8 +143,13 @@ public  class Menus {
                 case 4:{
 
                     Pedido antigo = a1.getHistorico().getPedido(a1.getHistorico().getPedidosConcluidos());
-                    if(antigo!=null)
-                        ((Cliente)a1).AddPedido(db.pedidoData(antigo), ((Transportes)db.pedidoData(antigo)).getServico());
+                    Transportes requisitado= ((Transportes)db.pedidoData(antigo));
+                    if(antigo!=null ) {
+                        if(requisitado.isDisponivel())
+                            ((Cliente) a1).AddPedido(db.pedidoData(antigo), ((Transportes) db.pedidoData(antigo)).getServico());
+                        else
+                            System.out.println("Transportadora estará disponivel dentro de" + requisitado.tempoRestante() + "minutos");
+                    }
                     break;
                 }
                 case 5: {

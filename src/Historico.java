@@ -29,7 +29,7 @@ public class Historico implements Serializable {
         int i=1;
         for(Pedido p : concluidos)
         {
-            System.out.println(i+" Serviço:"+p.getServico()+"\nPreço:"+p.getPreco());
+            System.out.println(i+" Serviço:"+p.getServico().getClass().getSimpleName()+"\nPreço:"+p.getPreco());
             i++;
         }
         System.out.println("Escolha o numero do serviço que pretende repetir se mudou de ideias escreva 0.");
