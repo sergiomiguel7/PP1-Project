@@ -13,6 +13,8 @@ public class Transportes extends Ator {
     private double autonomia;
     private boolean disponivel;
     private double extra;
+    private Comparator<Transportes> maisRapido = (t1,t2) -> (int) (t1.getTempoKM() - t2.getTempoKM());
+    private Comparator<Transportes> maisBarato = (t1,t2) -> (int) (t1.getPrecoKM() - t2.getPrecoKM());
 
     //Quanto maior a autonomia, menor o consumo medio;
 
@@ -256,4 +258,33 @@ public class Transportes extends Ator {
         return novo;
 
     }
+
+    public Transportes transporteRapido(AtorDB db, Servico servico,Cliente cliente){
+        TreeSet<Transportes> res = new TreeSet<>(maisRapido);
+        for(Ator a : db.getUtilizadores().values()) {
+            if(a instanceof Transportes ){
+                if (this.servico.equals(servico) && ((Transportes) a).isDisponivel() &&
+                        this.servico.getLimiteT() >= servico.getLimiteT() &&
+                        this.autonomia >= ((Transportes) a).distanciaXY(cliente,this)){
+                    res.add((Transportes) a);
+                }
+            }
+        }
+        return res.first();
+    }
+
+    public Transportes maisBarato(AtorDB db, Servico servico,Cliente cliente){
+        TreeSet<Transportes> res = new TreeSet<>(maisBarato);
+        for(Ator a : db.getUtilizadores().values()) {
+            if(a instanceof Transportes ){
+                if (this.servico.equals(servico) && ((Transportes) a).isDisponivel() &&
+                        this.servico.getLimiteT() >= servico.getLimiteT() &&
+                        this.autonomia >= ((Transportes) a).distanciaXY(cliente,this)){
+                    res.add((Transportes) a);
+                }
+            }
+        }
+        return res.first();
+    }
+
 }
