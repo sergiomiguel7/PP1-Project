@@ -66,7 +66,6 @@ public  class Menus {
     public static void menuCliente(AtorDB db, Ator a1)
     {
         Transportes t1 = new Transportes();
-        Ator a2 = new Ator();
         Pedido p1 = new Pedido();
         Scanner ler = new Scanner(System.in);
         int escolha;
@@ -99,20 +98,20 @@ public  class Menus {
                     switch (op2){
                         case 1:{
                             Iterator<Transportes> it = t1.transportesDisponiveis(db,servico,(Cliente) a1);
-                            while (it.hasNext())System.out.println(it.next());
+                            while (it.hasNext())System.out.println(it.next().getNome());  //depois meter mais info
                             String escolherTransportadora = ler.next();
                             ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
                             System.out.println("Tempo estimado de espera:"+db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora),(Cliente)a1));
                             break;
                         }
                         case 2:{
-                            a2 = t1.transporteMaisRapido(db,servico,(Cliente) a1);
+                            t1 = (Transportes) t1.transporteMaisRapido(db,servico,(Cliente) a1);
                             ((Cliente) a1).AddPedido(t1,servico);
                             System.out.println("Tempo estimado de espera:"+t1.trajetoTempoTeorico(t1,(Cliente)a1));
                             break;
                         }
                         case 3:{
-                            a2 = t1.transporteMaisBarato(db,servico,(Cliente) a1);
+                            t1 = (Transportes) t1.transporteMaisBarato(db,servico,(Cliente) a1);
                             ((Cliente) a1).AddPedido(t1,servico);
                             System.out.println("Tempo estimado de espera:"+t1.trajetoTempoTeorico(t1,(Cliente)a1));
                             break;

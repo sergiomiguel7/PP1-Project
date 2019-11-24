@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,8 +14,9 @@ public class Transportes extends Ator {
     private double autonomia;
     private boolean disponivel;
     private double extra;
-    private Comparator<Transportes> maisRapido = (t1,t2) -> (int) (t1.getTempoKM() - t2.getTempoKM());
-    private Comparator<Transportes> maisBarato = (t1,t2) -> (int) (t1.getPrecoKM() - t2.getPrecoKM());
+
+
+
 
     //Quanto maior a autonomia, menor o consumo medio;
 
@@ -259,32 +261,37 @@ public class Transportes extends Ator {
 
     }
     public Iterator<Transportes> transportesDisponiveis(AtorDB db, Servico servico,Cliente cliente){
-        TreeSet<Transportes> res = codicaoTreeSet(null,db,servico,cliente);
+        Comparator<Transportes >byNome = Comparator.comparing(Transportes::getNome);
+        TreeSet<Transportes> res = codicaoTreeSet(byNome,db,servico,cliente);
         return res.iterator();
     }
 
     public Ator transporteMaisRapido(AtorDB db, Servico servico,Cliente cliente){
+        Comparator<Transportes> maisRapido = (t1,t2) -> (int) (t1.getTempoKM() - t2.getTempoKM());
         TreeSet<Transportes> res = codicaoTreeSet(maisRapido,db,servico,cliente);
         return res.first();
     }
 
     public Ator transporteMaisBarato(AtorDB db, Servico servico,Cliente cliente){
+        Comparator<Transportes> maisBarato = (t1,t2) -> (int) (t1.getPrecoKM() - t2.getPrecoKM());
         TreeSet<Transportes> res = codicaoTreeSet(maisBarato,db,servico,cliente);
         return res.first();
     }
 
     public TreeSet<Transportes> codicaoTreeSet(Comparator<Transportes> c, AtorDB db,Servico servico, Cliente cliente){
         TreeSet<Transportes> res = new TreeSet<>(c);
+        List<Transportes> aux = new ArrayList<>();
         for(Ator a : db.getUtilizadores().values()) {
             if(a instanceof Transportes ){
-                if (this.servico.equals(servico) && ((Transportes) a).isDisponivel() &&
-                        this.servico.getLimiteT() >= servico.getLimiteT() &&
-                        this.autonomia >= ((Transportes) a).distanciaXY(cliente,this)){
-                    res.add((Transportes) a);
+                if (((Transportes) a).getServico().equals(servico) && ((Transportes) a).isDisponivel() &&
+                        ((Transportes) a).getServico().getLimiteT() >= servico.getLimiteT() &&
+                        ((Transportes) a).getAutonomia() >= ((Transportes) a).distanciaXY(cliente,db.getTransportes(a.getNome()))){
+                    aux.add((Transportes) a);
                 }
             }
         }
-        return res;
+        res.addAll(aux);
+        return res ;
     }
 
 }
