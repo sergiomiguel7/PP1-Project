@@ -33,7 +33,7 @@ public class Cliente extends Ator{
         return s.toString();
     }
 
-    public void transportesDisponiveis(Servico servico,AtorDB atordb){
+   /* public void transportesDisponiveis(Servico servico,AtorDB atordb){
         if(servico != null) {
                 System.out.println("Transportadoras Disponiveis:");
                 atordb.getUtilizadores().values().stream()
@@ -78,7 +78,7 @@ public class Cliente extends Ator{
                 .filter(e -> e instanceof Transportes)
                 .filter(e -> (((Transportes) e).getTempoKM()) == rapido)
                 .findFirst().get();
-    }
+    }*/
 
     public Ator transportePreco(Servico servico,double preco,AtorDB atordb){
         return atordb.getUtilizadores().values().stream()

@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -64,6 +65,8 @@ public  class Menus {
 
     public static void menuCliente(AtorDB db, Ator a1)
     {
+        Transportes t1 = new Transportes();
+        Ator a2 = new Ator();
         Pedido p1 = new Pedido();
         Scanner ler = new Scanner(System.in);
         int escolha;
@@ -95,20 +98,21 @@ public  class Menus {
                     int op2 = ler.nextInt();
                     switch (op2){
                         case 1:{
-                            ((Cliente) a1).transportesDisponiveis(servico, db);
+                            Iterator<Transportes> it = t1.transportesDisponiveis(db,servico,(Cliente) a1);
+                            while (it.hasNext())System.out.println(it.next());
                             String escolherTransportadora = ler.next();
                             ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora),servico);
                             System.out.println("Tempo estimado de espera:"+db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora),(Cliente)a1));
                             break;
                         }
                         case 2:{
-                            Transportes t1 = (Transportes) ((Cliente) a1).transporteMaisRapido(servico, db);
+                            a2 = t1.transporteMaisRapido(db,servico,(Cliente) a1);
                             ((Cliente) a1).AddPedido(t1,servico);
                             System.out.println("Tempo estimado de espera:"+t1.trajetoTempoTeorico(t1,(Cliente)a1));
                             break;
                         }
                         case 3:{
-                            Transportes t1 = (Transportes) ((Cliente) a1).transporteMaisBarato(servico, db);
+                            a2 = t1.transporteMaisBarato(db,servico,(Cliente) a1);
                             ((Cliente) a1).AddPedido(t1,servico);
                             System.out.println("Tempo estimado de espera:"+t1.trajetoTempoTeorico(t1,(Cliente)a1));
                             break;

@@ -190,6 +190,10 @@ public class Ator implements Serializable {
                 a.getX() == this.x &&
                 a.getY() == this.y;
     }
+
+    public int compareTo(Ator a){
+        return this.nome.compareTo(a.getNome());
+    }
 }
 
 

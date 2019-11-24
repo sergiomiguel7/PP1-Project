@@ -258,23 +258,23 @@ public class Transportes extends Ator {
         return novo;
 
     }
+    public Iterator<Transportes> transportesDisponiveis(AtorDB db, Servico servico,Cliente cliente){
+        TreeSet<Transportes> res = codicaoTreeSet(null,db,servico,cliente);
+        return res.iterator();
+    }
 
-    public Transportes transporteRapido(AtorDB db, Servico servico,Cliente cliente){
-        TreeSet<Transportes> res = new TreeSet<>(maisRapido);
-        for(Ator a : db.getUtilizadores().values()) {
-            if(a instanceof Transportes ){
-                if (this.servico.equals(servico) && ((Transportes) a).isDisponivel() &&
-                        this.servico.getLimiteT() >= servico.getLimiteT() &&
-                        this.autonomia >= ((Transportes) a).distanciaXY(cliente,this)){
-                    res.add((Transportes) a);
-                }
-            }
-        }
+    public Ator transporteMaisRapido(AtorDB db, Servico servico,Cliente cliente){
+        TreeSet<Transportes> res = codicaoTreeSet(maisRapido,db,servico,cliente);
         return res.first();
     }
 
-    public Transportes maisBarato(AtorDB db, Servico servico,Cliente cliente){
-        TreeSet<Transportes> res = new TreeSet<>(maisBarato);
+    public Ator transporteMaisBarato(AtorDB db, Servico servico,Cliente cliente){
+        TreeSet<Transportes> res = codicaoTreeSet(maisBarato,db,servico,cliente);
+        return res.first();
+    }
+
+    public TreeSet<Transportes> codicaoTreeSet(Comparator<Transportes> c, AtorDB db,Servico servico, Cliente cliente){
+        TreeSet<Transportes> res = new TreeSet<>(c);
         for(Ator a : db.getUtilizadores().values()) {
             if(a instanceof Transportes ){
                 if (this.servico.equals(servico) && ((Transportes) a).isDisponivel() &&
@@ -284,7 +284,7 @@ public class Transportes extends Ator {
                 }
             }
         }
-        return res.first();
+        return res;
     }
 
 }
