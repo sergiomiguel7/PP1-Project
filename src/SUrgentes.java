@@ -22,7 +22,7 @@ public class SUrgentes extends Servico {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Serviço de BUS")
+        sb.append("Serviço de Urgentes")
                 .append("\nTemperatura constante:").append(super.isTransporteTC())
                 .append("\nLimite de Pessoas:").append(super.getLimiteT());
         return sb.toString();

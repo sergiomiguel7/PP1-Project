@@ -37,8 +37,7 @@ public abstract class Servico implements Serializable {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Temperatura Constante:").append(this.transporteTC)
-                .append("Limite de Carga:").append(this.limiteT);
+        sb.append("Limite de Carga:").append(this.limiteT);
         return sb.toString();
     }
 }

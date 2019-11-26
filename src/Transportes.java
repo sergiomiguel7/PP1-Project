@@ -14,8 +14,7 @@ public class Transportes extends Ator {
     private double autonomia;
     private boolean disponivel;
     private double extra;
-
-
+    private static final long serialVersionUID = 2L;
 
 
     //Quanto maior a autonomia, menor o consumo medio;
@@ -184,82 +183,7 @@ public class Transportes extends Ator {
         return preco;
     }
 
-    public Transportes addTransporte(Servico a){
 
-        Scanner ler = new Scanner(System.in);
-        Scanner ler2 = new Scanner(System.in).useDelimiter("\n");
-        System.out.print("Nome:"); String nome = ler.next();
-        System.out.print("Password:");String pass = ler.next();
-        System.out.print("E-mail:");String email = ler.next();
-        System.out.print("Morada:"); String morada = ler2.next();
-        System.out.print("Data de Nascimento(dia mes ano):");int dia = ler.nextInt(); int mes = ler.nextInt(); int ano = ler.nextInt();
-        LocalDate datan = LocalDate.of(ano,mes,dia);
-        System.out.print("Preço por Km:");double precoKM = ler.nextDouble();
-        System.out.print("Tempo por Km:");double tempoKM = ler.nextDouble();
-        System.out.print("Autonomia:");double autonomia = ler.nextDouble();
-        System.out.print("Preco extra (noturno):");double extra = ler.nextDouble();
-        return new Transportes(email,nome,pass,morada,datan,a,tempoKM,precoKM,autonomia,extra);
-    }
-
-    public static Servico escolherServicoT(String a)
-    {
-        Scanner ler = new Scanner(System.in);
-        Servico novo;
-        while(true) {
-            if (a.equalsIgnoreCase("Pessoas"))
-            {
-                int limit;
-                boolean criancas = false;
-                System.out.println("Maximo de pessoas que vai transportar [1,7]:");
-                limit = ler.nextInt();
-                System.out.println("Permite o transporte de crianças?(Sim ou Não)");
-                if (ler.next().equalsIgnoreCase("sim"))
-                    criancas = true;
-                else
-                    criancas = false;
-                novo = new SPessoas(limit, criancas);
-                break;
-            } else if (a.equalsIgnoreCase("Bus"))
-            {
-                int limit;
-                boolean criancas = false;
-                System.out.println("Maximo de pessoas que vai transportar [1,68]:");
-                limit = ler.nextInt();
-                System.out.println("Permite o transporte de crianças?(Sim ou Não)");
-                if (ler.next().equalsIgnoreCase("sim"))
-                    criancas = true;
-                else
-                    criancas = false;
-                novo = new SBus(limit, criancas);
-                break;
-            } else if (a.equalsIgnoreCase("Big")) {
-                int limit;
-                boolean criancas = false;
-                System.out.println("Maximo de carga que vai transportar (até 6 toneladas):");
-                limit = ler.nextInt();
-                novo = new SBig(limit);
-                break;
-            } else if (a.equalsIgnoreCase("Urgentes")) {
-                int limit;
-                System.out.println("Maximo de produtos por utilizador que pode transportar:");
-                limit=ler.nextInt();
-                novo= new SUrgentes(limit);
-                break;
-            } else if (a.equalsIgnoreCase("Refeições")) {
-                int limit;
-                System.out.println("Maximo de refeições por utilizador que pode transportar[1,15]:");
-                limit=ler.nextInt();
-                novo= new SRefeicoes(limit);
-                break;
-            }
-            else{
-                novo=null;
-                break;
-            }
-        }
-        return novo;
-
-    }
     public Iterator<Transportes> transportesDisponiveis(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes >byNome = Comparator.comparing(Transportes::getNome);
         TreeSet<Transportes> res = codicaoTreeSet(byNome,db,servico,cliente);
@@ -276,6 +200,30 @@ public class Transportes extends Ator {
         Comparator<Transportes> maisBarato = (t1,t2) -> (int) (t1.getPrecoKM() - t2.getPrecoKM());
         TreeSet<Transportes> res = codicaoTreeSet(maisBarato,db,servico,cliente);
         return res.first();
+    }
+
+
+    public List<Transportes> maisServicosEfetuados(AtorDB atordb)
+    {
+        Comparator<Transportes> byServicosE = (t1,t2)->  (int) (t1.getHistorico().getPedidosConcluidos().size()-t2.getHistorico().getPedidosConcluidos().size());
+        List<Integer> valores =   atordb.getUtilizadores().values().stream()
+                .filter(ator -> ator instanceof Transportes)
+                .map(ator -> ((Transportes) ator).getHistorico().getPedidosConcluidos().size())
+                .sorted()
+                .collect(Collectors.toList());
+
+        List<Transportes> atores = new ArrayList<>();
+        for(int i : valores){
+            for(Ator a : atordb.getUtilizadores().values()){
+                if(a instanceof Transportes && a.getHistorico().getPedidosConcluidos().size() == i && a.getHistorico().getPedidosConcluidos().size()>0){
+                    atores.add(((Transportes)a));
+                    break;
+                }
+            }
+        }
+        atores.sort(byServicosE);
+
+        return atores;
     }
 
     public TreeSet<Transportes> codicaoTreeSet(Comparator<Transportes> c, AtorDB db,Servico servico, Cliente cliente){

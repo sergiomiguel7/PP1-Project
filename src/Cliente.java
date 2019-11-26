@@ -1,11 +1,14 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Cliente extends Ator{
+
+    private static final long serialVersionUID = 3L;
 
     //construtores
     public Cliente()
@@ -33,64 +36,6 @@ public class Cliente extends Ator{
         return s.toString();
     }
 
-   /* public void transportesDisponiveis(Servico servico,AtorDB atordb){
-        if(servico != null) {
-                System.out.println("Transportadoras Disponiveis:");
-                atordb.getUtilizadores().values().stream()
-                        .filter(e -> e instanceof Transportes)
-                        .filter(e -> ((Transportes) e).getServico().equals(servico))
-                        .filter(e -> ((Transportes) e).isDisponivel())
-                        .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
-                        .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
-                        .forEach(s -> System.out.println(s.getNome()));
-            }
-    }
-
-    public Ator transporteMaisBarato(Servico servico, AtorDB atordb){
-            double barato = atordb.getUtilizadores().values().stream()
-                    .filter(e -> e instanceof Transportes)
-                    .filter(e -> ((Transportes) e).getServico().equals(servico))
-                    .filter(e -> ((Transportes) e).isDisponivel())
-                    .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
-                    .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
-                    .map(e -> ((Transportes) e).getPrecoKM())
-                    .sorted()
-                    .findFirst().get();
-
-            return atordb.getUtilizadores().values().stream()
-                    .filter(e -> e instanceof Transportes)
-                    .filter(e -> (((Transportes) e).getPrecoKM()) == barato)
-                    .findFirst().get();
-
-    }
-
-    public Ator transporteMaisRapido(Servico servico,AtorDB atordb){
-        double rapido = atordb.getUtilizadores().values().stream()
-                .filter(e -> e instanceof Transportes)
-                .filter(e -> ((Transportes) e).getServico().equals(servico))
-                .filter(e -> ((Transportes) e).isDisponivel())
-                .filter(e -> ((Transportes) e).getServico().getLimiteT() >= servico.getLimiteT())
-                .filter(e -> ((Transportes) e).getAutonomia() >= ((Transportes) e).distanciaXY(this,(Transportes) e))
-                .map(e -> ((Transportes) e).getTempoKM())
-                .sorted().findFirst().get();
-
-        return atordb.getUtilizadores().values().stream()
-                .filter(e -> e instanceof Transportes)
-                .filter(e -> (((Transportes) e).getTempoKM()) == rapido)
-                .findFirst().get();
-    }*/
-
-    public Ator transportePreco(Servico servico,double preco,AtorDB atordb){
-        return atordb.getUtilizadores().values().stream()
-                .filter(e -> e instanceof Transportes)
-                .filter(e -> ((Transportes) e).getServico().equals(servico))
-                .filter(e -> ((Transportes) e).isDisponivel())
-                .filter(e -> ((Transportes) e).getServico().getLimiteT() == servico.getLimiteT())
-                .filter(e -> ((Transportes) e).trajetoPreco(this) == preco)
-                .sorted().findFirst().get();
-    }
-
-
 
     public void AddPedido(Ator b, Servico servico)
     {
@@ -102,29 +47,6 @@ public class Cliente extends Ator{
         }
     }
 
-    public void maisServicosEfetuados(AtorDB atordb){
-
-        List<Integer> valores =   atordb.getUtilizadores().values().stream()
-                .filter(ator -> ator instanceof Transportes)
-                .map(ator -> ((Transportes) ator).getHistorico().getPedidosConcluidos().size())
-                .sorted()
-                .collect(Collectors.toList());
-
-        List<Ator> atores = new ArrayList<>();
-        for(int i : valores){
-            for(Ator a : atordb.getUtilizadores().values()){
-                if(a instanceof Transportes && a.getHistorico().getPedidosConcluidos().size() == i){
-                    atores.add(a);
-                    break;
-                }
-            }
-        }
-        for(Ator a : atores)
-        {
-            System.out.println("Nome:"+a.getNome()+"\nServiços efetuados:"+a.getHistorico().getPedidosConcluidos().size());
-        }
-
-    }
 
     public double faturadoIntervaloTempo(Transportes transportes,LocalDateTime inicio,LocalDateTime fim){
         List<Pedido> pedidosconc = transportes.getHistorico().getPedidosConcluidos();
@@ -155,68 +77,7 @@ public class Cliente extends Ator{
                 .forEach(e -> e.setY(y));
     }
 
-    public Cliente addCliente(){
-        Scanner ler = new Scanner(System.in);
-        Scanner ler2= new Scanner(System.in).useDelimiter("\n");
-
-        System.out.print("Nome:"); String nome = ler.next();
-        System.out.print("Password:");String pass = ler.next();
-        System.out.print("E-mail:");String email = ler.next();
-        System.out.print("Morada:");String morada = ler2.next();
-        System.out.print("Data de Nascimento(dia mes ano):");int dia = ler.nextInt(); int mes = ler.nextInt(); int ano = ler.nextInt();
-        LocalDate datan = LocalDate.of(ano,mes,dia);
-        System.out.print("Coordenadas de Entregas (x y):"); int x = ler.nextInt(); int y = ler.nextInt();
-        return new Cliente(email,nome,pass,morada,datan,x,y);
-    }
 
 
 
-    public static Servico escolherServicoC (String a)
-    {
-        Scanner ler = new Scanner(System.in);
-        Servico novo;
-        while(true)
-        {
-            if (a.equalsIgnoreCase("Pessoas")) {
-                System.out.println("Quantas pessoas são para transportar?");
-                int limit= ler.nextInt();
-                System.out.println("Pretende levar consigo crianças?");
-                boolean criancas= false;
-                if(ler.next().equalsIgnoreCase("Sim"))
-                    criancas=true;
-                novo = new SPessoas(limit,criancas);
-                break;
-            }
-            else if (a.equalsIgnoreCase("Bus")) {
-
-                System.out.println("Quantas pessoas são para transportar?");
-                int limit= ler.nextInt();
-                System.out.println("Pretende levar consigo crianças?");
-                boolean criancas= false;
-                if(ler.next().equalsIgnoreCase("Sim"))
-                    criancas=true;
-                novo = new SBus(limit, criancas);
-                break; }
-            else if (a.equalsIgnoreCase("Big")) {
-                System.out.println("Total de carga que pretende transportar?");
-                int limit= (int)ler.nextInt();
-                novo = new SBig(limit);
-                break;
-            }
-            else if (a.equalsIgnoreCase("Urgentes")) {
-                System.out.println("Total de produtos que pretende transportar?");
-                int limit= (int)ler.nextInt();
-                novo= new SUrgentes(limit);
-                break;
-            }
-            else if (a.equalsIgnoreCase("Refeições")) {
-                System.out.println("Quantas refeições pretende transportar?");
-                int limit= (int)ler.nextInt();
-                novo= new SRefeicoes(limit);
-                break;
-            }
-            else{ novo=null;break; }
-        }
-        return novo;
-    }
 }

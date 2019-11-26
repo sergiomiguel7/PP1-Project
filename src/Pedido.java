@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Pedido implements Serializable {
     private boolean concluido;
@@ -69,10 +70,12 @@ public class Pedido implements Serializable {
     }
 
     public String toString(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm");
+
         StringBuilder sb = new StringBuilder();
         sb.append("Servico: ").append(this.getServico())
-                .append("\nData Pedido: ").append(this.dataInicio)
-                .append("\nData Entrega: ").append(this.dataFim)
+                .append("\nData Pedido: ").append(this.getDataInicio().format(formatter))
+                .append("\nData Entrega: ").append(this.getDataFim().format(formatter))
                 .append("\nPreço: ").append(this.preco)
                 .append("\nPedido Concluido: ").append(this.concluido);
         return sb.toString();

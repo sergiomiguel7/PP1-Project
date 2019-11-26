@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Ator implements Serializable {
@@ -9,6 +10,7 @@ public class Ator implements Serializable {
     private LocalDate dataN;
     private Historico historico;
     private double x, y;
+    private static final long serialVersionUID = 1L;
 
     //construtores
     public Ator()
@@ -100,80 +102,7 @@ public class Ator implements Serializable {
         return sb.toString();
     }
 
-    public void alteraDados(String a, Scanner ler)
-    {
-        a= a.toLowerCase();
-        boolean continuar=true;
-        while(continuar) {
-            switch (a) {
-                case "e-mail": {
-                    String novo = ler.next();
-                    this.setEmail(novo);
-                    continuar=false;
-                    break;
-                }
-                case "nome": {
-                    System.out.println("Introduza novo:");
-                    String novo = ler.next();
-                    this.setNome(novo);
-                    continuar=false;
-                    break;
-                }
-                case "password": {
-                    String novo = ler.next();
-                    this.setPassword(novo);
-                    continuar=false;
-                    break;
-                }
-                case "morada": {
-                    String novo = ler.next();
-                    this.setMorada(novo);
-                    continuar=false;
-                    break;
-                }
-                case "data": {
-                    System.out.println("Dia:");
-                    int dia = ler.nextInt();
-                    System.out.println("Mês:");
-                    int mes= ler.nextInt();
-                    System.out.println("Ano:");
-                    int ano= ler.nextInt();
-                    this.setDataN((LocalDate.of(ano,mes,dia)));
-                    continuar=false;
-                    break;
-                }
-                case "x": {
-                    int novo = ler.nextInt();
-                    this.setX(novo);
-                    continuar=false;
-                    break;
-                }
-                case "y": {
-                    int novo = ler.nextInt();
-                    this.setY(novo);
-                    continuar=false;
-                    break;
-                }
-                case "serviço":{
-                    if(this instanceof Transportes)
-                    {
-                        System.out.println("Escolha o seu novo tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
-                        String escolhido = ler.next();
-                        ((Transportes) this).setServico(Transportes.escolherServicoT(escolhido));
-                    }
 
-                }
-                case "sair":{ continuar=false; break;}
-                default: {
-                    System.out.println("Input invalido");
-                    a=ler.next();
-                }
-
-            }
-        }
-
-
-    }
 
     public boolean equals(Object obj) {
         if(this == obj) return true;

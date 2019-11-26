@@ -9,12 +9,15 @@ public class AtorDB implements Serializable {
     private Map<String,Ator> utilizadores;
     private boolean logInfo;
 
-
     public AtorDB() {
         this.utilizadores = new HashMap<>();
         logInfo=false;
     }
 
+    public AtorDB(AtorDB db)
+    {
+        this.utilizadores=db.getUtilizadores();
+    }
     public Map<String,Ator> getUtilizadores()
     {
         return this.utilizadores;
@@ -54,7 +57,10 @@ public class AtorDB implements Serializable {
         return utilizadores.isEmpty();
     }
 
-
+    @Override
+    public AtorDB clone() {
+        return new AtorDB(this);
+    }
 
     public boolean verificaLogin(String name, String pass) {
 
@@ -103,7 +109,7 @@ public class AtorDB implements Serializable {
     public void gravaFicheiro()
     {
         try{
-            File fileOne=new File("Dados.csv");
+            File fileOne=new File("Dados.ppI");
             FileOutputStream fos=new FileOutputStream(fileOne);
             ObjectOutputStream oos=new ObjectOutputStream(fos);
 
@@ -122,7 +128,7 @@ public class AtorDB implements Serializable {
     public void leFicheiro()
     {
         try{
-            File toRead=new File("Dados.csv");
+            File toRead=new File("Dados.ppI");
             FileInputStream fis=new FileInputStream(toRead);
             ObjectInputStream ois=new ObjectInputStream(fis);
             HashMap<String,Ator> mapInFile=(HashMap<String,Ator>)ois.readObject();
