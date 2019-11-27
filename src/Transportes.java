@@ -187,19 +187,28 @@ public class Transportes extends Ator {
     public Iterator<Transportes> transportesDisponiveis(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes >byNome = Comparator.comparing(Transportes::getNome);
         TreeSet<Transportes> res = codicaoTreeSet(byNome,db,servico,cliente);
-        return res.iterator();
+        if(res!=null)
+            return res.iterator();
+        else
+            return null;
     }
 
     public Ator transporteMaisRapido(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes> maisRapido = (t1,t2) -> (int) (t1.getTempoKM() - t2.getTempoKM());
         TreeSet<Transportes> res = codicaoTreeSet(maisRapido,db,servico,cliente);
-        return res.first();
+        if(res!=null)
+            return res.first();
+        else
+            return null;
     }
 
     public Ator transporteMaisBarato(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes> maisBarato = (t1,t2) -> (int) (t1.getPrecoKM() - t2.getPrecoKM());
         TreeSet<Transportes> res = codicaoTreeSet(maisBarato,db,servico,cliente);
-        return res.first();
+        if(res!=null)
+            return res.first();
+        else
+            return null;
     }
 
 
@@ -227,19 +236,27 @@ public class Transportes extends Ator {
     }
 
     public TreeSet<Transportes> codicaoTreeSet(Comparator<Transportes> c, AtorDB db,Servico servico, Cliente cliente){
-        TreeSet<Transportes> res = new TreeSet<>(c);
-        List<Transportes> aux = new ArrayList<>();
-        for(Ator a : db.getUtilizadores().values()) {
-            if(a instanceof Transportes ){
-                if (((Transportes) a).getServico().equals(servico) && ((Transportes) a).isDisponivel() &&
-                        ((Transportes) a).getServico().getLimiteT() >= servico.getLimiteT() &&
-                        ((Transportes) a).getAutonomia() >= ((Transportes) a).distanciaXY(cliente,db.getTransportes(a.getNome()))){
-                    aux.add((Transportes) a);
+        try {
+            TreeSet<Transportes> res = new TreeSet<>(c);
+            List<Transportes> aux = new ArrayList<>();
+            for (Ator a : db.getUtilizadores().values()) {
+                if (a instanceof Transportes) {
+                    if (((Transportes) a).getServico().equals(servico) && ((Transportes) a).isDisponivel() &&
+                            ((Transportes) a).getServico().getLimiteT() >= servico.getLimiteT() &&
+                            ((Transportes) a).getAutonomia() >= ((Transportes) a).distanciaXY(cliente, db.getTransportes(a.getNome()))) {
+                        aux.add((Transportes) a);
+                    }
                 }
             }
+            if(aux.size()==0)
+                throw new NoAtorException("Nenhum transportador disponivel");
+            res.addAll(aux);
+            return res ;
+        }catch (NoAtorException e){
+            System.out.println(e.getMessage());
+            return null;
         }
-        res.addAll(aux);
-        return res ;
+
     }
 
 }
