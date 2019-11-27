@@ -35,16 +35,7 @@ public class ProgramController {
 
     }
 
-    public static int mostraOpcoes(String titulo, String[] opcoes) {
-        Scanner ler = new Scanner(System.in);
-        System.out.println("<=====>" + titulo + "<=====>");
-        for (int i = 0; i < opcoes.length; i++) {
-            System.out.println((1 + i) + "- " + opcoes[i]);
-        }
-        System.out.println("0 - Voltar");
-        int op = ler.nextInt();
-        return op;
-    }
+
     }
 
 

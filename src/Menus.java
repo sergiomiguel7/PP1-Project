@@ -18,7 +18,7 @@ public  class Menus {
         int op;
         try {
             do {
-                op = ProgramController.mostraOpcoes("Menu Principal",
+                op = mostraOpcoes("Menu Principal",
                         new String[] {"Login",
                                 "Registar"});
                 switch (op) {
@@ -40,7 +40,7 @@ public  class Menus {
                     }
                     break;
                     case 2: {       //REGISTAR
-                        op = ProgramController.mostraOpcoes("Menu Registar",
+                        op = mostraOpcoes("Menu Registar",
                                 new String[] {"Cliente",
                                         "Fornecedor"});
                         if (op == 1) {
@@ -55,8 +55,6 @@ public  class Menus {
                             Servico a = escolherServicoT(escolhido);
                             if (a != null)
                                 a1 = addTransporte(a, db);
-                            else
-                                throw new NoExistentServiceException("Serviço inexistente");
                             if (a1 != null)
                                 db.Add(a1.getNome(), a1);
                         }
@@ -89,7 +87,7 @@ public  class Menus {
             do {
                 t1 = new Transportes();
                 db.atualizaPedidos();
-                op = ProgramController.mostraOpcoes("Menu Cliente",
+                op = mostraOpcoes("Menu Cliente",
                         new String[] {"Efetuar pedido",
                                 "Mostrar histórico de Pedidos",
                                 "Alterar dados",
@@ -111,7 +109,7 @@ public  class Menus {
                             System.out.print("Coordenada Y:");
                             y = ler.nextDouble();
                             ((Cliente) a1).atualizarCoordenadas(x, y, db);
-                            int op2 = ProgramController.mostraOpcoes("Escolhas de Transportadora",
+                            int op2 = mostraOpcoes("Escolhas de Transportadora",
                                 new String[] {"Mostrar todos disponiveis",
                                         "Escolher o mais rapido",
                                         "Escolher o mais barato",
@@ -228,7 +226,7 @@ public  class Menus {
         try{
             do{
                 db.atualizaPedidos();
-                op = ProgramController.mostraOpcoes("Menu Transportes",
+                op = mostraOpcoes("Menu Transportes",
                         new String[] {"Mostrar Pedidos Recentes",
                                 "Mostrar Pedidos Concluidos",
                                 "Total Faturado",
@@ -514,7 +512,7 @@ public  class Menus {
         }
     }
 
-    public Servico escolherServicoT(String a)
+    public Servico escolherServicoT(String a) throws NoExistentServiceException
     {
         Servico novo;
         while(true) {
@@ -570,15 +568,24 @@ public  class Menus {
                 novo= new SRefeicoes(limit);
                 break;
             }
-            else
-                return null;
+            else throw new NoExistentServiceException("Serviço inexistente");
+
         }
 
 
         return novo;
     }
 
-
+    public int mostraOpcoes(String titulo, String[] opcoes) throws InputMismatchException{
+        Scanner ler = new Scanner(System.in);
+        System.out.println("<=====>" + titulo + "<=====>");
+        for (int i = 0; i < opcoes.length; i++) {
+            System.out.println((1 + i) + "- " + opcoes[i]);
+        }
+        System.out.println("0 - Voltar");
+        int op = ler.nextInt();
+        return op;
+    }
     }
 
 
