@@ -12,8 +12,17 @@ public  class Menus {
         ler = new Scanner(System.in);
     }
 
+    public void setLer(Scanner ler) {
+        this.ler = ler;
+    }
+
+    public Scanner getLer() {
+        return ler;
+    }
+
     public Ator menuLogin(AtorDB db, ProgramController aux)
     {
+
         Ator a1 = new Ator();
         int op;
         Scanner ler2 = new Scanner(System.in).useDelimiter("\n");
@@ -71,6 +80,7 @@ public  class Menus {
             } while (op != 0);
         }catch (InputMismatchException | DateTimeException | NoExistentServiceException e){
             System.out.println(e.getMessage());
+            ler= new Scanner(System.in);
         }
         return a1;
     }
@@ -217,6 +227,7 @@ public  class Menus {
                 System.out.println("Input inválido");
             else
                 System.out.println(e.getMessage());
+                ler= new Scanner(System.in);
                 menuCliente(db,a1);
         }
     }
@@ -265,6 +276,7 @@ public  class Menus {
                 System.out.println("Invalido");
             else
                 System.out.println(e.getMessage());
+                ler= new Scanner(System.in);
                 menuTransportes(db,a1);
         }
     }
@@ -415,7 +427,7 @@ public  class Menus {
         }
     }
 
-    public Servico escolherServicoC (String a)
+    public Servico escolherServicoC (String a) throws InputMismatchException
     {
         Servico novo;
             while (true) {
