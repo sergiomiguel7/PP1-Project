@@ -1,7 +1,5 @@
-import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -20,7 +18,7 @@ public  class Menus {
         int op;
         try {
             do {
-                op = mostraOpcoes("Menu Principal",
+                op = ProgramController.mostraOpcoes("Menu Principal",
                         new String[] {"Login",
                                 "Registar"});
                 switch (op) {
@@ -42,7 +40,7 @@ public  class Menus {
                     }
                     break;
                     case 2: {       //REGISTAR
-                        op = mostraOpcoes("Menu Registar",
+                        op = ProgramController.mostraOpcoes("Menu Registar",
                                 new String[] {"Cliente",
                                         "Fornecedor"});
                         if (op == 1) {
@@ -57,15 +55,12 @@ public  class Menus {
                             Servico a = escolherServicoT(escolhido);
                             if (a != null)
                                 a1 = addTransporte(a, db);
+                            else
+                                throw new NoExistentServiceException("Serviço inexistente");
                             if (a1 != null)
                                 db.Add(a1.getNome(), a1);
-                        } else{
-                            if(op != 0){System.out.println("Invalido");}
                         }
-
-
-                    }
-                    break;
+                    }break;
                     case 0: {
                         System.out.println("Sair");
                         db.gravaFicheiro();
@@ -75,7 +70,7 @@ public  class Menus {
                 }
 
             } while (op != 0);
-        }catch (InputMismatchException | DateTimeException e){
+        }catch (InputMismatchException | DateTimeException | NoExistentServiceException e){
             System.out.println(e.getMessage());
         }
         return a1;
@@ -94,7 +89,7 @@ public  class Menus {
             do {
                 t1 = new Transportes();
                 db.atualizaPedidos();
-                op = mostraOpcoes("Menu Cliente",
+                op = ProgramController.mostraOpcoes("Menu Cliente",
                         new String[] {"Efetuar pedido",
                                 "Mostrar histórico de Pedidos",
                                 "Alterar dados",
@@ -116,7 +111,7 @@ public  class Menus {
                             System.out.print("Coordenada Y:");
                             y = ler.nextDouble();
                             ((Cliente) a1).atualizarCoordenadas(x, y, db);
-                            int op2 = mostraOpcoes("Escolhas de Transportadora",
+                            int op2 = ProgramController.mostraOpcoes("Escolhas de Transportadora",
                                 new String[] {"Mostrar todos disponiveis",
                                         "Escolher o mais rapido",
                                         "Escolher o mais barato",
@@ -233,7 +228,7 @@ public  class Menus {
         try{
             do{
                 db.atualizaPedidos();
-                op = mostraOpcoes("Menu Transportes",
+                op = ProgramController.mostraOpcoes("Menu Transportes",
                         new String[] {"Mostrar Pedidos Recentes",
                                 "Mostrar Pedidos Concluidos",
                                 "Total Faturado",
@@ -253,7 +248,6 @@ public  class Menus {
                        break;
                    }
                    case 3:{
-
                        System.out.println("Total faturado no intervalo de tempo: "+ ((Transportes)a1).totalFaturado()+" euros" );
                        break;
                    }
@@ -584,17 +578,10 @@ public  class Menus {
         return novo;
     }
 
-    public int mostraOpcoes(String titulo, String[] opcoes) {
-        System.out.println("<=====>"+titulo+"<=====>");
-        for(int i=0;i<opcoes.length;i++) {
-            System.out.println((1+i) + "- " + opcoes[i]);
-        }
-        System.out.println("0 - Voltar");
-        int op = ler.nextInt();
-        return op;
+
     }
 
-}
+
 
 
 
