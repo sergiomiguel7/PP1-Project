@@ -16,6 +16,7 @@ public  class Menus {
     {
         Ator a1 = new Ator();
         int op;
+        Scanner ler2 = new Scanner(System.in).useDelimiter("\n");
         try {
             do {
                 op = mostraOpcoes("Menu Principal",
@@ -24,7 +25,7 @@ public  class Menus {
                 switch (op) {
                     case 1: {       //LOGIN!!!!!
                         System.out.print("Nome:");
-                        String user = ler.next().toLowerCase();
+                        String user = ler2.next().toLowerCase();
                         System.out.print("Password:");
                         String pass = ler.next();
                         if (db.verificaLogin(user, pass)) {
@@ -383,7 +384,7 @@ public  class Menus {
         Scanner ler2= new Scanner(System.in).useDelimiter("\n");
         try {
             System.out.print("Nome:");
-            String nome = ler.nextLine();
+            String nome = ler2.next();
             if(db.getUtilizadores().containsKey(nome.toLowerCase()))
                 throw new ExistingAtorException("Já existe utilizador com esse nome");
             System.out.print("Password:");
