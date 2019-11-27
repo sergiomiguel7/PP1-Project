@@ -1,6 +1,9 @@
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public  class Menus {
 
@@ -64,8 +67,8 @@ public  class Menus {
                 }
 
             } while (op != 0);
-        }catch (InputMismatchException e){
-            System.out.println("Inválido");
+        }catch (InputMismatchException | DateTimeException e){
+            System.out.println(e.getMessage());
         }
         return a1;
     }
@@ -203,7 +206,7 @@ public  class Menus {
                         break;
                 }
             } while (op != 0);
-        }catch (InputMismatchException | NoExistentServiceException | NoStoredDataException e){
+        }catch (InputMismatchException | NoExistentServiceException | NoStoredDataException| DateTimeException e){
             if(e instanceof InputMismatchException)
                 System.out.println("Input inválido");
             else
@@ -220,7 +223,7 @@ public  class Menus {
         try{
             do{
                 db.atualizaPedidos();
-               System.out.println("1 - Mostrar Pedidos Recentes\n2 - Mostrar Pedidos Concluidos\n3 - Alterar dados\n0 - Sair");
+               System.out.println("1 - Mostrar Pedidos Recentes\n2 - Mostrar Pedidos Concluidos\n3- Total faturado\n4 - Alterar dados\n0 - Sair");
                op = ler.nextInt();
                switch (op){
                    case 1:{
@@ -236,6 +239,25 @@ public  class Menus {
                        break;
                    }
                    case 3:{
+                       int dia,mes,ano,hora,minutos;
+                       LocalDateTime data1 = null,data2 = null;
+                       for(int i=0;i<2; i++){
+                           System.out.println("Dia Mês Ano Hora Minutos");dia=ler.nextInt();mes=ler.nextInt();ano=ler.nextInt();hora=ler.nextInt();minutos=ler.nextInt();
+                           if(i==0)
+                               data1=LocalDateTime.of(ano,mes,dia,hora,minutos);
+                           else if(i==1)
+                               data2=LocalDateTime.of(ano,mes,dia,hora,minutos);
+                       }
+                       LocalDateTime finalData2 = data2;
+                       LocalDateTime finalData = data1;
+                       int total=a1.getHistorico().getPedidosConcluidos().stream()
+                               .filter(pedido -> pedido.getDataFim().isBefore(finalData2) && pedido.getDataFim().isAfter(finalData))
+                               .mapToInt(pedido -> (int) Math.round(pedido.getPreco()))
+                               .sum();
+                       System.out.println("Total faturado: " +total);
+                       break;
+                   }
+                   case 4:{
                        System.out.println(a1.toString()+ "\nSair\n"+"O que pretende mudar?");
                        ler= ler.useDelimiter("\n");
                        menus.alteraDados(a1,ler.next());
@@ -245,7 +267,7 @@ public  class Menus {
 
                }
             }while (op!=0);
-        }catch (InputMismatchException | NoExistentServiceException e){
+        }catch (InputMismatchException | NoExistentServiceException | DateTimeException e){
             if(e instanceof  InputMismatchException)
                 System.out.println("Invalido");
             else
@@ -366,6 +388,8 @@ public  class Menus {
     //Operações Clientes
 
     public Cliente addCliente(AtorDB db){
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
         Scanner ler = new Scanner(System.in);
         Scanner ler2= new Scanner(System.in).useDelimiter("\n");
         try {
@@ -377,6 +401,8 @@ public  class Menus {
             String pass = ler.next();
             System.out.print("E-mail:");
             String email = ler.next();
+            if(!pattern.matcher(email).matches())
+                throw new InputMismatchException("Email não é válido");
             System.out.print("Morada:");
             String morada = ler2.next();
             System.out.print("Data de Nascimento(dia mes ano):");
@@ -390,7 +416,7 @@ public  class Menus {
 
             return new Cliente(email,nome,pass,morada,datan,x,y);
         } catch (InputMismatchException e){
-            System.out.println("Dados introduzidos inválidos");
+            System.out.println(e.getMessage());
             return null;
         }
         catch(ExistingAtorException e){
@@ -459,7 +485,8 @@ public  class Menus {
     //Operaçoes Transportes
 
     public Transportes addTransporte(Servico a, AtorDB db){
-
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
         Scanner ler = new Scanner(System.in);
         Scanner ler2 = new Scanner(System.in).useDelimiter("\n");
         try {
@@ -471,6 +498,8 @@ public  class Menus {
             String pass = ler.next();
             System.out.print("E-mail:");
             String email = ler.next();
+            if(db.getUtilizadores().containsKey(nome.toLowerCase()))
+                throw new ExistingAtorException("Já existe utilizador com esse nome");
             System.out.print("Morada:");
             String morada = ler2.next();
             System.out.print("Data de Nascimento(dia mes ano):");
@@ -488,7 +517,7 @@ public  class Menus {
             double extra = ler.nextDouble();
             return new Transportes(email, nome, pass, morada, datan, a, tempoKM, precoKM, autonomia, extra);
         }catch (InputMismatchException e){
-        System.out.println("Dados introduzidos inválidos");
+        System.out.println(e.getMessage());
         return null;
         }catch(ExistingAtorException e){
             System.out.println(e.getMessage());
