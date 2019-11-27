@@ -1,3 +1,4 @@
+import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,17 +8,21 @@ import java.util.regex.Pattern;
 
 public  class Menus {
 
+    private Scanner ler;
 
-    public static Ator menuLogin(AtorDB db, ProgramController aux)
+    public Menus(){
+        ler = new Scanner(System.in);
+    }
+
+    public Ator menuLogin(AtorDB db, ProgramController aux)
     {
-        Menus menus = new Menus();
-        Scanner ler = new Scanner(System.in);
         Ator a1 = new Ator();
         int op;
         try {
             do {
-                System.out.println("1-Login\n2-Registar\n0-Sair");
-                op = ler.nextInt();
+                op = mostraOpcoes("Menu Principal",
+                        new String[] {"Login",
+                                "Registar"});
                 switch (op) {
                     case 1: {       //LOGIN!!!!!
                         System.out.print("Nome:");
@@ -37,24 +42,27 @@ public  class Menus {
                     }
                     break;
                     case 2: {       //REGISTAR
-                        System.out.println("1-Cliente\n2-Fornecedor");
-                        op = ler.nextInt();
+                        op = mostraOpcoes("Menu Registar",
+                                new String[] {"Cliente",
+                                        "Fornecedor"});
                         if (op == 1) {
                             a1 = new Cliente();
-                            a1 = menus.addCliente(db);
+                            a1 = addCliente(db);
                             if (a1 != null)
                                 db.Add(a1.getNome(), a1);
                         } else if (op == 2) {
                             a1 = new Transportes();
                             System.out.println("Escolha o seu tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
                             String escolhido = ler.next();
-                            Servico a = Menus.escolherServicoT(escolhido);
+                            Servico a = escolherServicoT(escolhido);
                             if (a != null)
-                                a1 = menus.addTransporte(a, db);
+                                a1 = addTransporte(a, db);
                             if (a1 != null)
                                 db.Add(a1.getNome(), a1);
-                        } else
-                            System.out.println("Invalido");
+                        } else{
+                            if(op != 0){System.out.println("Invalido");}
+                        }
+
 
                     }
                     break;
@@ -74,13 +82,11 @@ public  class Menus {
     }
 
 
-    public static void menuCliente(AtorDB db, Ator a1)
+    public void menuCliente(AtorDB db, Ator a1)
     {
-        Menus menus = new Menus();
         AtorDB clone = db.clone();
         Transportes t1;
         int op;
-        Scanner ler = new Scanner(System.in);
         long tempo;
         double custo;
         double x,y;
@@ -88,13 +94,17 @@ public  class Menus {
             do {
                 t1 = new Transportes();
                 db.atualizaPedidos();
-                System.out.println("1-Efetuar Pedido\n2-Mostrar histórico de pedidos\n3-Alterar dados\n4-Repetir serviço\n5-Lista de transportadoras com mais serviços efetuados\n0-Sair");
-                op = ler.nextInt();
+                op = mostraOpcoes("Menu Cliente",
+                        new String[] {"Efetuar pedido",
+                                "Mostrar histórico de Pedidos",
+                                "Alterar dados",
+                                "Repetir serviço",
+                                "Lista de transportadoras com mais serviços efetuados"});
                 switch (op) {
                     case 1: {
                             System.out.println("Escolha o tipo de serviço que deseja: Pessoas, Bus, Big, Urgentes ou Refeições");
                             String escolhido = ler.next();
-                            Servico servico = Menus.escolherServicoC(escolhido);
+                            Servico servico = escolherServicoC(escolhido);
                             if(servico==null)
                                 throw new NoExistentServiceException("Serviço inexistente");
                             if(servico instanceof SPessoas || servico instanceof SBus )
@@ -106,9 +116,11 @@ public  class Menus {
                             System.out.print("Coordenada Y:");
                             y = ler.nextDouble();
                             ((Cliente) a1).atualizarCoordenadas(x, y, db);
-                            System.out.println("Escolha:\n1- Mostrar todos disponiveis\n2- Escolher o mais rapido\n3- Escolher o mais barato\n4- Com tempo e custo máximo");
-                            int op2 = ler.nextInt();
-
+                            int op2 = mostraOpcoes("Escolhas de Transportadora",
+                                new String[] {"Mostrar todos disponiveis",
+                                        "Escolher o mais rapido",
+                                        "Escolher o mais barato",
+                                        "Com tempo e custo máximo"});
                         switch (op2) {
 
                             case 1: {
@@ -163,7 +175,7 @@ public  class Menus {
                     case 3: {
                         System.out.println(a1.toString()+ "\nSair\n"+"O que pretende mudar?");
                         ler= ler.useDelimiter("\n");
-                        menus.alteraDados(a1,ler.next());
+                        alteraDados(a1,ler.next());
                         break;
                     }
                     case 4: {
@@ -211,20 +223,22 @@ public  class Menus {
                 System.out.println("Input inválido");
             else
                 System.out.println(e.getMessage());
-             Menus.menuCliente(db,a1);
+                menuCliente(db,a1);
         }
     }
 
-    public static void menuTransportes(AtorDB db,Ator a1){
-        Menus menus = new Menus();
-        Scanner ler = new Scanner(System.in);
+    public void menuTransportes(AtorDB db,Ator a1){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm");
         int op;
         try{
             do{
                 db.atualizaPedidos();
-               System.out.println("1 - Mostrar Pedidos Recentes\n2 - Mostrar Pedidos Concluidos\n3- Total faturado\n4 - Alterar dados\n0 - Sair");
-               op = ler.nextInt();
+                op = mostraOpcoes("Menu Transportes",
+                        new String[] {"Mostrar Pedidos Recentes",
+                                "Mostrar Pedidos Concluidos",
+                                "Total Faturado",
+                                "Alterar dados"
+                        });
                switch (op){
                    case 1:{
                        if(a1.getHistorico().getPedidos().size()==0)
@@ -246,7 +260,7 @@ public  class Menus {
                    case 4:{
                        System.out.println(a1.toString()+ "\nSair\n"+"O que pretende mudar?");
                        ler= ler.useDelimiter("\n");
-                       menus.alteraDados(a1,ler.next());
+                       alteraDados(a1,ler.next());
                        break;
                    }
                    case 0:  break;
@@ -258,14 +272,12 @@ public  class Menus {
                 System.out.println("Invalido");
             else
                 System.out.println(e.getMessage());
-            Menus.menuTransportes(db,a1);
+                menuTransportes(db,a1);
         }
     }
 
     //Operaçao comum aos atores
     public void alteraDados( Ator b,String opcao) throws NoExistentServiceException {
-
-        Scanner ler = new Scanner(System.in);
         opcao= opcao.toLowerCase();
         opcao=opcao.replace(" ", "");
         if(opcao.contains("limite"))
@@ -317,7 +329,7 @@ public  class Menus {
                     if (b instanceof Transportes) {
                         System.out.println("Escolha o seu novo tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
                         String escolhido = ler.next();
-                        Servico servico = Menus.escolherServicoT(escolhido);
+                        Servico servico = escolherServicoT(escolhido);
                         if(servico==null)
                             throw new NoExistentServiceException("Serviço inexistente");
                         ((Transportes) b).setServico(servico);
@@ -376,7 +388,6 @@ public  class Menus {
     public Cliente addCliente(AtorDB db){
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(regex);
-        Scanner ler = new Scanner(System.in);
         Scanner ler2= new Scanner(System.in).useDelimiter("\n");
         try {
             System.out.print("Nome:");
@@ -411,9 +422,8 @@ public  class Menus {
         }
     }
 
-    public static Servico escolherServicoC (String a)
+    public Servico escolherServicoC (String a)
     {
-        Scanner ler = new Scanner(System.in);
         Servico novo;
             while (true) {
                 if (a.equalsIgnoreCase("Pessoas")) {
@@ -473,7 +483,6 @@ public  class Menus {
     public Transportes addTransporte(Servico a, AtorDB db){
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(regex);
-        Scanner ler = new Scanner(System.in);
         Scanner ler2 = new Scanner(System.in).useDelimiter("\n");
         try {
             System.out.print("Nome:");
@@ -511,9 +520,8 @@ public  class Menus {
         }
     }
 
-    public static Servico escolherServicoT(String a)
+    public Servico escolherServicoT(String a)
     {
-        Scanner ler = new Scanner(System.in);
         Servico novo;
         while(true) {
             if (a.equalsIgnoreCase("Pessoas"))
@@ -574,6 +582,16 @@ public  class Menus {
 
 
         return novo;
+    }
+
+    public int mostraOpcoes(String titulo, String[] opcoes) {
+        System.out.println("<=====>"+titulo+"<=====>");
+        for(int i=0;i<opcoes.length;i++) {
+            System.out.println((1+i) + "- " + opcoes[i]);
+        }
+        System.out.println("0 - Voltar");
+        int op = ler.nextInt();
+        return op;
     }
 
 }
