@@ -383,7 +383,7 @@ public  class Menus {
         Scanner ler2= new Scanner(System.in).useDelimiter("\n");
         try {
             System.out.print("Nome:");
-            String nome = ler.next();
+            String nome = ler.nextLine();
             if(db.getUtilizadores().containsKey(nome.toLowerCase()))
                 throw new ExistingAtorException("Já existe utilizador com esse nome");
             System.out.print("Password:");
@@ -582,7 +582,7 @@ public  class Menus {
         for (int i = 0; i < opcoes.length; i++) {
             System.out.println((1 + i) + "- " + opcoes[i]);
         }
-        System.out.println("0 - Voltar");
+        System.out.println("0 - Sair");
         int op = ler.nextInt();
         return op;
     }
