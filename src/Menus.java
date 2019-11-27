@@ -239,22 +239,8 @@ public  class Menus {
                        break;
                    }
                    case 3:{
-                       int dia,mes,ano,hora,minutos;
-                       LocalDateTime data1 = null,data2 = null;
-                       for(int i=0;i<2; i++){
-                           System.out.println("Dia Mês Ano Hora Minutos");dia=ler.nextInt();mes=ler.nextInt();ano=ler.nextInt();hora=ler.nextInt();minutos=ler.nextInt();
-                           if(i==0)
-                               data1=LocalDateTime.of(ano,mes,dia,hora,minutos);
-                           else if(i==1)
-                               data2=LocalDateTime.of(ano,mes,dia,hora,minutos);
-                       }
-                       LocalDateTime finalData2 = data2;
-                       LocalDateTime finalData = data1;
-                       int total=a1.getHistorico().getPedidosConcluidos().stream()
-                               .filter(pedido -> pedido.getDataFim().isBefore(finalData2) && pedido.getDataFim().isAfter(finalData))
-                               .mapToInt(pedido -> (int) Math.round(pedido.getPreco()))
-                               .sum();
-                       System.out.println("Total faturado: " +total);
+
+                       System.out.println("Total faturado no intervalo de tempo: "+ ((Transportes)a1).totalFaturado()+" euros" );
                        break;
                    }
                    case 4:{
