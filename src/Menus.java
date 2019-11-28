@@ -1,10 +1,8 @@
-import java.awt.desktop.ScreenSleepEvent;
 import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public  class Menus {
@@ -89,6 +87,7 @@ public  class Menus {
         long tempo;
         double custo;
         double x,y;
+        DecimalFormat fmt = new DecimalFormat("0.00");
         try{
             do {
                 t1 = new Transportes();
@@ -175,7 +174,6 @@ public  class Menus {
                         if(nova.size()==0)
                             throw new NoStoredDataException("Utilizador sem nenhum pedido concluido");
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm");
-                        DecimalFormat fmt = new DecimalFormat("0.00");
                         nova.stream().forEach(pedido -> System.out.println(db.pedidoData(pedido).getNome()+" "+pedido.getServico().getClass().getSimpleName()+ " " +pedido.getDataInicio().format(formatter) +" "+ pedido.getDataFim().format(formatter) + " " + fmt.format(pedido.getPreco())));
                         break;
                     }
@@ -191,11 +189,13 @@ public  class Menus {
                         if(a1.getHistorico().getPedidosConcluidos().size()==0)
                             throw new NoStoredDataException("Utilizador sem nenhum pedido concluido até ao momento");
                         for(Pedido pedido : a1.getHistorico().getPedidosConcluidos()){
-                            System.out.println(i + " Transportadora: "+db.pedidoData(pedido).getNome() + " Tipo de serviço: " + pedido.getServico().getClass().getSimpleName() + " Preço pago: " + pedido.getPreco());
+                            System.out.println(i + " Transportadora: "+db.pedidoData(pedido).getNome() + " Tipo de serviço: " + pedido.getServico().getClass().getSimpleName() + " Preço pago: " + fmt.format(pedido.getPreco()));
                             i++;
                         }
                         System.out.println("Escolha o número do serviço que pretende repetir: (0-Sair)");
                         int repetido=ler.nextInt();
+                        if(repetido>a1.getHistorico().getPedidosConcluidos().size())
+                            throw new InputMismatchException("Operação invalida");
                         if(repetido>0)
                             antigo = a1.getHistorico().getPedidosConcluidos().get(repetido-1);
 
