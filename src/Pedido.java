@@ -63,8 +63,7 @@ public class Pedido implements Serializable {
     }
 
     public double getPreco() {
-        DecimalFormat fmt = new DecimalFormat("0.00");
-        return Double.parseDouble(fmt.format(preco));
+        return preco;
     }
 
     public void setPreco(double preco) {

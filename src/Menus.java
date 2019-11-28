@@ -1,4 +1,5 @@
 import java.awt.desktop.ScreenSleepEvent;
+import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -174,7 +175,8 @@ public  class Menus {
                         if(nova.size()==0)
                             throw new NoStoredDataException("Utilizador sem nenhum pedido concluido");
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm");
-                        nova.stream().forEach(pedido -> System.out.println(db.pedidoData(pedido).getNome()+" "+pedido.getServico().getClass().getSimpleName()+ " " +pedido.getDataInicio().format(formatter) +" "+ pedido.getDataFim().format(formatter) + " " + pedido.getPreco()));
+                        DecimalFormat fmt = new DecimalFormat("0.00");
+                        nova.stream().forEach(pedido -> System.out.println(db.pedidoData(pedido).getNome()+" "+pedido.getServico().getClass().getSimpleName()+ " " +pedido.getDataInicio().format(formatter) +" "+ pedido.getDataFim().format(formatter) + " " + fmt.format(pedido.getPreco())));
                         break;
                     }
                     case 3: {
