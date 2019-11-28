@@ -1,7 +1,9 @@
+import java.awt.desktop.ScreenSleepEvent;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public  class Menus {
@@ -12,13 +14,6 @@ public  class Menus {
         ler = new Scanner(System.in);
     }
 
-    public void setLer(Scanner ler) {
-        this.ler = ler;
-    }
-
-    public Scanner getLer() {
-        return ler;
-    }
 
     public Ator menuLogin(AtorDB db, ProgramController aux)
     {
@@ -86,8 +81,7 @@ public  class Menus {
     }
 
 
-    public void menuCliente(AtorDB db, Ator a1)
-    {
+    public void menuCliente(AtorDB db, Ator a1) {
         AtorDB clone = db.clone();
         Transportes t1;
         int op;
@@ -130,9 +124,14 @@ public  class Menus {
                             case 1: {
                                 Iterator<Transportes> it = t1.transportesDisponiveis(db, servico, (Cliente) a1);
                                 if (it != null) {
-                                    while (it.hasNext())
-                                        System.out.println(it.next().getNome());  //depois meter mais info
+                                    while (it.hasNext()) {
+                                        Transportes aux=it.next();
+                                        System.out.println("Nome: " + aux.getNome() + " Preço por km: " + aux.getPrecoKM() + " Tempo por Km: " + aux.getTempoKM());  //depois meter mais info
+                                    }
+                                    System.out.println("Escolha transportadora pelo nome");
                                     String escolherTransportadora = ler.next();
+                                    if(!db.getUtilizadores().containsKey(escolherTransportadora))
+                                        throw new NoAtorException("Transportador inválido");
                                     ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora), servico);
                                     System.out.println("Tempo estimado de espera:" + db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora), (Cliente) a1));
                                 }
@@ -172,6 +171,8 @@ public  class Menus {
                     }
                     case 2: {
                         List<Pedido> nova=a1.getHistorico().getPedidosConcluidos();
+                        if(nova.size()==0)
+                            throw new NoStoredDataException("Utilizador sem nenhum pedido concluido");
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm");
                         nova.stream().forEach(pedido -> System.out.println(db.pedidoData(pedido).getNome()+" "+pedido.getServico().getClass().getSimpleName()+ " " +pedido.getDataInicio().format(formatter) +" "+ pedido.getDataFim().format(formatter) + " " + pedido.getPreco()));
                         break;
@@ -222,7 +223,7 @@ public  class Menus {
                         break;
                 }
             } while (op != 0);
-        }catch (InputMismatchException | NoExistentServiceException | NoStoredDataException| DateTimeException e){
+        }catch (InputMismatchException | NoExistentServiceException | NoStoredDataException| DateTimeException | NoAtorException e){
             if(e instanceof InputMismatchException)
                 System.out.println("Input inválido");
             else
@@ -381,6 +382,7 @@ public  class Menus {
 
                 }
                 case "sair":{break;}
+                default:throw new InputMismatchException();
 
 
             }
