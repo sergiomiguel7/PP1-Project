@@ -97,7 +97,7 @@ public class AtorDB implements Serializable {
         for(Ator a : this.getUtilizadores().values()){
             if(a instanceof Transportes){
                 for(Pedido p : a.getHistorico().getPedidos()){
-                    if(p.equals(pedido)){
+                    if(p.equals(pedido) && p.getDataFim().isEqual(pedido.getDataFim())){
                         return a;
                     }
                 }
@@ -128,7 +128,7 @@ public class AtorDB implements Serializable {
     public void leFicheiro()
     {
         try{
-            File toRead=new File("Dados.ppI");
+            File toRead=new File("D:\\Users\\Sergio\\Documents\\2ºANO MIETI\\PP1\\Projeto1\\out\\production\\Projeto1\\Dados.ppI");
             FileInputStream fis=new FileInputStream(toRead);
             ObjectInputStream ois=new ObjectInputStream(fis);
             HashMap<String,Ator> mapInFile=(HashMap<String,Ator>)ois.readObject();

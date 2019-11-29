@@ -1,3 +1,5 @@
+import com.sun.java.accessibility.util.Translator;
+
 import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -130,10 +132,12 @@ public  class Menus {
                                     }
                                     System.out.println("Escolha transportadora pelo nome");
                                     String escolherTransportadora = ler.next();
-                                    if(!db.getUtilizadores().containsKey(escolherTransportadora))
+                                    if(!db.getUtilizadores().containsKey(escolherTransportadora.toLowerCase()) && !db.getTransportes(escolherTransportadora).isDisponivel())
                                         throw new NoAtorException("Transportador inválido");
-                                    ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora), servico);
-                                    System.out.println("Tempo estimado de espera:" + db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora), (Cliente) a1));
+
+                                        ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora), servico);
+                                        System.out.println("Tempo estimado de espera:" + db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora), (Cliente) a1));
+
                                 }
                                 break;
                             }
@@ -188,22 +192,26 @@ public  class Menus {
                         Pedido antigo=null;
                         if(a1.getHistorico().getPedidosConcluidos().size()==0)
                             throw new NoStoredDataException("Utilizador sem nenhum pedido concluido até ao momento");
-                        for(Pedido pedido : a1.getHistorico().getPedidosConcluidos()){
-                            System.out.println(i + " Transportadora: "+db.pedidoData(pedido).getNome() + " Tipo de serviço: " + pedido.getServico().getClass().getSimpleName() + " Preço pago: " + fmt.format(pedido.getPreco()));
-                            i++;
-                        }
                         System.out.println("Escolha o número do serviço que pretende repetir: (0-Sair)");
                         int repetido=ler.nextInt();
+
+
                         if(repetido>a1.getHistorico().getPedidosConcluidos().size())
                             throw new InputMismatchException("Operação invalida");
                         if(repetido>0)
                             antigo = a1.getHistorico().getPedidosConcluidos().get(repetido-1);
+
 
                         if (antigo != null) {
                             Transportes requisitado = ((Transportes) db.pedidoData(antigo));
                             if(!requisitado.getServico().equals(antigo.getServico()))
                                 throw new NoExistentServiceException("Transportadora já não realiza este tipo de serviço");
                             else if (requisitado.isDisponivel()) {
+                                System.out.print("Coordenada X:");
+                                x = ler.nextDouble();
+                                System.out.print("Coordenada Y:");
+                                y = ler.nextDouble();
+                                ((Cliente) a1).atualizarCoordenadas(x, y, db);
                                 ((Cliente) a1).AddPedido(db.pedidoData(antigo), ((Transportes) db.pedidoData(antigo)).getServico());
                                 System.out.println("Tempo estimado de espera:" + t1.trajetoTempoTeorico((Transportes)db.pedidoData(antigo), (Cliente) a1));
                             }
@@ -502,8 +510,8 @@ public  class Menus {
             String pass = ler.next();
             System.out.print("E-mail:");
             String email = ler.next();
-            if(db.getUtilizadores().containsKey(nome.toLowerCase()))
-                throw new ExistingAtorException("Já existe utilizador com esse nome");
+            if(!pattern.matcher(email).matches())
+                throw new InputMismatchException("Email não é válido");
             System.out.print("Morada:");
             String morada = ler2.next();
             System.out.print("Data de Nascimento(dia mes ano):");
