@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Pedido implements Serializable {
-    private static final long serialVersionUID = 7L;
+    //private static final long serialVersionUID = 7L;
     private boolean concluido;
     private Servico servico;
     private LocalDateTime dataInicio;

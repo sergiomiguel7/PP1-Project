@@ -16,3 +16,7 @@ class NoStoredDataException extends Exception {
     public NoStoredDataException  (String s) { super(s); }
 }
 
+class NoSuportedException extends Exception {
+    public NoSuportedException () { super(); }
+    public NoSuportedException  (String s) { super(s); }
+}

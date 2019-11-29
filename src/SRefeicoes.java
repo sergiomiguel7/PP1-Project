@@ -45,7 +45,7 @@ public class SRefeicoes extends Servico {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Serviço de BUS")
+        sb.append("Serviço de Refeições")
                 .append("\nTemperatura constante:").append(super.isTransporteTC())
                 .append("\nLimite de Carga:").append(super.getLimiteT());
         return sb.toString();

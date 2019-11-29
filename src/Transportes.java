@@ -256,8 +256,8 @@ public class Transportes extends Ator {
             System.out.println(e.getMessage());
             return null;
         }
-
     }
+
 
     public int  totalFaturado()
     {

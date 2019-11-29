@@ -1,9 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 public class Cliente extends Ator{
@@ -77,6 +75,23 @@ public class Cliente extends Ator{
                 .forEach(e -> e.setY(y));
     }
 
+    public TreeSet<Transportes> semRepetidos(AtorDB db, Historico historico)
+    {
+        Comparator byNome= Comparator.comparing(Transportes::getNome).reversed();
+        List<Pedido> pedidos = this.getHistorico().getPedidosConcluidos().stream().collect(Collectors.toList());
+        List<Ator> transportes =  db.getUtilizadores().values().stream().filter(t -> t instanceof Transportes).collect(Collectors.toList());
+        List<Transportes> rep = new ArrayList<>();
+        for(Ator t : transportes){
+            for(Pedido p : pedidos)
+                if(t.getHistorico().getPedidosConcluidos().contains(p))
+                    rep.add(((Transportes)t));
+
+        }
+
+        TreeSet novo= new TreeSet<Transportes>(byNome); novo.addAll(rep);
+        return (TreeSet<Transportes>) novo;
+
+    }
 
 
 

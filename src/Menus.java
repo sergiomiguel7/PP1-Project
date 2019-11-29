@@ -3,9 +3,11 @@ import com.sun.java.accessibility.util.Translator;
 import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public  class Menus {
 
@@ -108,7 +110,7 @@ public  class Menus {
                             if(servico==null)
                                 throw new NoExistentServiceException("Serviço inexistente");
                             if(servico instanceof SPessoas || servico instanceof SBus )
-                                System.out.print("Escreva as coordenadas de onde se encontra:");
+                                System.out.print("Escreva as coordenadas de onde se encontra:\n");
                             else
                                 System.out.print("Escreva as coordenadas do vendedor:");
                             System.out.print("Coordenada X:");
@@ -192,31 +194,49 @@ public  class Menus {
                         Pedido antigo=null;
                         if(a1.getHistorico().getPedidosConcluidos().size()==0)
                             throw new NoStoredDataException("Utilizador sem nenhum pedido concluido até ao momento");
+
+                        TreeSet<Transportes> semReps = ((Cliente)a1).semRepetidos(db,a1.getHistorico());
+                        for(Transportes t: semReps) {
+                            System.out.println(i + " " + t.getNome());
+                            i++;
+                        }
                         System.out.println("Escolha o número do serviço que pretende repetir: (0-Sair)");
                         int repetido=ler.nextInt();
-
-
                         if(repetido>a1.getHistorico().getPedidosConcluidos().size())
                             throw new InputMismatchException("Operação invalida");
-                        if(repetido>0)
-                            antigo = a1.getHistorico().getPedidosConcluidos().get(repetido-1);
+                        if(repetido>0) {
+                            t1 = (Transportes) semReps.toArray()[repetido-1];
+                        }
 
 
-                        if (antigo != null) {
-                            Transportes requisitado = ((Transportes) db.pedidoData(antigo));
-                            if(!requisitado.getServico().equals(antigo.getServico()))
-                                throw new NoExistentServiceException("Transportadora já não realiza este tipo de serviço");
-                            else if (requisitado.isDisponivel()) {
+                        if (t1 != null) {
+                            int carga;
+                            System.out.println("Serviço da transportadora é :" + t1.getServico().getClass().getSimpleName());
+                            System.out.println("Prentende continuar? ");
+                            String continuar= ler.next();
+                            if(!continuar.toLowerCase().contains("sim"))
+                                throw new NoSuportedException("Pede-se desculpa pelo transtorno");
+                            if (t1.isDisponivel()) {
+                                if(t1.getServico().getClass().getSimpleName().equals("SPessoas") || t1.getServico().getClass().getSimpleName().equals("SBus")){
+                                    System.out.println("Pessoas que pretende transportar?");
+                                    carga = ler.nextInt();
+                                }
+                                else{
+                                    System.out.println("Carga que pretende transportar?");
+                                    carga = ler.nextInt();
+                                }
+                                if(t1.getServico().getLimiteT() < carga)
+                                    throw new NoSuportedException("Transportador não permite esta carga");
                                 System.out.print("Coordenada X:");
                                 x = ler.nextDouble();
                                 System.out.print("Coordenada Y:");
                                 y = ler.nextDouble();
                                 ((Cliente) a1).atualizarCoordenadas(x, y, db);
-                                ((Cliente) a1).AddPedido(db.pedidoData(antigo), ((Transportes) db.pedidoData(antigo)).getServico());
-                                System.out.println("Tempo estimado de espera:" + t1.trajetoTempoTeorico((Transportes)db.pedidoData(antigo), (Cliente) a1));
+                                ((Cliente) a1).AddPedido(t1, t1.getServico());
+                                System.out.println("Tempo estimado de espera:" + t1.trajetoTempoTeorico(t1, (Cliente) a1));
                             }
                             else
-                                System.out.println("Transportadora estará disponivel dentro de" + requisitado.tempoRestante() + "minutos");
+                                System.out.println("Transportadora estará disponivel dentro de" + t1.tempoRestante() + "minutos");
                         }
 
                         break;
@@ -233,7 +253,7 @@ public  class Menus {
                         break;
                 }
             } while (op != 0);
-        }catch (InputMismatchException | NoExistentServiceException | NoStoredDataException| DateTimeException | NoAtorException e){
+        }catch (InputMismatchException | NoExistentServiceException | NoStoredDataException| DateTimeException | NoAtorException |NoSuportedException e){
             if(e instanceof InputMismatchException)
                 System.out.println("Input inválido");
             else
