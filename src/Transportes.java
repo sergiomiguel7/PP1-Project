@@ -193,6 +193,7 @@ public class Transportes extends Ator {
             return null;
     }
 
+
     public Ator transporteMaisRapido(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes> maisRapido = (t1,t2) -> (int) (t1.getTempoKM() - t2.getTempoKM());
         TreeSet<Transportes> res = codicaoTreeSet(maisRapido,db,servico,cliente);

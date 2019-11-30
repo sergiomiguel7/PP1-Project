@@ -9,7 +9,6 @@ public class SBus extends Servico{
     public SBus(int limiteT, boolean transporteC)
     {
         setLimiteTBus(limiteT);
-        setTransporteTCBus();
         this.transporteC=transporteC;
     }
 
@@ -21,9 +20,6 @@ public class SBus extends Servico{
         }
     }
 
-    public void setTransporteTCBus(){
-        super.setTransporteTC(false);
-    }
 
     public boolean isTransporteC() {
         return transporteC;
@@ -36,7 +32,6 @@ public class SBus extends Servico{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Serviço de BUS")
-                .append("\nTemperatura constante:").append(super.isTransporteTC())
                 .append("\nLimite de Pessoas:").append(super.getLimiteT())
                 .append("\nTransporte de Crianças:").append(this.isTransporteC());
         return sb.toString();

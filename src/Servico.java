@@ -1,28 +1,16 @@
 import java.io.Serializable;
-import java.util.Scanner;
 
 public abstract class Servico implements Serializable {
 
-    private boolean transporteTC;   //temperatura constante
     private int limiteT;            //limite de carga(pessoas ou kg)
 
     public Servico()
     {
-        this.transporteTC = false;
         this.limiteT = 0;
 
     }
-    public Servico(boolean transporteTC, int limiteT) {
-        this.transporteTC = transporteTC;
+    public Servico(int limiteT) {
         this.limiteT = limiteT;
-    }
-
-    public boolean isTransporteTC() {
-        return transporteTC;
-    }
-
-    public void setTransporteTC(boolean transporteTC) {
-        this.transporteTC = transporteTC;
     }
 
     public int getLimiteT() {

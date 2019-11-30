@@ -1,5 +1,6 @@
-public class SRefeicoes extends Servico {
+public class SRefeicoes extends Servico implements TemperaturaConstante {
     private int precoFixo;  //km ate que o preço e fixo
+    private boolean tc;
 
     public SRefeicoes()
     {
@@ -9,7 +10,6 @@ public class SRefeicoes extends Servico {
     public SRefeicoes(int limiteT)
     {
         setlimiteTRef(limiteT);
-        setTransporteTCRef();
         setPrecoFixo(limiteT);
     }
 
@@ -21,9 +21,6 @@ public class SRefeicoes extends Servico {
         }
     }
 
-    public void setTransporteTCRef(){
-        super.setTransporteTC(true);
-    }
 
     public void setPrecoFixo(int limiteT) {
         if(limiteT > 0 && limiteT <= 15){
@@ -46,15 +43,15 @@ public class SRefeicoes extends Servico {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Serviço de Refeições")
-                .append("\nTemperatura constante:").append(super.isTransporteTC())
                 .append("\nLimite de Carga:").append(super.getLimiteT());
         return sb.toString();
     }
 
     @Override
     public boolean equals(Servico servico) {
-        if (servico instanceof SRefeicoes)
+        if (servico instanceof SRefeicoes && this.isTemperaturaConstante()==((SRefeicoes) servico).isTemperaturaConstante())
             return true;
+        else if(servico instanceof SRefeicoes && !((SRefeicoes) servico).isTemperaturaConstante()) return true;
         else
             return false;
     }
@@ -62,5 +59,15 @@ public class SRefeicoes extends Servico {
     public boolean verificaRefrigeracao(double tempo){
         if(tempo > 20){return  true;}
         else return false;
+    }
+
+    @Override
+    public void temperaturaConstante(boolean quer) {
+        this.tc=quer;
+    }
+
+    @Override
+    public boolean isTemperaturaConstante() {
+        return tc;
     }
 }

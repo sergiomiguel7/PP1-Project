@@ -1,13 +1,11 @@
-import com.sun.java.accessibility.util.Translator;
 
+import javax.print.attribute.standard.NumberOfDocuments;
 import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public  class Menus {
 
@@ -109,6 +107,7 @@ public  class Menus {
                             Servico servico = escolherServicoC(escolhido);
                             if(servico==null)
                                 throw new NoExistentServiceException("Serviço inexistente");
+
                             if(servico instanceof SPessoas || servico instanceof SBus )
                                 System.out.print("Escreva as coordenadas de onde se encontra:\n");
                             else
@@ -134,11 +133,12 @@ public  class Menus {
                                     }
                                     System.out.println("Escolha transportadora pelo nome");
                                     String escolherTransportadora = ler.next();
-                                    if(!db.getUtilizadores().containsKey(escolherTransportadora.toLowerCase()) && !db.getTransportes(escolherTransportadora).isDisponivel())
+                                    if(!db.getUtilizadores().containsKey(escolherTransportadora.toLowerCase()))
                                         throw new NoAtorException("Transportador inválido");
-
-                                        ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora), servico);
-                                        System.out.println("Tempo estimado de espera:" + db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora), (Cliente) a1));
+                                    else if(!db.getTransportes(escolherTransportadora).isDisponivel())
+                                        throw new NoAtorException("Indisponivel");
+                                    ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora), servico);
+                                    System.out.println("Tempo estimado de espera:" + db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora), (Cliente) a1));
 
                                 }
                                 break;
@@ -243,6 +243,8 @@ public  class Menus {
                     }
                     case 5: {
                         List<Transportes> nova = t1.maisServicosEfetuados(clone);
+                        if(nova.size()==0)
+                            throw new NoStoredDataException("Nenhum transportador com pedidos efetuados");
                         for (Transportes a : nova) {
                             System.out.println("Nome da Transportadora: " + a.getNome() + " Serviços Efetuados:" + a.getHistorico().getPedidosConcluidos().size());
                         }
@@ -500,13 +502,26 @@ public  class Menus {
                 } else if (a.equalsIgnoreCase("Urgentes")) {
                     System.out.println("Total de produtos que pretende transportar?");
                     int limit = (int) ler.nextInt();
+                    System.out.println("Pretede que a transportadora mantenha a temperatura constante?(esta opção pode diminuir a probabilidade de disponibilidade do transportador)");
+                    String quer= ler.next();
                     novo = new SUrgentes(limit);
+                    if(quer.toLowerCase().contains("sim"))
+                        ((SUrgentes)novo).temperaturaConstante(true);
+                    else
+                        ((SUrgentes)novo).temperaturaConstante(false);
                     break;
                 } else if (a.equalsIgnoreCase("Refeições")) {
                     System.out.println("Quantas refeições pretende transportar?");
                     int limit = (int) ler.nextInt();
+                    System.out.println("Pretede que a transportadora mantenha a temperatura constante?(esta opção pode diminuir a probabilidade de disponibilidade do transportador)");
+                    String quer= ler.next();
                     novo = new SRefeicoes(limit);
+                    if(quer.toLowerCase().contains("sim"))
+                        ((SRefeicoes)novo).temperaturaConstante(true);
+                    else
+                        ((SRefeicoes)novo).temperaturaConstante(false);
                     break;
+
                 }
                 else
                     return null;
@@ -604,13 +619,26 @@ public  class Menus {
                 int limit;
                 System.out.println("Maximo de produtos por utilizador que pode transportar:");
                 limit=ler.nextInt();
+                System.out.println("Garante temperatura constante?");
+                String quer= ler.next();
                 novo= new SUrgentes(limit);
+                if(quer.toLowerCase().contains("sim"))
+                    ((SRefeicoes)novo).temperaturaConstante(true);
+                else
+                    ((SRefeicoes)novo).temperaturaConstante(false);
                 break;
             } else if (a.equalsIgnoreCase("Refeições")) {
                 int limit;
                 System.out.println("Maximo de refeições por utilizador que pode transportar[1,15]:");
                 limit=ler.nextInt();
+                System.out.println("Garante temperatura constante?");
+                String quer= ler.next();
+
                 novo= new SRefeicoes(limit);
+                if(quer.toLowerCase().contains("sim"))
+                    ((SRefeicoes)novo).temperaturaConstante(true);
+                else
+                    ((SRefeicoes)novo).temperaturaConstante(false);
                 break;
             }
             else throw new NoExistentServiceException("Serviço inexistente");

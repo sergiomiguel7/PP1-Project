@@ -8,7 +8,6 @@ public class SBig extends Servico {
     public SBig(int limiteT)
     {
         setlimiteTBig(limiteT);
-        setTransporteTCBig();
     }
 
     public void setlimiteTBig(int limiteT){
@@ -19,13 +18,9 @@ public class SBig extends Servico {
         }
     }
 
-    public void setTransporteTCBig(){
-        super.setTransporteTC(false);
-    }
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Serviço de BUS")
-                .append("\nTemperatura constante:").append(super.isTransporteTC())
                 .append("\nLimite de Carga:").append(super.getLimiteT());
         return sb.toString();
     }
