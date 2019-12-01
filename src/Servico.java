@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public abstract class Servico implements Serializable {
-
+    private static final long serialVersionUID = 10L;
     private int limiteT;            //limite de carga(pessoas ou kg)
 
     public Servico()

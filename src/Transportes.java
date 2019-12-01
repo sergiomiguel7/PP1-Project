@@ -14,7 +14,7 @@ public class Transportes extends Ator {
     private double autonomia;
     private boolean disponivel;
     private double extra;
-    private int descontos;
+    private double descontos;
     private static final long serialVersionUID = 2L;
 
 
@@ -31,7 +31,7 @@ public class Transportes extends Ator {
         this.disponivel = true;
     }
 
-    public Transportes(double precoKM, double tempoKM, double autonomia, Servico a,double extra,int descontos) {
+    public Transportes(double precoKM, double tempoKM, double autonomia, Servico a,double extra,double descontos) {
         this.servico = a;
         this.precoKM = precoKM;
         this.tempoKM = tempoKM;
@@ -41,7 +41,7 @@ public class Transportes extends Ator {
         this.descontos = descontos;
     }
 
-    public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, double tempoKM, double precoKM, double autonomia,double extra,int descontos) {
+    public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, double tempoKM, double precoKM, double autonomia,double extra,double descontos) {
         super(email, nome, password, morada, dataN, 0, 0);
         super.setHistorico(new Historico());
         this.servico = a;
@@ -65,9 +65,9 @@ public class Transportes extends Ator {
         this.descontos = transportes.getDescontos();
     }
 
-    public int getDescontos() { return descontos; }
+    public double getDescontos() { return descontos; }
 
-    public void setDescontos(int descontos) { this.descontos = descontos; }
+    public void setDescontos(double descontos) { this.descontos = descontos; }
 
     public double getExtra() { return extra; }
 
@@ -186,12 +186,14 @@ public class Transportes extends Ator {
             preco *= distanciaXY(cliente, this);
         }
 
-        if (LocalTime.now().isAfter(fim) && LocalTime.now().isBefore(inicio)) {
+        if (LocalTime.now().isAfter(fim) || LocalTime.now().isBefore(inicio) ) {
             preco += extra;
         }
 
-        preco += (preco*getDescontos());
-
+        if(this.getDescontos()>0) {
+            double desconto = preco * (  this.getDescontos() / 100);
+            preco=preco-desconto;
+        }
         return preco;
     }
 

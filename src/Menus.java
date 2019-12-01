@@ -1,5 +1,3 @@
-
-import javax.print.attribute.standard.NumberOfDocuments;
 import java.text.DecimalFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -109,9 +107,9 @@ public  class Menus {
                                 throw new NoExistentServiceException("Serviço inexistente");
 
                             if(servico instanceof SPessoas || servico instanceof SBus )
-                                System.out.print("Escreva as coordenadas de onde se encontra:\n");
+                                System.out.println("Escreva as coordenadas de onde se encontra:");
                             else
-                                System.out.print("Escreva as coordenadas do vendedor:");
+                                System.out.println("Escreva as coordenadas do vendedor:");
                             System.out.print("Coordenada X:");
                             x = ler.nextDouble();
                             System.out.print("Coordenada Y:");
@@ -308,20 +306,14 @@ public  class Menus {
                        String str = ler.next();
                        if(str.toLowerCase().equals("sim") ){
                            System.out.println("Qual o novo desconto?");
-                           try {
-                               int desc = ler.nextInt();
+                               double desc = ler.nextDouble();
                                ((Transportes)a1).setDescontos(desc);
-                           }catch( InputMismatchException e){
-                               System.out.println(e.getMessage());
-                           }
-                       }else {
-                           if(str.toLowerCase().equals("não")){
-                               break;
-                           }else {
+                       }
+                       else {
+                           if (!str.toLowerCase().equals("não")) {
                                throw new InputMismatchException();
                            }
                        }
-
                    }
                    case 0:  break;
 
