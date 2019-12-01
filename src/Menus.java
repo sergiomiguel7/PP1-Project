@@ -275,7 +275,8 @@ public  class Menus {
                         new String[] {"Mostrar Pedidos Recentes",
                                 "Mostrar Pedidos Concluidos",
                                 "Total Faturado",
-                                "Alterar dados"
+                                "Alterar dados",
+                                "Descontos"
                         });
                switch (op){
                    case 1:{
@@ -299,6 +300,28 @@ public  class Menus {
                        ler= ler.useDelimiter("\n");
                        alteraDados(a1,ler.next());
                        break;
+                   }
+                   case 5:{
+                       System.out.println("A sua transportadora está com um desconto de "+((Transportes)a1).getDescontos()+"%");
+                       System.out.println("Pretende mudar?");
+                       ler = ler.useDelimiter("\n");
+                       String str = ler.next();
+                       if(str.toLowerCase().equals("sim") ){
+                           System.out.println("Qual o novo desconto?");
+                           try {
+                               int desc = ler.nextInt();
+                               ((Transportes)a1).setDescontos(desc);
+                           }catch( InputMismatchException e){
+                               System.out.println(e.getMessage());
+                           }
+                       }else {
+                           if(str.toLowerCase().equals("não")){
+                               break;
+                           }else {
+                               throw new InputMismatchException();
+                           }
+                       }
+
                    }
                    case 0:  break;
 
@@ -562,7 +585,7 @@ public  class Menus {
             double autonomia = ler.nextDouble();
             System.out.print("Preco extra (noturno):");
             double extra = ler.nextDouble();
-            return new Transportes(email, nome, pass, morada, datan, a, tempoKM, precoKM, autonomia, extra);
+            return new Transportes(email, nome, pass, morada, datan, a, tempoKM, precoKM, autonomia, extra,0);
         }catch (InputMismatchException e){
         System.out.println(e.getMessage());
         return null;

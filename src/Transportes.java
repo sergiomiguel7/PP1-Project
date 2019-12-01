@@ -14,6 +14,7 @@ public class Transportes extends Ator {
     private double autonomia;
     private boolean disponivel;
     private double extra;
+    private int descontos;
     private static final long serialVersionUID = 2L;
 
 
@@ -26,19 +27,21 @@ public class Transportes extends Ator {
         this.tempoKM = 0;
         this.autonomia = 0;
         this.extra = 0;
+        this.descontos = 0;
         this.disponivel = true;
     }
 
-    public Transportes(double precoKM, double tempoKM, double autonomia, Servico a,double extra) {
+    public Transportes(double precoKM, double tempoKM, double autonomia, Servico a,double extra,int descontos) {
         this.servico = a;
         this.precoKM = precoKM;
         this.tempoKM = tempoKM;
         this.autonomia = autonomia;
         this.extra = extra;
         this.disponivel = true;
+        this.descontos = descontos;
     }
 
-    public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, double tempoKM, double precoKM, double autonomia,double extra) {
+    public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, double tempoKM, double precoKM, double autonomia,double extra,int descontos) {
         super(email, nome, password, morada, dataN, 0, 0);
         super.setHistorico(new Historico());
         this.servico = a;
@@ -47,6 +50,7 @@ public class Transportes extends Ator {
         this.autonomia = autonomia;
         this.disponivel = true;
         this.extra = extra;
+        this.descontos = descontos;
     }
 
     public Transportes(Transportes transportes) {
@@ -58,7 +62,12 @@ public class Transportes extends Ator {
         this.autonomia = transportes.getAutonomia();
         this.disponivel = transportes.isDisponivel();
         this.extra = transportes.getExtra();
+        this.descontos = transportes.getDescontos();
     }
+
+    public int getDescontos() { return descontos; }
+
+    public void setDescontos(int descontos) { this.descontos = descontos; }
 
     public double getExtra() { return extra; }
 
@@ -109,6 +118,7 @@ public class Transportes extends Ator {
         s.append("\nTempo por km: "+ this.getTempoKM());
         s.append("\nAutonomia: " + this.getAutonomia());
         s.append("\nPreco Extra: " + this.getExtra());
+        if(this.getDescontos() != 0){s.append("\nDesconto: "+this.getDescontos());}
         return s.toString();
     }
 
@@ -179,6 +189,8 @@ public class Transportes extends Ator {
         if (LocalTime.now().isAfter(fim) && LocalTime.now().isBefore(inicio)) {
             preco += extra;
         }
+
+        preco += (preco*getDescontos());
 
         return preco;
     }
