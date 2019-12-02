@@ -1,8 +1,7 @@
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 public class AtorDB implements Serializable {
@@ -92,6 +91,47 @@ public class AtorDB implements Serializable {
         }
     }
 
+    public void classificar(Ator a1){
+        Scanner ler = new Scanner(System.in);
+        List<Pedido> porAvaliar= a1.getHistorico().classificarPedidos();
+        if(porAvaliar.size()>0){
+            for(Pedido pedido : porAvaliar){
+                System.out.println("Deseja avaliar o pedido da transportadora "+this.pedidoData(pedido).getNome() + "?");
+                String aux= ler.next();
+                if(aux.toLowerCase().equals("sim")) {
+                    System.out.println("Classifique de 1-5:");
+                    int classificacao = ler.nextInt();
+                    pedido.setClassificacao(classificacao);
+                }
+                else if(aux.toLowerCase().equals("não"))
+                    pedido.setClassificacao(0);
+                else
+                    pedido.setClassificacao(0);
+            }
+        }
+        atualizaClassificacao();
+    }
+
+    public void atualizaClassificacao(){
+        double total=0;
+        double i=0;
+        for(Ator a : this.getUtilizadores().values()){
+            if(a instanceof Transportes){
+                for(Pedido pedido : a.getHistorico().getPedidosConcluidos()) {
+                    double aux = pedido.getClassificacao();
+                    if (aux > 0) {
+                        total += aux;
+                        i++;
+                    }
+                }
+                ((Transportes) a).setClassificacao(total/i);
+            }
+        }
+
+
+
+    }
+
     public Ator pedidoData(Pedido pedido){
 
         for(Ator a : this.getUtilizadores().values()){
@@ -128,7 +168,7 @@ public class AtorDB implements Serializable {
     public void leFicheiro()
     {
         try{
-            File toRead=new File("D:\\Users\\Sergio\\Documents\\2ºANO MIETI\\PP1\\Projeto1\\out\\production\\Projeto1\\Dados.ppI");
+            File toRead=new File("Dados.ppI");
             FileInputStream fis=new FileInputStream(toRead);
             ObjectInputStream ois=new ObjectInputStream(fis);
             HashMap<String,Ator> mapInFile=(HashMap<String,Ator>)ois.readObject();
