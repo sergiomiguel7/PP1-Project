@@ -130,8 +130,13 @@ public  class Menus {
                                     while (it.hasNext()) {
                                         Transportes aux=it.next();
                                         System.out.print("Nome: " + aux.getNome() + " Preço por km: " + aux.getPrecoKM() + " Tempo por Km: " + aux.getTempoKM());  //depois meter mais info
-                                        if(aux.getClassificacao()>0)
-                                            System.out.println(" Classificação: "+ aux.getClassificacao());
+                                        if(aux.getClassificacao()>0 && aux.getDescontos()>0)
+                                            System.out.println(" Classificação: " + fmt.format(aux.getClassificacao()) + " Desconto atual de: " + aux.getDescontos() + "%");
+                                        else if (aux.getDescontos() > 0 )
+                                            System.out.println("Desconto atual de: " + aux.getDescontos() + "%");
+                                        else if(aux.getClassificacao()>0 )
+                                            System.out.println(" Classificação: " + fmt.format(aux.getClassificacao()));
+
                                     }
                                     System.out.println("Escolha transportadora pelo nome");
                                     String escolherTransportadora = ler.next();
@@ -277,6 +282,7 @@ public  class Menus {
 
     public void menuTransportes(AtorDB db,Ator a1){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm");
+        DecimalFormat fmt = new DecimalFormat("0.00");
         int op;
         try{
             do{
@@ -330,7 +336,7 @@ public  class Menus {
                        break;
                    }
                    case 6:{
-                       System.out.println("Classificação atual: "+  ((Transportes)a1).getClassificacao());
+                       System.out.println("Classificação atual: "+  fmt.format(((Transportes)a1).getClassificacao()));
                    }
                    case 0:  break;
 
