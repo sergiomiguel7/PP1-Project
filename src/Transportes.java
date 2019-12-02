@@ -15,6 +15,7 @@ public class Transportes extends Ator {
     private boolean disponivel;
     private double extra;
     private double descontos;
+    private double classificacao;
     private static final long serialVersionUID = 2L;
 
 
@@ -29,6 +30,7 @@ public class Transportes extends Ator {
         this.extra = 0;
         this.descontos = 0;
         this.disponivel = true;
+        this.classificacao=0;
     }
 
     public Transportes(double precoKM, double tempoKM, double autonomia, Servico a,double extra,double descontos) {
@@ -39,6 +41,7 @@ public class Transportes extends Ator {
         this.extra = extra;
         this.disponivel = true;
         this.descontos = descontos;
+        this.classificacao=0;
     }
 
     public Transportes(String email, String nome, String password, String morada, LocalDate dataN, Servico a, double tempoKM, double precoKM, double autonomia,double extra,double descontos) {
@@ -63,6 +66,7 @@ public class Transportes extends Ator {
         this.disponivel = transportes.isDisponivel();
         this.extra = transportes.getExtra();
         this.descontos = transportes.getDescontos();
+        this.classificacao=transportes.getClassificacao();
     }
 
     public double getDescontos() { return descontos; }
@@ -109,6 +113,15 @@ public class Transportes extends Ator {
     public void setAutonomia(double autonomia) {
         this.autonomia = autonomia;
     }
+
+    public double getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(double classificacao) {
+        this.classificacao = classificacao;
+    }
+
 
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -220,6 +233,17 @@ public class Transportes extends Ator {
     public Ator transporteMaisBarato(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes> maisBarato = (t1,t2) -> (int) (t1.getPrecoKM() - t2.getPrecoKM());
         TreeSet<Transportes> res = codicaoTreeSet(maisBarato,db,servico,cliente);
+        if(res!=null)
+            return res.first();
+        else
+            return null;
+    }
+
+    public Ator transporteMelhorClassificado(AtorDB db, Servico servico,Cliente cliente){
+        Comparator<Transportes> melhorClassificado =(t1, t2) -> { if(t1.getClassificacao() > t2.getClassificacao()) return -1;
+            if(t1.getClassificacao()== t2.getClassificacao()) return 0 ;
+            else return 1;};
+        TreeSet<Transportes> res = codicaoTreeSet(melhorClassificado,db,servico,cliente);
         if(res!=null)
             return res.first();
         else

@@ -92,6 +92,7 @@ public  class Menus {
             do {
                 t1 = new Transportes();
                 db.atualizaPedidos();
+                db.classificar(a1);
                 op = mostraOpcoes("Menu Cliente",
                         new String[] {"Efetuar pedido",
                                 "Mostrar histórico de Pedidos",
@@ -119,6 +120,7 @@ public  class Menus {
                                 new String[] {"Mostrar todos disponiveis",
                                         "Escolher o mais rapido",
                                         "Escolher o mais barato",
+                                        "Melhor classificado",
                                         "Com tempo e custo máximo"});
                         switch (op2) {
 
@@ -127,7 +129,9 @@ public  class Menus {
                                 if (it != null) {
                                     while (it.hasNext()) {
                                         Transportes aux=it.next();
-                                        System.out.println("Nome: " + aux.getNome() + " Preço por km: " + aux.getPrecoKM() + " Tempo por Km: " + aux.getTempoKM());  //depois meter mais info
+                                        System.out.print("Nome: " + aux.getNome() + " Preço por km: " + aux.getPrecoKM() + " Tempo por Km: " + aux.getTempoKM());  //depois meter mais info
+                                        if(aux.getClassificacao()>0)
+                                            System.out.println(" Classificação: "+ aux.getClassificacao());
                                     }
                                     System.out.println("Escolha transportadora pelo nome");
                                     String escolherTransportadora = ler.next();
@@ -158,6 +162,14 @@ public  class Menus {
                                 break;
                             }
                             case 4: {
+                                t1=(Transportes)t1.transporteMelhorClassificado(db,servico,(Cliente) a1);
+                                if(t1!=null){
+                                    ((Cliente) a1).AddPedido(t1, servico);
+                                    System.out.println("Tempo estimado de espera:" + t1.trajetoTempoTeorico(t1, (Cliente) a1));
+                                }
+                                break;
+                            }
+                            case 5: {
                                 System.out.println("Tempo Maximo:");
                                 tempo = ler.nextLong();
                                 System.out.println("Custo Maximo:");
@@ -274,7 +286,8 @@ public  class Menus {
                                 "Mostrar Pedidos Concluidos",
                                 "Total Faturado",
                                 "Alterar dados",
-                                "Descontos"
+                                "Descontos",
+                                "Mostrar Classificação"
                         });
                switch (op){
                    case 1:{
@@ -314,6 +327,10 @@ public  class Menus {
                                throw new InputMismatchException();
                            }
                        }
+                       break;
+                   }
+                   case 6:{
+                       System.out.println("Classificação atual: "+  ((Transportes)a1).getClassificacao());
                    }
                    case 0:  break;
 

@@ -23,6 +23,16 @@ public class Historico implements Serializable {
         return this.pedidos.stream().filter(pedido -> pedido.isConcluido()).collect(Collectors.toList());
     }
 
+    public List<Pedido> classificarPedidos(){
+        List<Pedido> aux = new ArrayList<>();
+        for(Pedido pedido : pedidos){
+            if(pedido.getClassificacao()<0 && pedido.isConcluido()){
+                aux.add(pedido);
+            }
+
+        }
+     return aux;
+    }
 
     //setters
     public void setPedidos(List<Pedido> pedidos) { this.pedidos = pedidos; }

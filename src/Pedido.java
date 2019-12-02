@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Pedido implements Serializable {
     //private static final long serialVersionUID = 7L;
+    private double classificacao;
     private boolean concluido;
     private Servico servico;
     private LocalDateTime dataInicio;
@@ -17,6 +18,7 @@ public class Pedido implements Serializable {
         this.dataFim= null;
         this.dataInicio=null;
         this.preco=0;
+        this.classificacao=-1;
     }
 
     public Pedido(Servico servico,LocalDateTime dataInicio, LocalDateTime dataFim,double preco) {
@@ -25,6 +27,7 @@ public class Pedido implements Serializable {
         this.dataInicio=dataInicio;
         this.dataFim=dataFim;
         this.preco=preco;
+        this.classificacao=-1;
     }
 
     public Pedido(Pedido outro){
@@ -69,6 +72,14 @@ public class Pedido implements Serializable {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public double getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(double classificacao) {
+        this.classificacao = classificacao;
     }
 
     public String toString(){
