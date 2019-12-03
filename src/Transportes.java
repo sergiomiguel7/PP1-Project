@@ -146,6 +146,7 @@ public class Transportes extends Ator {
 
     }
 
+    //Distância escalar entre os dois pontos\
     public double distanciaXY(Cliente cliente, Transportes transportes) {
         double x1 = (transportes.getX() - cliente.getX());
         double y1 = (transportes.getY() - cliente.getY());
@@ -156,6 +157,10 @@ public class Transportes extends Ator {
         return total;
     }
 
+    /*Método Trajeto Tempo
+     * Neste método é criada uma simulação do transportador, apresentando o tempo real que este iria demorar, simulando probabilidades
+     * de trânsito ou eventuais atrasos.
+     * */
     public long trajetoTempo(Transportes transporte,Cliente cliente){
         Random rand = new Random();
         double distancia = distanciaXY(cliente,transporte);
@@ -171,6 +176,9 @@ public class Transportes extends Ator {
         return (long) Math.round(tempo);
     }
 
+    /*Método Trajeto Tempo Teórico
+     * Neste método é calculado o tempo esperado, dependendo apenas da distância e da velocidade do transportador
+     * */
     public long trajetoTempoTeorico(Transportes transporte,Cliente cliente){
         Random rand = new Random();
         double distancia = distanciaXY(cliente,transporte);
@@ -180,7 +188,13 @@ public class Transportes extends Ator {
     }
 
 
-
+    /*Método Trajeto Preço
+     * É neste método que acontecem todos os cálculos a cerca do preço da transportadora numa certa distância
+     * Variáveis presentes:
+     * Se o cliente solicitar um serviço de refeições, este apresenta um preço fixo até 5km,
+     * Se o pedido for efetuado entre as 21 horas e as 9 horas, o cliente paga uma taxa extra, escolhida pelo transportador,
+     * Se a transportadora apresentar um desconto, esta percentagem é descontada no preço final;
+     * */
     public double trajetoPreco(Cliente cliente){
         LocalTime inicio = LocalTime.of(9,0,0);
         LocalTime fim = LocalTime.of(21,0,0);
