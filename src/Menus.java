@@ -212,16 +212,18 @@ public  class Menus {
 
                         TreeSet<Transportes> semReps = ((Cliente)a1).semRepetidos(db,a1.getHistorico());
                         for(Transportes t: semReps) {
-                            System.out.println(i + " " + t.getNome());
+                            System.out.println(i + " Nome: " + t.getNome() + " Classificação: " + t.getClassificacao());
                             i++;
                         }
                         System.out.println("Escolha o número do serviço que pretende repetir: (0-Sair)");
                         int repetido=ler.nextInt();
-                        if(repetido>a1.getHistorico().getPedidosConcluidos().size())
+                        if(repetido>semReps.size())
                             throw new InputMismatchException("Operação invalida");
                         if(repetido>0) {
                             t1 = (Transportes) semReps.toArray()[repetido-1];
                         }
+                        else
+                            break;
 
 
                         if (t1 != null) {

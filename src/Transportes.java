@@ -272,6 +272,7 @@ public class Transportes extends Ator {
                 .filter(ator -> ator instanceof Transportes)
                 .map(ator -> ((Transportes) ator).getHistorico().getPedidosConcluidos().size())
                 .sorted()
+                .limit(5)
                 .collect(Collectors.toList());
 
         List<Transportes> atores = new ArrayList<>();
@@ -284,7 +285,7 @@ public class Transportes extends Ator {
             }
         }
         atores.sort(byServicosE);
-
+        Collections.reverse(atores);
         return atores;
     }
 
