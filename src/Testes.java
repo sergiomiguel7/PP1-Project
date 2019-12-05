@@ -67,16 +67,5 @@ public class Testes
         assertEquals(1, teste.getHistorico().getPedidos().size());
         assertEquals(1, nova.getTransportes("Uber").getHistorico().getPedidos().size());
     }
-    @Test
-    public void testeTotalFaturado()
-    {
-        Ator teste = nova.getAtor("Sergio");
-        Servico testeS = new SPessoas();
-        ((Cliente)teste).AddPedido(nova.getTransportes("Uber"), testeS);
-        Transportes teste2 = nova.getTransportes("Uber");
-        teste2.getHistorico().getPedidos().get(0).setConcluido(true);
-        double total = ((Cliente) teste).faturadoIntervaloTempo(teste2,LocalDateTime.now(), LocalDateTime.now().plusMinutes(60));
-        assertEquals(4 , total, 0);
-    }
 
 }

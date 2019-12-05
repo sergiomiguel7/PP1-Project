@@ -46,16 +46,6 @@ public class Cliente extends Ator{
     }
 
 
-    public double faturadoIntervaloTempo(Transportes transportes,LocalDateTime inicio,LocalDateTime fim){
-        List<Pedido> pedidosconc = transportes.getHistorico().getPedidosConcluidos();
-
-        return pedidosconc.stream()
-            .filter(pedido -> pedido.getDataFim().isAfter(inicio))
-            .filter(pedido -> pedido.getDataFim().isBefore(fim))
-            .mapToDouble(pedido -> Math.round(pedido.getPreco()))
-            .sum();
-    }
-
     public void maximoTempoCusto(AtorDB db,long tempo, double custo,Servico servico){
         db.getUtilizadores().values().stream().filter(e -> e instanceof Transportes)
                 .filter(e -> ((Transportes)e).getServico().equals(servico))
@@ -67,11 +57,15 @@ public class Cliente extends Ator{
     }
 
 
-
+    /*Método atualizar coordenadas
+    * "Coloca" todos as transportadoras disponiveis nas coordenadas inseridas pelo cliente
+    * */
     public void atualizarCoordenadas(double x, double y,AtorDB db){
         db.getUtilizadores().values().stream().filter(e ->e instanceof Transportes)
+                .filter(e -> ((Transportes) e).isDisponivel())
                 .forEach(e -> e.setX(x));
         db.getUtilizadores().values().stream().filter(e ->e instanceof Transportes)
+                .filter(e -> ((Transportes) e).isDisponivel())
                 .forEach(e -> e.setY(y));
     }
 

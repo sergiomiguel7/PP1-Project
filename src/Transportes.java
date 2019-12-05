@@ -245,7 +245,7 @@ public class Transportes extends Ator {
     }
 
     public Ator transporteMaisBarato(AtorDB db, Servico servico,Cliente cliente){
-        Comparator<Transportes> maisBarato = (t1,t2) -> (int) (t1.getPrecoKM() - t2.getPrecoKM());
+        Comparator<Transportes> maisBarato = (t1,t2) -> (int) (t1.trajetoPreco(cliente) - t2.trajetoPreco(cliente));
         TreeSet<Transportes> res = codicaoTreeSet(maisBarato,db,servico,cliente);
         if(res!=null)
             return res.first();
@@ -311,7 +311,10 @@ public class Transportes extends Ator {
         }
     }
 
-
+    /*
+    *Método trajeto total faturado.
+    *Neste método são pedidas duas datas, pega-se em todos os pedidos concluídos neste intervalo e soma-se o valor de todos os pedidos
+    */
     public int  totalFaturado()
     {
         Scanner ler = new Scanner(System.in);
