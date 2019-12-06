@@ -92,7 +92,7 @@ public  class Menus {
             do {
                 t1 = new Transportes();
                 db.atualizaPedidos();
-                db.classificar(a1);
+                classificar(a1,db);
                 op = mostraOpcoes("Menu Cliente",
                         new String[] {"Efetuar pedido",
                                 "Mostrar histórico de Pedidos",
@@ -491,11 +491,7 @@ public  class Menus {
             int y = ler.nextInt();
 
             return new Cliente(email,nome,pass,morada,datan,x,y);
-        } catch (InputMismatchException e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-        catch(ExistingAtorException e){
+        } catch (InputMismatchException | ExistingAtorException e){
             System.out.println(e.getMessage());
             return null;
         }
@@ -689,6 +685,29 @@ public  class Menus {
         return novo;
     }
 
+    public void classificar(Ator a1, AtorDB db) throws NoSuportedException {
+        Scanner ler = new Scanner(System.in);
+        List<Pedido> porAvaliar= a1.getHistorico().classificarPedidos();
+        if(porAvaliar.size()>0){
+            for(Pedido pedido : porAvaliar){
+                System.out.println("Deseja avaliar o pedido da transportadora "+db.pedidoData(pedido).getNome() + "?");
+                String aux= ler.next();
+                if(aux.toLowerCase().equals("sim")) {
+                    System.out.println("Classifique de 1-5:");
+                    int classificacao = ler.nextInt();
+                    if(classificacao<=5)
+                        pedido.setClassificacao(classificacao);
+                    else
+                        throw new NoSuportedException("Classificação tem de ter valores entre 1 e 5");
+                }
+                else if(aux.toLowerCase().equals("não"))
+                    pedido.setClassificacao(0);
+                else
+                    throw new NoSuportedException("Inválido! Sim ou Não");
+            }
+        }
+        db.atualizaClassificacao();
+    }
     public int mostraOpcoes(String titulo, String[] opcoes) throws InputMismatchException{
         Scanner ler = new Scanner(System.in);
         System.out.println("<=====>" + titulo + "<=====>");
