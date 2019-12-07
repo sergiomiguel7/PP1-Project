@@ -91,30 +91,6 @@ public class AtorDB implements Serializable {
         }
     }
 
-    public void classificar(Ator a1) throws NoSuportedException {
-        Scanner ler = new Scanner(System.in);
-        List<Pedido> porAvaliar= a1.getHistorico().classificarPedidos();
-        if(porAvaliar.size()>0){
-            for(Pedido pedido : porAvaliar){
-                System.out.println("Deseja avaliar o pedido da transportadora "+this.pedidoData(pedido).getNome() + "?");
-                String aux= ler.next();
-                if(aux.toLowerCase().equals("sim")) {
-                    System.out.println("Classifique de 1-5:");
-                    int classificacao = ler.nextInt();
-                    if(classificacao<=5)
-                        pedido.setClassificacao(classificacao);
-                    else
-                        throw new NoSuportedException("Classificação tem de ter valores entre 1 e 5");
-                }
-                else if(aux.toLowerCase().equals("não"))
-                    pedido.setClassificacao(0);
-                else
-                    throw new NoSuportedException("Inválido! Sim ou Não");
-            }
-        }
-        atualizaClassificacao();
-    }
-
     public void atualizaClassificacao(){
         double total;
         double i;

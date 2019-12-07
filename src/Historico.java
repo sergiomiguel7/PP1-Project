@@ -23,6 +23,10 @@ public class Historico implements Serializable {
         return this.pedidos.stream().filter(pedido -> pedido.isConcluido()).collect(Collectors.toList());
     }
 
+    /**Método classificarPedido
+     * Verifica o historico de pedidos, caso algum pedido não tenha sido avaliado,
+     * este é adicionado a um array que depois é devolvido
+     * */
     public List<Pedido> classificarPedidos(){
         List<Pedido> aux = new ArrayList<>();
         for(Pedido pedido : pedidos){

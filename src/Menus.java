@@ -126,28 +126,7 @@ public  class Menus {
 
                             case 1: {
                                 Iterator<Transportes> it = t1.transportesDisponiveis(db, servico, (Cliente) a1);
-                                if (it != null) {
-                                    while (it.hasNext()) {
-                                        Transportes aux=it.next();
-                                        System.out.print("Nome: " + aux.getNome() + " Preço por km: " + aux.getPrecoKM() + " Tempo por Km: " + aux.getTempoKM());  //depois meter mais info
-                                        if(aux.getClassificacao()>0 && aux.getDescontos()>0)
-                                            System.out.println(" Classificação: " + fmt.format(aux.getClassificacao()) + " Desconto atual de: " + aux.getDescontos() + "%");
-                                        else if (aux.getDescontos() > 0 )
-                                            System.out.println("Desconto atual de: " + aux.getDescontos() + "%");
-                                        else if(aux.getClassificacao()>0 )
-                                            System.out.println(" Classificação: " + fmt.format(aux.getClassificacao()));
-
-                                    }
-                                    System.out.println("Escolha transportadora pelo nome");
-                                    String escolherTransportadora = ler.next();
-                                    if(!db.getUtilizadores().containsKey(escolherTransportadora.toLowerCase()))
-                                        throw new NoAtorException("Transportador inválido");
-                                    else if(!db.getTransportes(escolherTransportadora).isDisponivel())
-                                        throw new NoAtorException("Indisponivel");
-                                    ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora), servico);
-                                    System.out.println("Tempo estimado de espera:" + db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora), (Cliente) a1));
-
-                                }
+                                iteratorToString(it,db,(Cliente)a1,servico);
                                 break;
                             }
                             case 2: {
@@ -179,10 +158,13 @@ public  class Menus {
                                 tempo = ler.nextLong();
                                 System.out.println("Custo Maximo:");
                                 custo = ler.nextDouble();
-                                ((Cliente) a1).maximoTempoCusto(db, tempo, custo, servico);
-                                String escolherTransportadora = ler.next();
-                                ((Cliente) a1).AddPedido(db.getTransportes(escolherTransportadora), servico);
-                                System.out.println("Tempo estimado de espera:" + db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora), (Cliente) a1));
+                                Iterator<Transportes> it = ((Cliente) a1).maximoTempoCusto(db,tempo,custo,servico);
+                                if(it.hasNext() != false){
+                                    iteratorToString(it,db,(Cliente)a1,servico);
+                                }
+                                else{
+                                    throw new NoAtorException("Nenhum Transporte disponivel ou capaz de oferecer esses serviços!");
+                                }
 
                                 break;
                             }
@@ -708,6 +690,8 @@ public  class Menus {
         }
         db.atualizaClassificacao();
     }
+
+
     public int mostraOpcoes(String titulo, String[] opcoes) throws InputMismatchException{
         Scanner ler = new Scanner(System.in);
         System.out.println("<=====>" + titulo + "<=====>");
@@ -718,9 +702,36 @@ public  class Menus {
         int op = ler.nextInt();
         return op;
     }
+
+    /**
+     * Método iteratorToString
+     *Transforma um iterator de Transportes em uma lista de Strings com informação necessária para os clientes
+     * */
+    public void iteratorToString(Iterator<Transportes> it,AtorDB db,Cliente a1,Servico servico)throws NoAtorException{
+        DecimalFormat fmt = new DecimalFormat("0.00");
+        if (it != null) {
+            while (it.hasNext()) {
+                Transportes aux= it.next();
+                System.out.print("Nome: " + aux.getNome() + " Preço por km: " + aux.getPrecoKM() + " Tempo por Km: " + aux.getTempoKM());  //depois meter mais info
+                if(aux.getClassificacao()>0 && aux.getDescontos()>0)
+                    System.out.println(" Classificação: " + fmt.format(aux.getClassificacao()) + " Desconto atual de: " + aux.getDescontos() + "%");
+                else if (aux.getDescontos() > 0 )
+                    System.out.println("Desconto atual de: " + aux.getDescontos() + "%");
+                else if(aux.getClassificacao()>0 )
+                    System.out.println(" Classificação: " + fmt.format(aux.getClassificacao()));
+            }
+            System.out.println("Escolha transportadora pelo nome");
+            String escolherTransportadora = ler.next();
+            if(!db.getUtilizadores().containsKey(escolherTransportadora.toLowerCase()))
+                throw new NoAtorException("Transportador inválido");
+            else if(!db.getTransportes(escolherTransportadora).isDisponivel())
+                throw new NoAtorException("Indisponivel");
+            a1.AddPedido(db.getTransportes(escolherTransportadora), servico);
+            System.out.println("Tempo estimado de espera:" + db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora), a1));
+
+        }
     }
-
-
+}
 
 
 

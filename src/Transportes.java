@@ -157,7 +157,8 @@ public class Transportes extends Ator {
         return total;
     }
 
-    /*Método Trajeto Tempo
+    /**
+     * Método Trajeto Tempo
      * Neste método é criada uma simulação do transportador, apresentando o tempo real que este iria demorar, simulando probabilidades
      * de trânsito ou eventuais atrasos.
      * */
@@ -176,7 +177,8 @@ public class Transportes extends Ator {
         return (long) Math.round(tempo);
     }
 
-    /*Método Trajeto Tempo Teórico
+    /**
+     * Método Trajeto Tempo Teórico
      * Neste método é calculado o tempo esperado, dependendo apenas da distância e da velocidade do transportador
      * */
     public long trajetoTempoTeorico(Transportes transporte,Cliente cliente){
@@ -188,7 +190,8 @@ public class Transportes extends Ator {
     }
 
 
-    /*Método Trajeto Preço
+    /**
+     * Método Trajeto Preço
      * É neste método que acontecem todos os cálculos a cerca do preço da transportadora numa certa distância
      * Variáveis presentes:
      * Se o cliente solicitar um serviço de refeições, este apresenta um preço fixo até 5km,
