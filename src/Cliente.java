@@ -25,7 +25,6 @@ public class Cliente extends Ator{
     public Cliente(Cliente cliente)
     {
         super(cliente.getEmail(), cliente.getNome(),cliente.getPassword(),cliente.getPassword(),cliente.getDataN(),cliente.getX(),cliente.getY());
-        super.getHistorico();
     }
 
     //getters e setters

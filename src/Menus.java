@@ -27,7 +27,7 @@ public  class Menus {
                                 "Registar"});
                 switch (op) {
                     case 1: {       //LOGIN!!!!!
-                        System.out.print("Nome:");
+                        System.out.print("E-mail:");
                         String user = ler2.next().toLowerCase();
                         System.out.print("Password:");
                         String pass = ler.next();
@@ -51,7 +51,7 @@ public  class Menus {
                             a1 = new Cliente();
                             a1 = addCliente(db);
                             if (a1 != null)
-                                db.Add(a1.getNome(), a1);
+                                db.Add(a1.getEmail(), a1);
                         } else if (op == 2) {
                             a1 = new Transportes();
                             System.out.println("Escolha o seu tipo de serviço: Pessoas, Bus, Big, Urgentes ou Refeições");
@@ -60,7 +60,7 @@ public  class Menus {
                             if (a != null)
                                 a1 = addTransporte(a, db);
                             if (a1 != null)
-                                db.Add(a1.getNome(), a1);
+                                db.Add(a1.getEmail(), a1);
                         }
                     }break;
                     case 0: {
@@ -159,7 +159,7 @@ public  class Menus {
                                 System.out.println("Custo Maximo:");
                                 custo = ler.nextDouble();
                                 Iterator<Transportes> it = ((Cliente) a1).maximoTempoCusto(db,tempo,custo,servico);
-                                if(it.hasNext() != false){
+                                if(it.hasNext()){
                                     iteratorToString(it,db,(Cliente)a1,servico);
                                 }
                                 else{
@@ -453,14 +453,14 @@ public  class Menus {
         try {
             System.out.print("Nome:");
             String nome = ler2.next();
-            if(db.getUtilizadores().containsKey(nome.toLowerCase()))
-                throw new ExistingAtorException("Já existe utilizador com esse nome");
             System.out.print("Password:");
             String pass = ler.next();
             System.out.print("E-mail:");
             String email = ler.next();
             if(!pattern.matcher(email).matches())
                 throw new InputMismatchException("Email não é válido");
+            if(db.getUtilizadores().containsKey(email.toLowerCase()))
+                throw new ExistingAtorException("Já existe utilizador com esse e-mail");
             System.out.print("Morada:");
             String morada = ler2.next();
             System.out.print("Data de Nascimento(dia mes ano):");
@@ -557,14 +557,14 @@ public  class Menus {
         try {
             System.out.print("Nome:");
             String nome = ler.next();
-            if(db.getUtilizadores().containsKey(nome))
-                throw new ExistingAtorException("Utilizador já existente");
             System.out.print("Password:");
             String pass = ler.next();
             System.out.print("E-mail:");
             String email = ler.next();
             if(!pattern.matcher(email).matches())
                 throw new InputMismatchException("Email não é válido");
+            if(db.getUtilizadores().containsKey(email))
+                throw new ExistingAtorException("Utilizador já existente");
             System.out.print("Morada:");
             String morada = ler2.next();
             System.out.print("Data de Nascimento(dia mes ano):");
