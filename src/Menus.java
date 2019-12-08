@@ -64,7 +64,7 @@ public  class Menus {
                         }
                     }break;
                     case 0: {
-                        System.out.println("Sair");
+                        System.out.println("Obrigado pela preferência.");
                         db.gravaFicheiro();
                         System.exit(0);
                     }
@@ -562,7 +562,7 @@ public  class Menus {
             String email = ler.next();
             if(!pattern.matcher(email).matches())
                 throw new InputMismatchException("Email não é válido");
-            if(db.getUtilizadores().containsKey(email))
+            if(db.getUtilizadores().containsKey(email.toLowerCase()))
                 throw new ExistingAtorException("Utilizador já existente");
             System.out.print("Nome:");
             String nome = ler.next();
