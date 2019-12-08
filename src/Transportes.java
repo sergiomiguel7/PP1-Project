@@ -146,7 +146,9 @@ public class Transportes extends Ator {
 
     }
 
-    //Distância escalar entre os dois pontos\
+    /**Método distanciaXY
+     * Distância escalar entre os dois pontos, com a ajuda do Teorema de Pitágoras
+     * */
     public double distanciaXY(Cliente cliente, Transportes transportes) {
         double x1 = (transportes.getX() - cliente.getX());
         double y1 = (transportes.getY() - cliente.getY());
@@ -227,7 +229,11 @@ public class Transportes extends Ator {
         return preco;
     }
 
-
+    /**Método transportesDisponiveis
+     * 1º Recebe um serviço temporario
+     * 2º Cria um TreeSet que põe por ordem alfabetica todas as transportadoras que sejam capazes de satifazer esse serviço
+     * 3º Devolve uma lista com esses transportadores
+     * */
     public Iterator<Transportes> transportesDisponiveis(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes >byNome = Comparator.comparing(Transportes::getNome);
         TreeSet<Transportes> res = codicaoTreeSet(byNome,db,servico,cliente);
@@ -237,7 +243,11 @@ public class Transportes extends Ator {
             return null;
     }
 
-
+    /**Método transporteMaisRapido
+     * 1º Recebe um serviço temporario
+     * 2º Cria um TreeSet que põe por ordem decrescente de TempoKM todas as transportadoras que sejam capazes de satifazer esse serviço
+     * 3º Devolve a primeira transportadora
+     * */
     public Ator transporteMaisRapido(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes> maisRapido = (t1,t2) -> (int) (t1.getTempoKM() - t2.getTempoKM());
         TreeSet<Transportes> res = codicaoTreeSet(maisRapido,db,servico,cliente);
@@ -247,6 +257,11 @@ public class Transportes extends Ator {
             return null;
     }
 
+    /**Método transporteMaisBarato
+     * 1º Recebe um serviço temporario
+     * 2º Cria um TreeSet que põe por ordem decrescente de trajetoPreço todas as transportadoras que sejam capazes de satifazer esse serviço
+     * 3º Devolve a primeira transportadora
+     * */
     public Ator transporteMaisBarato(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes> maisBarato = (t1,t2) -> (int) (t1.trajetoPreco(cliente) - t2.trajetoPreco(cliente));
         TreeSet<Transportes> res = codicaoTreeSet(maisBarato,db,servico,cliente);
@@ -256,6 +271,11 @@ public class Transportes extends Ator {
             return null;
     }
 
+    /**Método transportesMelhorClassificado
+     * 1º Recebe um serviço temporario
+     * 2º Cria um TreeSet que põe por ordem crescente de classificação todas as transportadoras que sejam capazes de satifazer esse serviço
+     * 3º Devolve a primeira transportadora
+     * */
     public Ator transporteMelhorClassificado(AtorDB db, Servico servico,Cliente cliente){
         Comparator<Transportes> melhorClassificado =(t1, t2) -> { if(t1.getClassificacao() > t2.getClassificacao()) return -1;
             if(t1.getClassificacao()== t2.getClassificacao()) return 0 ;
@@ -267,7 +287,13 @@ public class Transportes extends Ator {
             return null;
     }
 
-
+    /**Método maisServiçosEfetuados
+     * 1º Cria um comparador de pedidos concluidos
+     * 2º Cria uma list de cinco inteiros, com a quantidade de pedidos concluidos dos cinco transportes com mais pedidos concluidos
+     * 3º A partir dos valores da list, procura o transporte correspondente e adiciona a uma list de Tranportes
+     * 4º Pega na list de Tranportes e ordena com a ajuda do comparador criado em 1º
+     * 5º Devolve essa list de Transportes
+     * */
     public List<Transportes> maisServicosEfetuados(AtorDB atordb)
     {
         Comparator<Transportes> byServicosE = (t1,t2)->  (int) (t1.getHistorico().getPedidosConcluidos().size()-t2.getHistorico().getPedidosConcluidos().size());
@@ -292,6 +318,12 @@ public class Transportes extends Ator {
         return atores;
     }
 
+    /**Método condicaoTreeSet
+     * 1º Recebe um serviço temporario e um comparador
+     * 2º Cria uma list de transportes que satisfaça as condições do serviço temporario
+     * 3º Adiciona essa lista a um TreeSet que contem o comparador recebido
+     * 4º Devolve um TreeSet filtrado e pela ordem desejada
+     * */
     public TreeSet<Transportes> codicaoTreeSet(Comparator<Transportes> c, AtorDB db,Servico servico, Cliente cliente){
         try {
             TreeSet<Transportes> res = new TreeSet<>(c);
@@ -315,8 +347,8 @@ public class Transportes extends Ator {
         }
     }
 
-    /*
-    *Método trajeto total faturado.
+    /**
+    *Método totalFaturado
     *Neste método são pedidas duas datas, pega-se em todos os pedidos concluídos neste intervalo e soma-se o valor de todos os pedidos
     */
     public int  totalFaturado()
