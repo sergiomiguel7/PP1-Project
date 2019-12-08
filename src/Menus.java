@@ -194,7 +194,7 @@ public  class Menus {
 
                         TreeSet<Transportes> semReps = ((Cliente)a1).semRepetidos(db,a1.getHistorico());
                         for(Transportes t: semReps) {
-                            System.out.println(i + " Nome: " + t.getNome() + " Classificação: " + t.getClassificacao());
+                            System.out.println(i + " Nome: " + t.getNome() + " Classificação: " + fmt.format( t.getClassificacao()));
                             i++;
                         }
                         System.out.println("Escolha o número do serviço que pretende repetir: (0-Sair)");
@@ -283,7 +283,10 @@ public  class Menus {
                    case 1:{
                        if(a1.getHistorico().getPedidos().size()==0)
                            throw new NoExistentServiceException("Sem nenhum pedido registado");
-                       a1.getHistorico().getPedidos().stream().limit(5).forEach(pedido -> System.out.println(pedido.getServico().getClass().getSimpleName()+" " + pedido.getDataInicio().format(formatter)+" "+pedido.getDataFim().format(formatter)+" "+pedido.isConcluido()));
+                       a1.getHistorico().getPedidos().stream().sorted((p1, p2) -> {if(p1.getDataInicio().isBefore(p2.getDataInicio())) return 1;
+                           if(p1.getDataInicio().isAfter(p2.getDataInicio())) return -1;
+                           else return 0;
+                       }).limit(5).forEach(pedido -> System.out.println(pedido.getServico().getClass().getSimpleName()+" " + pedido.getDataInicio().format(formatter)+" "+pedido.getDataFim().format(formatter)+" "+pedido.isConcluido()));
                        break;
                    }
                    case 2:{
@@ -555,16 +558,18 @@ public  class Menus {
         Pattern pattern = Pattern.compile(regex);
         Scanner ler2 = new Scanner(System.in).useDelimiter("\n");
         try {
-            System.out.print("Nome:");
-            String nome = ler.next();
-            System.out.print("Password:");
-            String pass = ler.next();
             System.out.print("E-mail:");
             String email = ler.next();
             if(!pattern.matcher(email).matches())
                 throw new InputMismatchException("Email não é válido");
             if(db.getUtilizadores().containsKey(email))
                 throw new ExistingAtorException("Utilizador já existente");
+            System.out.print("Nome:");
+            String nome = ler.next();
+            if(db.verificaNome(nome))
+                throw new ExistingAtorException("Outra transportadora já possui esse nome");
+            System.out.print("Password:");
+            String pass = ler.next();
             System.out.print("Morada:");
             String morada = ler2.next();
             System.out.print("Data de Nascimento(dia mes ano):");

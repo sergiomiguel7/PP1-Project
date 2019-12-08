@@ -91,6 +91,17 @@ public class AtorDB implements Serializable {
         }
     }
 
+    public boolean verificaNome(String nome){
+        boolean existe=false;
+        for(Ator a : this.utilizadores.values()){
+            if(a instanceof Transportes){
+                if(a.getNome().equalsIgnoreCase(nome))
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public void atualizaClassificacao(){
         double total;
         double i;
