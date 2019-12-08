@@ -646,9 +646,9 @@ public  class Menus {
                 String quer= ler.next();
                 novo= new SUrgentes(limit);
                 if(quer.toLowerCase().contains("sim"))
-                    ((SRefeicoes)novo).temperaturaConstante(true);
+                    ((SUrgentes)novo).temperaturaConstante(true);
                 else
-                    ((SRefeicoes)novo).temperaturaConstante(false);
+                    ((SUrgentes)novo).temperaturaConstante(false);
                 break;
             } else if (a.equalsIgnoreCase("Refeições")) {
                 int limit;
