@@ -46,7 +46,7 @@ public  class Menus {
                     case 2: {       //REGISTAR
                         op = mostraOpcoes("Menu Registar",
                                 new String[] {"Cliente",
-                                        "Fornecedor"});
+                                        "Transportadora"});
                         if (op == 1) {
                             a1 = new Cliente();
                             a1 = addCliente(db);
@@ -183,7 +183,7 @@ public  class Menus {
                     case 3: {
                         System.out.println(a1.toString()+ "\nSair\n"+"O que pretende mudar?");
                         ler= ler.useDelimiter("\n");
-                        alteraDados(a1,ler.next());
+                        alteraDados(a1,ler.next(),db);
                         break;
                     }
                     case 4: {
@@ -254,7 +254,7 @@ public  class Menus {
                         break;
                 }
             } while (op != 0);
-        }catch (InputMismatchException | NoExistentServiceException | NoStoredDataException| DateTimeException | NoAtorException |NoSuportedException e){
+        }catch (InputMismatchException | NoExistentServiceException | NoStoredDataException | DateTimeException | NoAtorException | NoSuportedException | ExistingAtorException e){
             if(e instanceof InputMismatchException)
                 System.out.println("Input inválido");
             else
@@ -302,7 +302,7 @@ public  class Menus {
                    case 4:{
                        System.out.println(a1.toString()+ "\nSair\n"+"O que pretende mudar?");
                        ler= ler.useDelimiter("\n");
-                       alteraDados(a1,ler.next());
+                       alteraDados(a1,ler.next(),db);
                        break;
                    }
                    case 5:{
@@ -329,7 +329,7 @@ public  class Menus {
 
                }
             }while (op!=0);
-        }catch (InputMismatchException | NoExistentServiceException | DateTimeException e){
+        }catch (InputMismatchException | NoExistentServiceException | DateTimeException | ExistingAtorException e){
             if(e instanceof  InputMismatchException)
                 System.out.println("Invalido");
             else
@@ -340,8 +340,10 @@ public  class Menus {
     }
 
     //Operaçao comum aos atores
-    public void alteraDados( Ator b,String opcao) throws NoExistentServiceException {
+    public void alteraDados( Ator b,String opcao, AtorDB db) throws NoExistentServiceException, ExistingAtorException {
         opcao= opcao.toLowerCase();
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
         opcao=opcao.replace(" ", "");
         if(opcao.contains("limite"))
             opcao="limite";
@@ -349,12 +351,18 @@ public  class Menus {
             switch (opcao) {
                 case "e-mail": {
                     String novo = ler.next();
+                    if(!pattern.matcher(novo).matches())
+                        throw new InputMismatchException("Email não é válido");
+                    if(db.getUtilizadores().containsKey(novo.toLowerCase()))
+                        throw new ExistingAtorException("Utilizador já existente");
                     b.setEmail(novo);
                     break;
                 }
                 case "nome": {
                     System.out.println("Introduza novo:");
                     String novo = ler.next();
+                    if(db.verificaNome(novo))
+                        throw new ExistingAtorException("Outra transportadora já possui esse nome");
                     b.setNome(novo);
                     break;
                 }
@@ -646,9 +654,9 @@ public  class Menus {
                 String quer= ler.next();
                 novo= new SUrgentes(limit);
                 if(quer.toLowerCase().contains("sim"))
-                    ((SRefeicoes)novo).temperaturaConstante(true);
+                    ((SUrgentes)novo).temperaturaConstante(true);
                 else
-                    ((SRefeicoes)novo).temperaturaConstante(false);
+                    ((SUrgentes)novo).temperaturaConstante(false);
                 break;
             } else if (a.equalsIgnoreCase("Refeições")) {
                 int limit;
