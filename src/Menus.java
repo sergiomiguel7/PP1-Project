@@ -719,13 +719,13 @@ public  class Menus {
                     System.out.println("Desconto atual de: " + aux.getDescontos() + "%");
                 else if(aux.getClassificacao()>0 )
                     System.out.println(" Classificação: " + fmt.format(aux.getClassificacao()));
-                System.out.print("\n");
+                else System.out.println();
             }
             System.out.println("\nEscolha transportadora pelo nome");
             String escolherTransportadora = ler.next();
             int num = (int)db.getUtilizadores().values().stream().filter(e -> e.getNome().equals(escolherTransportadora)).count();
             if(num == 0){
-                throw new InputMismatchException("Nome não encontrado");
+                throw new InputMismatchException();
             }
             Transportes transportes = db.getUtilizadores().values().stream().filter(e -> e instanceof Transportes)
                     .filter(e -> e.getNome().equals(escolherTransportadora)).map(e -> (Transportes)e ).findFirst().get();
