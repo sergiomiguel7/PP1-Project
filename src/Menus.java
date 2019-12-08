@@ -342,21 +342,13 @@ public  class Menus {
     //Operaçao comum aos atores
     public void alteraDados( Ator b,String opcao, AtorDB db) throws NoExistentServiceException, ExistingAtorException {
         opcao= opcao.toLowerCase();
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        Pattern pattern = Pattern.compile(regex);
         opcao=opcao.replace(" ", "");
         if(opcao.contains("limite"))
             opcao="limite";
 
             switch (opcao) {
                 case "e-mail": {
-                    String novo = ler.next();
-                    if(!pattern.matcher(novo).matches())
-                        throw new InputMismatchException("Email não é válido");
-                    if(db.getUtilizadores().containsKey(novo.toLowerCase()))
-                        throw new ExistingAtorException("Utilizador já existente");
-                    b.setEmail(novo);
-                    break;
+                    throw new ExistingAtorException("E-mail não é possivel alterar.");
                 }
                 case "nome": {
                     System.out.println("Introduza novo:");
