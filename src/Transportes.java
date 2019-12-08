@@ -300,7 +300,7 @@ public class Transportes extends Ator {
                 if (a instanceof Transportes) {
                     if (((Transportes) a).getServico().equals(servico) && ((Transportes) a).isDisponivel() &&
                             ((Transportes) a).getServico().getLimiteT() >= servico.getLimiteT() &&
-                            ((Transportes) a).getAutonomia() >= ((Transportes) a).distanciaXY(cliente, db.getTransportes(a.getNome()))) {
+                            ((Transportes) a).getAutonomia() >= ((Transportes) a).distanciaXY(cliente, db.getTransportes(a.getEmail()))) {
                         aux.add((Transportes) a);
                     }
                 }

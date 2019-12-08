@@ -719,15 +719,20 @@ public  class Menus {
                     System.out.println("Desconto atual de: " + aux.getDescontos() + "%");
                 else if(aux.getClassificacao()>0 )
                     System.out.println(" Classificação: " + fmt.format(aux.getClassificacao()));
+                System.out.print("\n");
             }
-            System.out.println("Escolha transportadora pelo nome");
+            System.out.println("\nEscolha transportadora pelo nome");
             String escolherTransportadora = ler.next();
-            if(!db.getUtilizadores().containsKey(escolherTransportadora.toLowerCase()))
-                throw new NoAtorException("Transportador inválido");
-            else if(!db.getTransportes(escolherTransportadora).isDisponivel())
+            int num = (int)db.getUtilizadores().values().stream().filter(e -> e.getNome().equals(escolherTransportadora)).count();
+            if(num == 0){
+                throw new InputMismatchException("Nome não encontrado");
+            }
+            Transportes transportes = db.getUtilizadores().values().stream().filter(e -> e instanceof Transportes)
+                    .filter(e -> e.getNome().equals(escolherTransportadora)).map(e -> (Transportes)e ).findFirst().get();
+            if(!transportes.isDisponivel())
                 throw new NoAtorException("Indisponivel");
-            a1.AddPedido(db.getTransportes(escolherTransportadora), servico);
-            System.out.println("Tempo estimado de espera:" + db.getTransportes(escolherTransportadora).trajetoTempoTeorico(db.getTransportes(escolherTransportadora), a1));
+            a1.AddPedido(transportes,servico);
+            System.out.println("Tempo estimado de espera:" + transportes.trajetoTempoTeorico(transportes, a1));
 
         }
     }
