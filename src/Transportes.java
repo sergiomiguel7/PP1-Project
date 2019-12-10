@@ -1,4 +1,3 @@
-import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -293,29 +292,18 @@ public class Transportes extends Ator {
      * 3º A partir dos valores da list, procura o transporte correspondente e adiciona a uma list de Tranportes
      * 4º Pega na list de Tranportes e ordena com a ajuda do comparador criado em 1º
      * 5º Devolve essa list de Transportes
-     * */
-    public List<Transportes> maisServicosEfetuados(AtorDB atordb)
+     *
+     * @return*/
+    public List<Ator> maisServicosEfetuados(AtorDB atordb)
     {
-        Comparator<Transportes> byServicosE = (t1,t2)->  (int) (t1.getHistorico().getPedidosConcluidos().size()-t2.getHistorico().getPedidosConcluidos().size());
-        List<Integer> valores =   atordb.getUtilizadores().values().stream()
-                .filter(ator -> ator instanceof Transportes)
-                .map(ator -> ((Transportes) ator).getHistorico().getPedidosConcluidos().size())
-                .sorted()
-                .limit(5)
-                .collect(Collectors.toList());
+        Comparator<Ator> byServicosE = (t1,t2)->  (int) (t1.getHistorico().getPedidosConcluidos().size()-t2.getHistorico().getPedidosConcluidos().size());
 
-        List<Transportes> atores = new ArrayList<>();
-        for(int i : valores){
-            for(Ator a : atordb.getUtilizadores().values()){
-                if(a instanceof Transportes && a.getHistorico().getPedidosConcluidos().size() == i && a.getHistorico().getPedidosConcluidos().size()>0){
-                    atores.add(((Transportes)a));
-                    break;
-                }
-            }
-        }
-        atores.sort(byServicosE);
-        Collections.reverse(atores);
-        return atores;
+        List<Ator> transportesList = atordb.getUtilizadores().values().stream()
+                .filter(a -> a instanceof Transportes)
+                .filter(a -> a.getHistorico().getPedidosConcluidos().size() > 0).limit(5).sorted(byServicosE).collect(Collectors.toList());
+
+        Collections.reverse(transportesList);
+        return transportesList;
     }
 
     /**Método condicaoTreeSet

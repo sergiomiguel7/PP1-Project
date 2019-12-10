@@ -241,11 +241,12 @@ public  class Menus {
                         break;
                     }
                     case 5: {
-                        List<Transportes> nova = t1.maisServicosEfetuados(clone);
+                        List<Ator> nova = t1.maisServicosEfetuados(clone);
                         if(nova.size()==0)
                             throw new NoStoredDataException("Nenhum transportador com pedidos efetuados");
-                        for (Transportes a : nova) {
-                            System.out.println("Nome da Transportadora: " + a.getNome() + " Serviços Efetuados:" + a.getHistorico().getPedidosConcluidos().size());
+                        for (Ator a : nova) {
+                            if(a instanceof Transportes)
+                                System.out.println("Nome da Transportadora: " + a.getNome() + " Serviços Efetuados:" + a.getHistorico().getPedidosConcluidos().size());
                         }
                         break;
                     }

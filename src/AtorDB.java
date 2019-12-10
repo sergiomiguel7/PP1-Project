@@ -75,7 +75,7 @@ public class AtorDB implements Serializable {
         return this.logInfo;
     }
     /**Método atualizaPedidos
-     * 1º Percorre todos os pedidos existententes
+     * 1º Percorre todos os pedidos existentes
      * 2º Verifica pedido a pedido se a data de entrega é antes da hora atual
      * 3º Caso o 2º se verifique, o pedido passa para concluido
      * 4º Se for um transporte, verifica se todos os pedidos estão concluidos

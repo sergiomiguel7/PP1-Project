@@ -18,9 +18,9 @@ public class Testes
         Servico a= new SPessoas(5, true);
 
        Ator a1 = new Cliente("sergio@gmail.com", "Sergio", "vitoria", "Rua da", LocalDate.now(), 1, 2);
-       Ator a2 = new Transportes("sergio@gmail.com", "Uber", "vitoriag", "Rua da", LocalDate.now(),a, 7, 2, 7,1,0);
-       nova.Add(a1.getNome(), a1);
-       nova.Add(a2.getNome(), a2);
+       Ator a2 = new Transportes("uber@gmail.com", "Uber", "vitoriag", "Rua da", LocalDate.now(),a, 7, 2, 7,1,0);
+       nova.Add(a1.getEmail(), a1);
+       nova.Add(a2.getEmail(), a2);
     }
 
     /**
@@ -47,25 +47,25 @@ public class Testes
         public void testeRegisto()
     {
         Ator teste = new Cliente("a","Teste", "passteste", "a", LocalDate.now(), 1 , 3);
-        nova.Add(teste.getNome(), teste);
+        nova.Add(teste.getEmail(), teste);
         assertTrue(nova.getUtilizadores().containsValue(teste));
     }
     @Test
     public void testeLogin()
     {
-        boolean a = nova.verificaLogin("Sergio", "vitoria");
+        boolean a = nova.verificaLogin("sergio@gmail.com", "vitoria");
         assertTrue(a);
-        boolean b = nova.verificaLogin("Uber", "vitoria");
-        assertTrue(!b);
+        boolean b = nova.verificaLogin("uber@gmail.com", "vitoria");
+        assertFalse(b);
     }
     @Test
     public void testeEfetuarPedido()
     {
-        Ator teste = nova.getAtor("Sergio");
+        Ator teste = nova.getAtor("sergio@gmail.com");
         Servico testeS = new SPessoas();
-        ((Cliente)teste).AddPedido(nova.getTransportes("Uber"), testeS);
+        ((Cliente)teste).AddPedido(nova.getTransportes("uber@gmail.com"), testeS);
         assertEquals(1, teste.getHistorico().getPedidos().size());
-        assertEquals(1, nova.getTransportes("Uber").getHistorico().getPedidos().size());
+        assertEquals(1, nova.getTransportes("uber@gmail.com").getHistorico().getPedidos().size());
     }
 
 }
