@@ -683,7 +683,7 @@ public  class Menus {
                 if(aux.toLowerCase().equals("sim")) {
                     System.out.println("Classifique de 1-5:");
                     int classificacao = ler.nextInt();
-                    if(classificacao<=5)
+                    if(classificacao<=5 && classificacao>0)
                         pedido.setClassificacao(classificacao);
                     else
                         throw new NoSuportedException("Classificação tem de ter valores entre 1 e 5");
