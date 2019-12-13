@@ -53,6 +53,7 @@ public class Transportes extends Ator {
         this.disponivel = true;
         this.extra = extra;
         this.descontos = descontos;
+
     }
 
     public Transportes(Transportes transportes) {

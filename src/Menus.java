@@ -287,7 +287,7 @@ public  class Menus {
                        a1.getHistorico().getPedidos().stream().sorted((p1, p2) -> {if(p1.getDataInicio().isBefore(p2.getDataInicio())) return 1;
                            if(p1.getDataInicio().isAfter(p2.getDataInicio())) return -1;
                            else return 0;
-                       }).limit(5).forEach(pedido -> System.out.println(pedido.getServico().getClass().getSimpleName()+" " + pedido.getDataInicio().format(formatter)+" "+pedido.getDataFim().format(formatter)+" "+pedido.isConcluido()));
+                       }).limit(5).forEach(pedido -> System.out.println(pedido.getServico().getClass().getSimpleName()+" " + pedido.getDataInicio().format(formatter)+" "+pedido.getDataFim().format(formatter)+" "+pedido.isConcluido() + " "+ pedido.getPreco()));
                        break;
                    }
                    case 2:{
